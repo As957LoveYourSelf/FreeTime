@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/register_background">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginStart="50dp">
+
+            <ImageView
+                android:layout_width="101dp"
+                android:layout_height="36dp"
+                android:background="@drawable/user_register_word" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_word" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- User Register Input Information-->
+    <!-- User Number -->
+    <LinearLayout
+        android:id="@+id/register_uno_before_input"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="105dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/bookmark"/>
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:hint="学号"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColorHighlight="@null"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+
+
+    </LinearLayout>
+
+    <!-- User Name -->
+    <LinearLayout
+        android:id="@+id/register_uname_before_input"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/user"/>
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:hint="姓名"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColorHighlight="@null"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- Password -->
+    <LinearLayout
+        android:id="@+id/register_password_before_input"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/lock_closed"/>
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:hint="密码"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColorHighlight="@null"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- User Email -->
+    <LinearLayout
+        android:id="@+id/register_email_before_input"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/letter"/>
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:hint="邮箱"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            android:background="@null"
+            android:textColorHighlight="@null"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:showDividers="middle"
+        android:divider="@drawable/line"
+        >
+
+        <ImageButton
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/register_confirm_btn" />
+
+        <ImageButton
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/register_reset_btn"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:background="@drawable/login_word"
+            android:layout_width="101dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_uname_before_input"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:hint="请输入学号/姓名"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColorHighlight="@null"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/user_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/users_logo"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_password_before_input"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_shape"
+        >
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:textColorHighlight="@null"
+            android:background="@null"
+            android:textStyle="bold"/>
+
+
+        <ImageView
+            android:id="@+id/password_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/lock_closed"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp">
+
+        <ImageButton
+            android:id="@+id/login_btn_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_btn_before"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="340dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_gravity="center">-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/register_btn_before"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/register_btn_before"-->
+<!--            android:gravity="center"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+
+</LinearLayout>

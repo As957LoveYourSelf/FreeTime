@@ -1,0 +1,37 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_blue"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/freetime_logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/main_login_btn_before"
+        android:layout_width="335dp"
+        android:layout_height="100dp"
+        android:background="@drawable/main_login_btn"
+        android:layout_gravity="center"
+        android:layout_marginTop="280dp"/>
+
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/main_register_btn_before"-->
+<!--        android:layout_width="335dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:background="@drawable/main_register_btn"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="30dp"/>-->
+
+</LinearLayout>
