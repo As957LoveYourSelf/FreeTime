@@ -31,11 +31,12 @@
         >
 
         <EditText
+            android:id="@+id/login_uname_input"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
-            android:hint="请输入学号/姓名"
+            android:hint="@string/login_uname_input"
             android:singleLine="true"
             android:background="@null"
             android:textColorHighlight="@null"
@@ -60,11 +61,12 @@
         android:background="@drawable/login_shape"
         >
         <EditText
+            android:id="@+id/login_password_input"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
-            android:hint="请输入密码"
+            android:hint="@string/login_password_input"
             android:inputType="textPassword"
             android:textColorHighlight="@null"
             android:background="@null"

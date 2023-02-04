@@ -1,7 +1,6 @@
 package com.example.freetime.network.service;
 
 import com.example.freetime.beans.BaseBean;
-import com.example.freetime.entity.User;
 
 import java.util.Map;
 

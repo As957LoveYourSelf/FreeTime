@@ -7,9 +7,9 @@ import android.os.Bundle;
 import com.example.freetime.presenter.BasePresenter;
 import com.example.freetime.view.IBaseView;
 
-public abstract class BaseActivity<T extends BasePresenter, V extends IBaseView> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView> extends AppCompatActivity {
 
-    protected T presenter;
+    protected P presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public abstract class BaseActivity<T extends BasePresenter, V extends IBaseView>
         presenter.attachView((V)this);
     }
 
-    protected abstract T createPresenter();
+    protected abstract P createPresenter();
 
     @Override
     protected void onDestroy() {

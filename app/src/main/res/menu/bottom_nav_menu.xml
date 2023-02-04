@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:orderInCategory="0"
+        android:title="@string/bottom_home"
+        android:id="@+id/bottom_home"
+        android:icon="@drawable/bottom_home"/>
+    <item
+        android:orderInCategory="1"
+        android:title="@string/bottom_function"
+        android:id="@+id/bottom_func"
+        android:icon="@drawable/bottom_function"/>
+    <item
+        android:orderInCategory="2"
+        android:title="@string/bottom_mine"
+        android:id="@+id/bottom_mine"
+        android:icon="@drawable/bottom_mine"/>
+</menu>

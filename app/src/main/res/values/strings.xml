@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FreeTime</string>
+    <string name="login_uname_input">请输入学号/姓名</string>
+    <string name="login_password_input">请输入密码</string>
+    <string name="bottom_home">首页</string>
+    <string name="bottom_function">功能</string>
+    <string name="bottom_mine">我的</string>
 </resources>

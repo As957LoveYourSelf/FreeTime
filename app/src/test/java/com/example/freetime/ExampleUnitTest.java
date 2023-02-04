@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.freetime.beans.BaseBean;
-import com.example.freetime.entity.User;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.LoginService;
 
@@ -30,10 +29,21 @@ public class ExampleUnitTest {
         Map<String, String> map = new HashMap<>();
         map.put("uname", "admin");
         map.put("psd", "e10adc3949ba59abbe56e057f20f883e");
+        Map<String, Object> response = new HashMap<>();
         service.post(map).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
             @Override
             public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
-                System.out.println(mapBaseBean.getData());
+                Map<String, Object> info = mapBaseBean.getData();
+                if (info.get("loginState").equals("success")){
+                    Map<String, String> user = (Map<String, String>) info.get("userInfo");
+                    response.put("user", user);
+                    response.put("token", info.get("usertoken"));
+                    System.out.println(user);
+                }else {
+                    response.put("user", null);
+                    response.put("errtype", info.get("loginState"));
+                }
+                System.out.println(response);
             }
         });
         while (true){
