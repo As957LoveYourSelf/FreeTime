@@ -43,8 +43,6 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
         super.onResume();
         // 重置输入栏以及按钮视图
         login_btn.setBackgroundResource(R.drawable.login_btn_before);
-//        unameInput.setText(R.string.login_uname_input);
-//        psdInput.setText(R.string.login_password_input);
         change = false;
     }
 

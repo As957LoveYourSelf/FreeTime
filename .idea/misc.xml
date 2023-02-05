@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/bottom_function.xml" value="0.2795" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/bottom_home.xml" value="0.2795" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/bottom_mine.xml" value="0.2795" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/btn_login.xml" value="0.2085" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/btn_resigter.xml" value="0.2085" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
@@ -18,7 +21,9 @@
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_register.xml" value="0.3328804347826087" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_student_app_content.xml" value="0.3619791666666667" />
-        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func.xml" value="0.3619791666666667" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_stu.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_tea.xml" value="0.75" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_function.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_mine.xml" value="0.3609375" />

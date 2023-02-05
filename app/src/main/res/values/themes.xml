@@ -13,10 +13,39 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
     <style name="LoadingPage" parent="Theme.FreeTime">
         <item name="android:windowBackground">@drawable/loading_page</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="WordDistinguish" parent="Theme.FreeTime">
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="SuperResolution" >
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="ClassReservation" >
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="TableDetail">
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="ChangeInfo">
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="ChangePassword">
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="InfoDetail">
+        <item name="android:windowBackground">@drawable/loading_page</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>

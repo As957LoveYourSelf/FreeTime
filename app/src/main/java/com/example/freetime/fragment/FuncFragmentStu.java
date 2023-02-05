@@ -12,10 +12,10 @@ import com.example.freetime.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MineFragment#newInstance} factory method to
+ * Use the {@link FuncFragmentStu#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MineFragment extends Fragment {
+public class FuncFragmentStu extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +25,7 @@ public class MineFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mTextTitle;
 
-    public MineFragment() {
+    public FuncFragmentStu() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class MineFragment extends Fragment {
      * @return A new instance of fragment FuncFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MineFragment newInstance(String param1) {
-        MineFragment fragment = new MineFragment();
+    public static FuncFragmentStu newInstance(String param1) {
+        FuncFragmentStu fragment = new FuncFragmentStu();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, param1);
         fragment.setArguments(args);
@@ -57,7 +57,7 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (this.view == null){
-            view = inflater.inflate(R.layout.fragment_mine, container, false);
+            view = inflater.inflate(R.layout.fragment_func_stu, container, false);
         }
         return view;
     }

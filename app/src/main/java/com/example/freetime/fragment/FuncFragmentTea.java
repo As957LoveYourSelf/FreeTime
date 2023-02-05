@@ -1,21 +1,20 @@
 package com.example.freetime.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.freetime.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FuncFragment#newInstance} factory method to
+ * Use the {@link FuncFragmentTea#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FuncFragment extends Fragment {
+public class FuncFragmentTea extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +24,7 @@ public class FuncFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mTextTitle;
 
-    public FuncFragment() {
+    public FuncFragmentTea() {
         // Required empty public constructor
     }
 
@@ -37,8 +36,8 @@ public class FuncFragment extends Fragment {
      * @return A new instance of fragment FuncFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FuncFragment newInstance(String param1) {
-        FuncFragment fragment = new FuncFragment();
+    public static FuncFragmentTea newInstance(String param1) {
+        FuncFragmentTea fragment = new FuncFragmentTea();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, param1);
         fragment.setArguments(args);
@@ -57,7 +56,7 @@ public class FuncFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (this.view == null){
-            view = inflater.inflate(R.layout.fragment_func, container, false);
+            view = inflater.inflate(R.layout.fragment_func_tea, container, false);
         }
         return view;
     }

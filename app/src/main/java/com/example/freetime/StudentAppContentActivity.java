@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.freetime.adapter.StudentFragmentPageAdapter;
-import com.example.freetime.fragment.FuncFragment;
+import com.example.freetime.fragment.FuncFragmentStu;
 import com.example.freetime.fragment.HomeFragment;
 import com.example.freetime.fragment.MineFragment;
 import com.example.freetime.presenter.StudentPresenter;
@@ -46,7 +46,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         viewPager = findViewById(R.id.student_viewpage);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance("首页"));
-        fragments.add(FuncFragment.newInstance("功能"));
+        fragments.add(FuncFragmentStu.newInstance("功能"));
         fragments.add(MineFragment.newInstance("我的"));
         StudentFragmentPageAdapter adapter = new StudentFragmentPageAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(adapter);

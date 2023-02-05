@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/fnc_background"
+    tools:context=".fragment.FuncFragmentStu">
+
+    <TextView
+        android:id="@+id/a1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="186dp"
+        android:layout_marginBottom="688dp"
+        android:text="@string/bottom_function"
+        android:textColor="#F5F5F5"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/image_super_resolution"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="259dp"
+        android:layout_marginEnd="328dp"
+        android:layout_marginBottom="392dp"
+        android:background="@drawable/f1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/word_distinguish"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="271dp"
+        android:layout_marginBottom="517dp"
+        android:background="@drawable/f2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/style_transform"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="517dp"
+        android:background="@drawable/f4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/class_reservation"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="339dp"
+        android:layout_marginTop="310dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="351dp"
+        android:background="@drawable/f5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/table_detail"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="254dp"
+        android:layout_marginTop="418dp"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="243dp"
+        android:background="@drawable/f6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

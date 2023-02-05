@@ -17,6 +17,7 @@
         android:id="@+id/student_bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000000"
         app:menu="@menu/bottom_nav_menu"
         app:itemTextColor="@color/bottom_color_selector"
         app:itemIconTint="@color/bottom_color_selector"

@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity<MainPagePresenter, IMainPageView>
 
     @Override
     public void startLoginPage() {
-        startActivity(new Intent(this, LoginActivity.class));
+        // DEBUG
+        startActivity(new Intent(this, StudentAppContentActivity.class));
     }
 }
