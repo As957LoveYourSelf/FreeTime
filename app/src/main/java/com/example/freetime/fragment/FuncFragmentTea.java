@@ -46,10 +46,12 @@ public class FuncFragmentTea extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // TODO: 设置各个功能监听事件
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTextTitle = getArguments().getString(ARG_TITLE);
         }
+
     }
 
     @Override

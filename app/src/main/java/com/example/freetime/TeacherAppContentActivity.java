@@ -32,7 +32,6 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_content_teacher);
-
     }
     private void initPage(){
         bottomNavigationView = findViewById(R.id.teacher_bottomNavigationView);
@@ -83,12 +82,7 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
     }
 
     @Override
-    public void changeInfo(Map<String, Object> map) {
-        // 根据后台的传值信息获取map里的内容
-    }
+    public void getUserInfo(Map<String, Object> info) {
 
-    @Override
-    public void changePassword(Map<String, Object> map) {
-        // 根据后台的传值信息获取map里的内容
     }
 }

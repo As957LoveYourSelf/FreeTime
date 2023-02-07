@@ -47,6 +47,7 @@ public class MineFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // TODO: 设置各个按钮监听事件
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTextTitle = getArguments().getString(ARG_TITLE);

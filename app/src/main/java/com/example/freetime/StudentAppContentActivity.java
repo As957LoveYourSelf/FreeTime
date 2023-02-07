@@ -24,6 +24,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+    Map<String, Object> studentInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,20 +81,8 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     }
 
-
     @Override
-    public void getStudentInfo(Map<String, Object> info) {
-        // 获取到学生信息数据，在这里进行处理
+    public void getUserInfo(Map<String, Object> info) {
 
-    }
-
-    @Override
-    public void changeInfo(Map<String, Object> map) {
-        // 修改后的状态信息
-    }
-
-    @Override
-    public void changePassword(Map<String, Object> map) {
-        // 修改后的状态信息
     }
 }

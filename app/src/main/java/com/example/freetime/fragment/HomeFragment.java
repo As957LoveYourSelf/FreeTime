@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // TODO: 显示用户基本数据
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTextTitle = getArguments().getString(ARG_TITLE);

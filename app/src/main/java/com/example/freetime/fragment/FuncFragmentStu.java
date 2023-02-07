@@ -22,6 +22,7 @@ public class FuncFragmentStu extends Fragment {
     private static final String ARG_TITLE = "title";
     private View view;
 
+
     // TODO: Rename and change types of parameters
     private String mTextTitle;
 
@@ -47,6 +48,7 @@ public class FuncFragmentStu extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // TODO: 设置各个功能监听事件
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTextTitle = getArguments().getString(ARG_TITLE);
