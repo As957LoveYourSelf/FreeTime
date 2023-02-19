@@ -2,6 +2,8 @@ package com.example.freetime;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +26,6 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
-    Map<String, Object> studentInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +34,12 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         initPage();
     }
 
+
     private void initPage(){
         bottomNavigationView = findViewById(R.id.student_bottomNavigationView);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                viewPager.setCurrentItem(item.getOrder());
-                return true;
-            }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            viewPager.setCurrentItem(item.getOrder());
+            return true;
         });
 
         // viewPage2 fragment manage

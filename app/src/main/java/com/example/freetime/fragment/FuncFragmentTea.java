@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.freetime.R;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,14 @@ public class FuncFragmentTea extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_TITLE = "title";
     private View view;
+    Map<String, Object> teacherInfo;
+    ImageButton btn1;
+    ImageButton btn2;
+    ImageButton btn3;
+    ImageButton btn4;
+    ImageButton btn5;
+    ImageButton btn6;
+
 
     // TODO: Rename and change types of parameters
     private String mTextTitle;
