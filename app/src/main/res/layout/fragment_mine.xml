@@ -25,14 +25,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/info_detail"
+        android:id="@+id/face_import"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="474dp"
         android:layout_marginEnd="92dp"
         android:layout_marginBottom="208dp"
-        android:background="@drawable/a1"
+        android:background="@drawable/a3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:layout_marginTop="199dp"
         android:layout_marginEnd="92dp"
         android:layout_marginBottom="483dp"
-        android:background="@drawable/a3"
+        android:background="@drawable/a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

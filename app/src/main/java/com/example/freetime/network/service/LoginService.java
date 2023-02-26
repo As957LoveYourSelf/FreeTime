@@ -11,6 +11,6 @@ import retrofit2.http.QueryMap;
 
 public interface LoginService {
 
-    @GET("loginPage/login")
+    @GET("loginPage/applogin")
     Flowable<BaseBean<Map<String,Object>>> post(@QueryMap Map<String, String> loginInfo);
 }

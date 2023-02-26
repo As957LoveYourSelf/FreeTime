@@ -1,57 +1,41 @@
 package com.example.freetime.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.freetime.ChangeInfoActivity;
+import com.example.freetime.ChangePasswordActivity;
+import com.example.freetime.FaceImportActivity;
 import com.example.freetime.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MineFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_TITLE = "title";
     private View view;
-
-    // TODO: Rename and change types of parameters
-    private String mTextTitle;
+    ImageButton btn1;
+    ImageButton btn2;
+    ImageButton btn3;
 
     public MineFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment FuncFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MineFragment newInstance(String param1) {
-        MineFragment fragment = new MineFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_TITLE, param1);
-        fragment.setArguments(args);
-        return fragment;
+    public static MineFragment newInstance() {
+        return new MineFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO: 设置各个按钮监听事件
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mTextTitle = getArguments().getString(ARG_TITLE);
-        }
     }
 
     @Override
@@ -61,5 +45,37 @@ public class MineFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_mine, container, false);
         }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btn1 = view.findViewById(R.id.change_password);
+        btn2 = view.findViewById(R.id.change_info);
+        btn3 = view.findViewById(R.id.face_import);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FaceImportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

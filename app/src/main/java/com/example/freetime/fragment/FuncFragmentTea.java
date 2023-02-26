@@ -1,68 +1,34 @@
 package com.example.freetime.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.example.freetime.FaceSignActivity;
 import com.example.freetime.R;
 
-import java.util.Map;
+public class FuncFragmentTea extends BaseUserFragment {
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FuncFragmentTea#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FuncFragmentTea extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_TITLE = "title";
     private View view;
-    Map<String, Object> teacherInfo;
-    ImageButton btn1;
-    ImageButton btn2;
-    ImageButton btn3;
-    ImageButton btn4;
-    ImageButton btn5;
     ImageButton btn6;
-
-
-    // TODO: Rename and change types of parameters
-    private String mTextTitle;
 
     public FuncFragmentTea() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment FuncFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FuncFragmentTea newInstance(String param1) {
-        FuncFragmentTea fragment = new FuncFragmentTea();
-        Bundle args = new Bundle();
-        args.putString(ARG_TITLE, param1);
-        fragment.setArguments(args);
-        return fragment;
+    public static FuncFragmentTea newInstance() {
+        return new FuncFragmentTea();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO: 设置各个功能监听事件
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mTextTitle = getArguments().getString(ARG_TITLE);
-        }
-
     }
 
     @Override
@@ -72,5 +38,16 @@ public class FuncFragmentTea extends Fragment {
             view = inflater.inflate(R.layout.fragment_func_tea, container, false);
         }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btn6 = view.findViewById(R.id.face_sign);
+
+        btn6.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FaceSignActivity.class);
+            startActivity(intent);
+        });
     }
 }

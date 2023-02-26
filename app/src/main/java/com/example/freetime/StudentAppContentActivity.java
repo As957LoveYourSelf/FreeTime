@@ -26,6 +26,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
+    Map<String, Object> userinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,9 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         // viewPage2 fragment manage
         viewPager = findViewById(R.id.student_viewpage);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(HomeFragment.newInstance("首页"));
-        fragments.add(FuncFragmentStu.newInstance("功能"));
-        fragments.add(MineFragment.newInstance("我的"));
+        fragments.add(HomeFragment.newInstance(this.userinfo));
+        fragments.add(FuncFragmentStu.newInstance());
+        fragments.add(MineFragment.newInstance());
         StudentFragmentPageAdapter adapter = new StudentFragmentPageAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -82,6 +83,6 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     @Override
     public void getUserInfo(Map<String, Object> info) {
-
+        this.userinfo = info;
     }
 }

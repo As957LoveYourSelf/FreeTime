@@ -26,7 +26,7 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
-
+    Map<String, Object> userinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +46,9 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
         // viewPage2 fragment manage
         viewPager = findViewById(R.id.teacher_viewpage);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(HomeFragment.newInstance("首页"));
-        fragments.add(FuncFragmentTea.newInstance("功能"));
-        fragments.add(MineFragment.newInstance("我的"));
+        fragments.add(HomeFragment.newInstance(this.userinfo));
+        fragments.add(FuncFragmentTea.newInstance());
+        fragments.add(MineFragment.newInstance());
         TeacherFragmentPageAdapter adapter = new TeacherFragmentPageAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -83,6 +83,6 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     @Override
     public void getUserInfo(Map<String, Object> info) {
-
+        this.userinfo = info;
     }
 }
