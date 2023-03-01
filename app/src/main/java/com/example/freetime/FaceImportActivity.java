@@ -17,11 +17,16 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
 
     @Override
     protected FaceImportPresenter createPresenter() {
-        return null;
+        return new FaceImportPresenter();
     }
 
     @Override
     public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void importFace() {
 
     }
 }

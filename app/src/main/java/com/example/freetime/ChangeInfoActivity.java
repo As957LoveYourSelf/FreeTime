@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.example.freetime.presenter.ChangeInfoPresenter;
 import com.example.freetime.view.IChangeInfoView;
 
+import java.util.Map;
+
 public class ChangeInfoActivity extends BaseActivity<ChangeInfoPresenter, IChangeInfoView> implements IChangeInfoView {
 
     @Override
@@ -17,11 +19,16 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoPresenter, IChang
 
     @Override
     protected ChangeInfoPresenter createPresenter() {
-        return null;
+        return new ChangeInfoPresenter();
     }
 
     @Override
     public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void changeInfo(Map<String, Object> info) {
 
     }
 }

@@ -1,8 +1,5 @@
 package com.example.freetime.model;
 
-import android.widget.Toast;
-
-import com.example.freetime.LoginActivity;
 import com.example.freetime.beans.BaseBean;
 import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.network.RetrofitClient;
@@ -11,7 +8,6 @@ import com.example.freetime.network.service.LoginService;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.functions.Consumer;
 
 public class LoginModel implements ILoginModel {
@@ -29,7 +25,7 @@ public class LoginModel implements ILoginModel {
     @Override
     public void goLogin(OnLoaderListener onLoaderListener) throws InterruptedException {
         // 获取真实数据
-        onLoaderListener.onComplete(getInfo());
+        onLoaderListener.onMapComplete(getInfo());
     }
 
     @Override
@@ -62,13 +58,6 @@ public class LoginModel implements ILoginModel {
                         response.put("user", null);
                         response.put("errtype", info.get("loginState"));
                     }
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(Throwable throwable) throws Throwable {
-                    response.put("user", null);
-                    response.put("errtype", "posterror");
-                    throwable.printStackTrace();
                 }
             });
         }

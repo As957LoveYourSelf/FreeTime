@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.example.freetime.presenter.ChangePasswordPresenter;
 import com.example.freetime.view.IChangePasswordView;
 
+import java.util.Map;
+
 public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter, IChangePasswordView> implements IChangePasswordView {
 
     @Override
@@ -17,11 +19,16 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
 
     @Override
     protected ChangePasswordPresenter createPresenter() {
-        return null;
+        return new ChangePasswordPresenter();
     }
 
     @Override
     public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void changePsd(Map<String, Object> info) {
 
     }
 }

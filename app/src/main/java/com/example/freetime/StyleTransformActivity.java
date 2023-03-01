@@ -17,11 +17,16 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
 
     @Override
     protected StyleTransformPresenter createPresenter() {
-        return null;
+        return new StyleTransformPresenter();
     }
 
     @Override
     public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void transform(byte[] img) {
 
     }
 }

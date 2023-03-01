@@ -13,15 +13,21 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_super_resolve);
+
     }
 
     @Override
     protected SuperResolvePresenter createPresenter() {
-        return null;
+        return new SuperResolvePresenter();
     }
 
     @Override
     public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void superResolve(byte[] img) {
 
     }
 }

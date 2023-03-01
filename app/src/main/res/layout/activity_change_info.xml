@@ -1,9 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChangeInfoActivity">
+    android:background="@drawable/home_background"
+    android:orientation="vertical"
+    tools:context=".fragment.HomeFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="修改个人信息"
+        android:layout_marginTop="15dp"
+        android:textColor="#F5F5F5"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="更换头像"
+            android:layout_marginStart="15dp"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/user_avatar"
+            android:layout_marginStart="200dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="11dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="年龄"
+            android:layout_marginStart="15dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <EditText
+            android:id="@+id/user_age"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="30dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="电子邮箱"
+            android:layout_marginStart="15dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <EditText
+            android:id="@+id/user_email"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="30dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="电话号码"
+            android:layout_marginStart="15dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="30dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="个人简介"
+            android:layout_marginStart="15dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <EditText
+            android:id="@+id/user_introduce"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="30dp"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="21dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:showDividers="middle"
+        android:divider="@drawable/line"
+        >
+
+        <ImageButton
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/register_confirm_btn" />
+
+        <ImageButton
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/register_reset_btn"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

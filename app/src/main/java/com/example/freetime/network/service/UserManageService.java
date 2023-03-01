@@ -9,10 +9,10 @@ import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface UserManageService {
-    @POST("loginPage/login")
-    Flowable<BaseBean<Map<String,Object>>> changeInfo(@QueryMap Map<String, String> data);
+    @POST("userManagePage")
+    Flowable<BaseBean<Map<String,Object>>> changeInfo(@QueryMap Map<String, Object> data);
 
-    @POST("loginPage/login")
+    @POST("userManagePage")
     Flowable<BaseBean<Map<String,Object>>> changePsd(@QueryMap Map<String, String> data);
 
 }

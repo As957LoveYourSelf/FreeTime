@@ -1,6 +1,7 @@
 package com.example.freetime.model;
 
 import com.example.freetime.beans.BaseBean;
+import com.example.freetime.model.interfaces.IBaseModel;
 import com.example.freetime.model.interfaces.IStudentModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.StudentService;
@@ -19,8 +20,8 @@ public class StudentModel extends UserManageModel implements IStudentModel {
     private String sid;
 
     @Override
-    public void getStudentInfo(IStudentModel.OnLoaderListener onLoaderListener) {
-        onLoaderListener.onComplete(getStudentMap());
+    public void getStudentInfo(IBaseModel.OnLoaderListener onLoaderListener) {
+        onLoaderListener.onMapComplete(getStudentInfo());
     }
 
     @Override
@@ -28,11 +29,11 @@ public class StudentModel extends UserManageModel implements IStudentModel {
         this.sid = id;
     }
 
-    private Map<String, Object> getStudentMap(){
+    private Map<String, Object> getStudentInfo(){
         if (this.sid != null){
             StudentService service = RetrofitClient.getInstance().getService(StudentService.class);
             Map<String, Object> userData = new HashMap<>();
-            service.getStu(this.sid).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
+            service.getInfo(this.sid).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
                 @Override
                 public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
                     Map<String, Object> info = mapBaseBean.getData();

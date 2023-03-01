@@ -1,10 +1,12 @@
 package com.example.freetime.presenter;
 
+import com.example.freetime.model.interfaces.IBaseModel;
 import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.model.LoginModel;
 import com.example.freetime.utils.Md5Util;
 import com.example.freetime.view.ILoginPageView;
 
+import java.util.List;
 import java.util.Map;
 
 public class LoginPagePresenter extends BasePresenter<ILoginPageView>{
@@ -18,12 +20,23 @@ public class LoginPagePresenter extends BasePresenter<ILoginPageView>{
         if (mView.get() != null && LoginModel != null){
             LoginModel.setUname(uname);
             LoginModel.setPassword(Md5Util.encodeByMd5(psd));
-            this.LoginModel.goLogin(new ILoginModel.OnLoaderListener() {
+            this.LoginModel.goLogin(new IBaseModel.OnLoaderListener() {
                 @Override
-                public void onComplete(Map<String, Object> info) {
+                public void onMapComplete(Map<String, Object> info) {
                     // 通过该接口拿到数据传给Activity,在Activity里面实现对获取后台数据之后的处理
                     mView.get().goLogin(info);
                 }
+
+                @Override
+                public void onListComplete(List<Object> list) {
+
+                }
+
+                @Override
+                public void onObjectComplete(Object obj) {
+
+                }
+
                 @Override
                 public void onErrMsg() {
                     // 显示错误信息

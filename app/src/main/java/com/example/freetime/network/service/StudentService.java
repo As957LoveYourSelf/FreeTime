@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 
 public interface StudentService extends UserManageService{
     @GET("studentManagePage/getStudentDetail")
-    Flowable<BaseBean<Map<String,Object>>> getStu(@Query("sno") String sno);
+    Flowable<BaseBean<Map<String,Object>>> getInfo(@Query("sno") String sno);
 }
