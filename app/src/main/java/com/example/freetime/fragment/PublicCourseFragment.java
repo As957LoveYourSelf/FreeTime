@@ -62,14 +62,16 @@ public class PublicCourseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // 显示数据
-        listView = view.findViewById(R.id.pc_course_listview);
-        listView.setAdapter(new CommonAdapter<Map<String, Object>>(getActivity().getApplicationContext(), data, R.layout.item_view) {
-            @Override
-            public void convert(ViewHolder helper, Map<String, Object> item) {
-                helper.setText(R.id.item_cname, (String) item.get("cname"));
-                helper.setText(R.id.item_address, (String) item.get("address"));
-                helper.setText(R.id.item_time, (String) item.get("time"));
-            }
-        });
+        if (data != null){
+            listView = view.findViewById(R.id.pc_course_listview);
+            listView.setAdapter(new CommonAdapter<Map<String, Object>>(getActivity().getApplicationContext(), data, R.layout.item_view) {
+                @Override
+                public void convert(ViewHolder helper, Map<String, Object> item) {
+                    helper.setText(R.id.item_cname, (String) item.get("cname"));
+                    helper.setText(R.id.item_address, (String) item.get("address"));
+                    helper.setText(R.id.item_time, (String) item.get("time"));
+                }
+            });
+        }
     }
 }

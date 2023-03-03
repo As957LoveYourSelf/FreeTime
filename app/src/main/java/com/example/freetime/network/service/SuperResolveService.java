@@ -6,6 +6,6 @@ import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.POST;
 
 public interface SuperResolveService {
-    @POST()
-    Flowable<ResponseBean<Object>> enhance(byte[] imgBytes);
+    @POST("enhance")
+    Flowable<ResponseBean<byte[]>> enhance(byte[] img);
 }

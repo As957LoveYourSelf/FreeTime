@@ -34,7 +34,8 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = getViewHolder(position, convertView, parent);
-        convert(viewHolder, getItem(position));//getItem(position)的类型就是T，这句话在子类中的具体实现就是给具体的控件初始化
+        convert(viewHolder, getItem(position));
+        //getItem(position)的类型就是T，这句话在子类中的具体实现就是给具体的控件初始化
         //并赋值，初始化赋值控件时需要viewHolder和具体的数据Java bean，在这里抽象出来就是类型T
         return viewHolder.getConvertView();
     }

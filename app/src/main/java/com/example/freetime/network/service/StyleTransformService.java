@@ -4,6 +4,10 @@ import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.POST;
 
 public interface StyleTransformService {
-    @POST
-    Flowable<Object> transform(byte[] imgBytes, byte[] styleImg, String type);
+    @POST("defaultStyleTran")
+    Flowable<byte[]> defaultStyleTransform(byte[] image, Integer type);
+
+    @POST("anyStyleTran")
+    Flowable<byte[]> anyStyleTransform(byte[] context, byte[] style);
+
 }

@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/img_show_2" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/sup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="106dp"
