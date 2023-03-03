@@ -1,5 +1,6 @@
 package com.example.freetime.view;
 
 public interface IStyleTransformView extends IBaseView{
-    void transform(byte[] img);
+    void defaultStyleTransform(byte[] bytes);
+    void anyStyleTransform(byte[] bytes);
 }

@@ -1,12 +1,9 @@
 package com.example.freetime;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.freetime.presenter.BasePresenter;
 import com.example.freetime.view.IBaseView;
@@ -31,11 +30,13 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
 
     protected P presenter;
     protected PopupWindow pop;
+    protected boolean hasresult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        hasresult = false;
         //使用模板生产Presenter对象
         presenter = createPresenter();
         // 自动绑定
@@ -92,14 +93,15 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
                                             img.setImageBitmap(bitmap);
+                                            hasresult = true;
+                                            Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(BaseActivity.this, "路径不存在", Toast.LENGTH_SHORT).show();
                                         }
-                                        Toast toast = Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT);
-                                        toast.show();
                                     }
 
                                     @Override
                                     public void onCancel() {
-
                                     }
                                 });
                         break;
@@ -117,6 +119,8 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
                                             img.setImageBitmap(bitmap);
+                                            hasresult = true;
+                                            Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
@@ -145,6 +149,4 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
             pop = null;
         }
     }
-
-
 }
