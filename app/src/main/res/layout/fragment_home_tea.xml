@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/home_background"
     android:orientation="vertical"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.HomeFragmentTea">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="38dp"
-            android:text="学号"
+            android:text="工号"
             android:layout_marginStart="15dp"
             android:textSize="18dp"
             android:textColor="@color/white"
@@ -135,35 +136,7 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="38dp"
-            android:text="专业"
-            android:layout_marginStart="15dp"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            tools:layout_editor_absoluteX="93dp"
-            tools:layout_editor_absoluteY="21dp" />
-
-        <TextView
-            android:id="@+id/user_major"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:text="INFO"
-            android:layout_marginStart="30dp"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            tools:layout_editor_absoluteX="93dp"
-            tools:layout_editor_absoluteY="21dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="38dp"
-            android:text="班级"
+            android:text="教学班级"
             android:layout_marginStart="15dp"
             android:textSize="18dp"
             android:textColor="@color/white"

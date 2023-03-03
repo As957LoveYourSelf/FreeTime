@@ -1,6 +1,6 @@
 package com.example.freetime.model;
 
-import com.example.freetime.beans.BaseBean;
+import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.LoginService;
@@ -46,23 +46,20 @@ public class LoginModel implements ILoginModel {
             Map<String, String> map = new HashMap<>();
             map.put("uname", this.uname);
             map.put("psd", this.psd);
-            service.post(map).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
+            service.post(map).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                 @Override
-                public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
-                    Map<String, Object> info = mapBaseBean.getData();
+                public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
+                    Map<String, Object> info = mapResponseBean.getData();
                     if (info.get("loginState").equals("success")) {
-                        Map<String, String> usermap = (Map<String, String>) info.get("userInfo");
-                        response.put("user", usermap);
-                        response.put("token", info.get("usertoken"));
+                        response.put("postType", "loginSuccess");
+                        response.put("utype", info.get("utype"));
+                        response.put("userToken", info.get("userToken"));
                     } else {
-                        response.put("user", null);
-                        response.put("errtype", info.get("loginState"));
+                        response.put("postType", info.get("loginState"));
                     }
                 }
             });
         }
-        System.out.println("Model return data: "+response);
-        Thread.sleep(10);
         return response;
     }
 }

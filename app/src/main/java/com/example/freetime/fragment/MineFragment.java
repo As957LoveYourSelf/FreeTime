@@ -17,8 +17,12 @@ import com.example.freetime.ChangePasswordActivity;
 import com.example.freetime.FaceImportActivity;
 import com.example.freetime.R;
 
+import java.io.Serializable;
+import java.util.Map;
+
 public class MineFragment extends Fragment {
 
+    private static final String USERMSG = "usermsg";
     private View view;
     ImageButton btn1;
     ImageButton btn2;
@@ -28,13 +32,16 @@ public class MineFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static MineFragment newInstance() {
-        return new MineFragment();
+    public static MineFragment newInstance(Map<String, String> userMsg) {
+        MineFragment fragment = new MineFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(USERMSG, (Serializable) userMsg);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO: 设置各个按钮监听事件
         super.onCreate(savedInstanceState);
     }
 
@@ -54,28 +61,25 @@ public class MineFragment extends Fragment {
         btn2 = view.findViewById(R.id.change_info);
         btn3 = view.findViewById(R.id.face_import);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                startActivity(intent);
-            }
+        btn1.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
+            intent.putExtra(USERMSG, (Serializable) msg);
+            startActivity(intent);
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
-                startActivity(intent);
-            }
+        btn2.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
+            intent.putExtra(USERMSG, (Serializable) msg);
+            startActivity(intent);
         });
 
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FaceImportActivity.class);
-                startActivity(intent);
-            }
+        btn3.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FaceImportActivity.class);
+            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
+            intent.putExtra(USERMSG, (Serializable) msg);
+            startActivity(intent);
         });
     }
 }

@@ -1,8 +1,8 @@
 package com.example.freetime;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.freetime.presenter.StyleTransformPresenter;
 import com.example.freetime.view.IStyleTransformView;
@@ -13,6 +13,13 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style_transform);
+        ImageView view = findViewById(R.id.style_tran_img_show);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow(R.id.style_tran_img_show);
+            }
+        });
     }
 
     @Override

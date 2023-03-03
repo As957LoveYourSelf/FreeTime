@@ -1,12 +1,13 @@
 package com.example.freetime.beans;
 
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  *  用户数据表
  * */
 
-public class User {
+public class User implements Serializable {
 
     private String uid;
     private String uname;

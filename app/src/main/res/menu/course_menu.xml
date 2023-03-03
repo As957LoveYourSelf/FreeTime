@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:orderInCategory="0"
+        android:title="@string/major_cs"
+        android:id="@+id/bottom_major_cs"
+        android:icon="@drawable/stats1"/>
+    <item
+        android:orderInCategory="1"
+        android:title="@string/public_cs"
+        android:id="@+id/bottom_public_cs"
+        android:icon="@drawable/stats3"/>
+
+</menu>

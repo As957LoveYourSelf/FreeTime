@@ -19,7 +19,7 @@
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_base.xml" value="0.3328804347826087" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_change_info.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_change_password.xml" value="0.3619791666666667" />
-        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_course_table.xml" value="0.3619791666666667" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_course_table.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_face_import.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_face_sign.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_login.xml" value="0.3328804347826087" />
@@ -35,11 +35,18 @@
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_tea.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_function.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home_stu.xml" value="0.3619791666666667" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home_tea.xml" value="0.3619791666666667" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_major_course.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_mine.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_public_course.xml" value="0.34739583333333335" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/item_view.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/login_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/popue_window.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/layout/register_main.xml" value="0.33" />
-        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/menu/button_nav_menu.xml" value="0.3619791666666667" />
+        <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/menu/course_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/xml/network_security_config.xml" value="0.24322916666666666" />
       </map>
     </option>

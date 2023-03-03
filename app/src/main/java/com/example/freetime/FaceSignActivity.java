@@ -14,6 +14,7 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face_sign);
+
     }
 
     @Override

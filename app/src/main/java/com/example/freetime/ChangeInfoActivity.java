@@ -15,6 +15,8 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoPresenter, IChang
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_info);
+
+
     }
 
     @Override

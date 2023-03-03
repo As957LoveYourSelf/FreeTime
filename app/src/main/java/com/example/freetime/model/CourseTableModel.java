@@ -1,6 +1,6 @@
 package com.example.freetime.model;
 
-import com.example.freetime.beans.BaseBean;
+import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ICourseTableModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.CourseTableService;
@@ -32,22 +32,24 @@ public class CourseTableModel implements ICourseTableModel {
         if (uid != null){
             CourseTableService courseTableService = RetrofitClient.getInstance().getService(CourseTableService.class);
             if (Objects.equals(this.utype, "teacher")){
-                courseTableService.getTableByTno(uid).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
+                courseTableService.getTableByTno(uid).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                     @Override
-                    public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
-                        if (Objects.equals(mapBaseBean.getMessage(), "success")){
-                            response.put("table", mapBaseBean.getData());
+                    public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
+                        if (Objects.equals(mapResponseBean.getMessage(), "success")){
+                            response.put("public_table", mapResponseBean.getData().get("public_course"));
+                            response.put("major_table", mapResponseBean.getData().get("major_course"));
                         }
                     }
                 });
             }
 
             if (Objects.equals(this.utype, "student")){
-                courseTableService.getTableBySno(uid).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
+                courseTableService.getTableBySno(uid).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                     @Override
-                    public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
-                        if (Objects.equals(mapBaseBean.getMessage(), "success")){
-                            response.put("table", mapBaseBean.getData());
+                    public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
+                        if (Objects.equals(mapResponseBean.getMessage(), "success")){
+                            response.put("public_table", mapResponseBean.getData().get("public_course"));
+                            response.put("major_table", mapResponseBean.getData().get("major_course"));
                         }
                     }
                 });

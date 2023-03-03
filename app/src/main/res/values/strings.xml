@@ -5,4 +5,8 @@
     <string name="bottom_home">首页</string>
     <string name="bottom_function">功能</string>
     <string name="bottom_mine">我的</string>
+    <string name="major_cs">专业课</string>
+    <string name="public_cs">公共课</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

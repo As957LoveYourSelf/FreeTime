@@ -11,6 +11,7 @@ import com.example.freetime.view.ILoginPageView;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageView> implements ILoginPageView {
 
@@ -60,44 +61,34 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
     public void goLogin(Map<String, Object> info) {
         // 拿到后端Json数据以后处理
         // 定义拿到数据的错误类型
-        try {
-            Map<String ,String> err = new HashMap<>();
-            err.put("psdUnCheck", "密码错误");
-            err.put("unameUnCheck", "用户名错误");
-            err.put("posterror","请求错误QVQ");
-            System.out.println("INFO: "+info);
-            if (info != null){
-                if (info.get("user") == null){
-//                System.out.println(err.get((String) info.get("errtype")));
-                    Toast toast = Toast.makeText(this, err.get((String) info.get("errtype")), Toast.LENGTH_SHORT);
-                    toast.show();
-                }else {
-                    // 跳转至主界面
-                    Map<String, Object> usermap = (Map<String, Object>) info.get("user");
-                    assert usermap != null;
-                    if (usermap.get("utype").equals("student")){
-                        // 跳转至学生首页
-                        Intent intent = new Intent(this, StudentAppContentActivity.class);
-                        intent.putExtra("userInfo", (Serializable) usermap);
+        System.out.println("INFO: "+info);
+        Map<String ,String> msg = new HashMap<>();
+        msg.put("psdUnCheck", "密码错误");
+        msg.put("unameUnCheck", "用户名错误");
+        msg.put("posterror","请求错误QVQ");
+        msg.put("loginSuccess", "登录成功");
+        Toast toast = Toast.makeText(this, msg.get((String) info.get("postType")), Toast.LENGTH_SHORT);
+        toast.show();
 
-                    }else if (usermap.get("utype").equals("teacher")){
-                        // 跳转至教师首页
-                        Intent intent = new Intent(this, TeacherAppContentActivity.class);
-                        intent.putExtra("userInfo", (Serializable) usermap);
-                    }else {
-                        Toast toast = Toast.makeText(this, "权限错误", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
+        if (Objects.equals((String) info.get("postType"), "loginSuccess"))
+        {
+            String uid = unameInput.getText().toString();
+            String utype = (String) info.get("utype");
+            String userToken = (String) info.get("userToken");
+            if (Objects.equals(utype, "student")){
+                // 跳转至学生首页
+                Intent intent = new Intent(this, StudentAppContentActivity.class);
+                intent.putExtra("userToken", (Serializable) userToken);
+                intent.putExtra("uid", uid);
+                startActivity(intent);
             }
-            else {
-                Toast toast = Toast.makeText(this, "请求错误QVQ", Toast.LENGTH_SHORT);
-                toast.show();
-                System.out.println("请求错误QVQ");
+            if (Objects.equals(utype, "teacher")){
+                // 跳转至教师首页
+                Intent intent = new Intent(this, TeacherAppContentActivity.class);
+                intent.putExtra("userToken", (Serializable) userToken);
+                intent.putExtra("uid", uid);
+                startActivity(intent);
             }
-        }catch (NullPointerException e){
-            Toast toast = Toast.makeText(this, "空数据~", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 

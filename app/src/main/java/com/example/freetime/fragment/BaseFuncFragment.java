@@ -16,7 +16,7 @@ import com.example.freetime.StyleTransformActivity;
 import com.example.freetime.SuperResolveActivity;
 import com.example.freetime.WordDistinguishActivity;
 
-public class BaseUserFragment extends Fragment {
+public class BaseFuncFragment extends Fragment {
     ImageButton btn1;
     ImageButton btn2;
     ImageButton btn3;
@@ -52,9 +52,5 @@ public class BaseUserFragment extends Fragment {
             startActivity(intent);
         });
 
-        btn5.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), CourseTableActivity.class);
-            startActivity(intent);
-        });
     }
 }

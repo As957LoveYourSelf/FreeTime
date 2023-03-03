@@ -1,6 +1,8 @@
 package com.example.freetime;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.freetime.presenter.WordDistinguishPresenter;
 import com.example.freetime.view.IWordDistinguishView;
@@ -13,7 +15,13 @@ public class WordDistinguishActivity extends BaseActivity<WordDistinguishPresent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_distinguish);
-
+        ImageView view = findViewById(R.id.word_dis_show);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow(R.id.word_dis_show);
+            }
+        });
     }
 
     @Override

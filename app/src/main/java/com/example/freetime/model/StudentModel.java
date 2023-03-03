@@ -1,6 +1,6 @@
 package com.example.freetime.model;
 
-import com.example.freetime.beans.BaseBean;
+import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.IBaseModel;
 import com.example.freetime.model.interfaces.IStudentModel;
 import com.example.freetime.network.RetrofitClient;
@@ -33,10 +33,10 @@ public class StudentModel extends UserManageModel implements IStudentModel {
         if (this.sid != null){
             StudentService service = RetrofitClient.getInstance().getService(StudentService.class);
             Map<String, Object> userData = new HashMap<>();
-            service.getInfo(this.sid).subscribe(new Consumer<BaseBean<Map<String, Object>>>() {
+            service.getInfo(this.sid).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                 @Override
-                public void accept(BaseBean<Map<String, Object>> mapBaseBean) throws Throwable {
-                    Map<String, Object> info = mapBaseBean.getData();
+                public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
+                    Map<String, Object> info = mapResponseBean.getData();
                     userData.put("info", info);
                 }
             });

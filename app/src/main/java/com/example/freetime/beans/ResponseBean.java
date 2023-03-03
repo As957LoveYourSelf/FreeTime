@@ -2,7 +2,7 @@ package com.example.freetime.beans;
 
 import androidx.annotation.NonNull;
 
-public class BaseBean<T> {
+public class ResponseBean<T> {
 
     private int code;
     private String message;

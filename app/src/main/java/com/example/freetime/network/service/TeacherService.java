@@ -1,6 +1,6 @@
 package com.example.freetime.network.service;
 
-import com.example.freetime.beans.BaseBean;
+import com.example.freetime.beans.ResponseBean;
 
 import java.util.Map;
 
@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 
 public interface TeacherService extends UserManageService{
     @GET("teacherManagePage/getTeacherDetail")
-    Flowable<BaseBean<Map<String,Object>>> getInfo(@Query("tno") String tno);
+    Flowable<ResponseBean<Map<String,Object>>> getInfo(@Query("tno") String tno);
 }

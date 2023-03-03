@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CourseTableActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/cstable_viewpage"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/table_bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#272727"
+        app:menu="@menu/course_menu"
+        app:itemTextColor="@color/bottom_color_selector"
+        app:itemIconTint="@color/bottom_color_selector"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</LinearLayout>

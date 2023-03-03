@@ -13,6 +13,7 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face_import);
+
     }
 
     @Override

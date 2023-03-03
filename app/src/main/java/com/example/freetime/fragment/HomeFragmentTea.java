@@ -16,27 +16,27 @@ import com.example.freetime.R;
 import java.io.Serializable;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragmentTea extends Fragment {
 
     private static final String USERINFO = "userinfo";
     private View view;
     TextView uname;
     TextView cls;
     TextView college;
-    TextView major;
     TextView school;
     TextView introduce;
     TextView uno;
     TextView email;
     TextView phone;
+    TextView age;
 
     private Map<String, Object> userInfo;
 
-    public HomeFragment() {
+    public HomeFragmentTea() {
     }
 
-    public static HomeFragment newInstance( Map<String, Object> userInfo) {
-        HomeFragment fragment = new HomeFragment();
+    public static HomeFragmentStu newInstance(Map<String, Object> userInfo) {
+        HomeFragmentStu fragment = new HomeFragmentStu();
         Bundle args = new Bundle();
         args.putSerializable(USERINFO, (Serializable) userInfo);
         fragment.setArguments(args);
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null){
-            view = inflater.inflate(R.layout.fragment_home, container, false);
+            view = inflater.inflate(R.layout.fragment_home_stu, container, false);
         }
         return view;
     }
@@ -66,21 +66,21 @@ public class HomeFragment extends Fragment {
         uname = view.findViewById(R.id.user_name);
         cls = view.findViewById(R.id.user_class);
         college = view.findViewById(R.id.user_collage);
-        major = view.findViewById(R.id.user_major);
         school = view.findViewById(R.id.user_school);
         introduce = view.findViewById(R.id.user_introduce);
         uno = view.findViewById(R.id.user_uno);
         email = view.findViewById(R.id.user_email);
         phone = view.findViewById(R.id.user_phone);
+        age = view.findViewById(R.id.user_age);
         if (this.userInfo != null){
             uname.setText((String)this.userInfo.get("name"));
             cls.setText((String)this.userInfo.get("class"));
             college.setText((String)this.userInfo.get("college"));
-            major.setText((String)this.userInfo.get("major"));
             school.setText("岭南师范学院");
             uno.setText((String)this.userInfo.get("no"));
             email.setText((String)this.userInfo.get("email"));
             phone.setText((String)this.userInfo.get("phone"));
+            age.setText(String.valueOf((Integer)this.userInfo.get("age")));
         }
     }
 }

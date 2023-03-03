@@ -10,11 +10,16 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.freetime.CourseTableActivity;
 import com.example.freetime.FaceSignActivity;
 import com.example.freetime.R;
 
-public class FuncFragmentTea extends BaseUserFragment {
+import java.io.Serializable;
+import java.util.Map;
 
+public class FuncFragmentTea extends BaseFuncFragment {
+
+    private static final String USERMSG = "usermsg";
     private View view;
     ImageButton btn6;
 
@@ -22,8 +27,14 @@ public class FuncFragmentTea extends BaseUserFragment {
         // Required empty public constructor
     }
 
-    public static FuncFragmentTea newInstance() {
-        return new FuncFragmentTea();
+    public static FuncFragmentTea newInstance(Map<String, String> userMsg) {
+        FuncFragmentTea fragment = new FuncFragmentTea();
+        if (userMsg != null){
+            Bundle args = new Bundle();
+            args.putSerializable(USERMSG, (Serializable) userMsg);
+            fragment.setArguments(args);
+        }
+        return fragment;
     }
 
     @Override
@@ -44,7 +55,11 @@ public class FuncFragmentTea extends BaseUserFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btn6 = view.findViewById(R.id.face_sign);
-
+        btn5.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CourseTableActivity.class);
+            intent.putExtra("utype","teacher");
+            startActivity(intent);
+        });
         btn6.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), FaceSignActivity.class);
             startActivity(intent);
