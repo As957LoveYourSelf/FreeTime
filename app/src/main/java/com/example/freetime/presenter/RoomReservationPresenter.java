@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomReservationPresenter extends BasePresenter<IRoomReservationView> {
-    IRoomReservationModel roomReservationModel = new RoomReservationModel();
 
-    public void getRooms(String buildingName, Integer isOrder, Integer floor){
+
+    public void getRooms(String buildingName, Integer isOrder, Integer floor) throws InterruptedException {
+        IRoomReservationModel roomReservationModel = new RoomReservationModel(buildingName, isOrder, floor);
         if (roomReservationModel != null && mView.get() != null){
-            roomReservationModel.setParams(buildingName, isOrder, floor);
             roomReservationModel.getRooms(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {
@@ -38,9 +38,9 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
         }
     }
 
-    public void reserve(String uid, String clsid){
-        if (roomReservationModel != null && mView.get() != null){
-            roomReservationModel.setUid(uid, clsid);
+    public void reserve(String uid, String clsid) throws InterruptedException {
+        IRoomReservationModel roomReservationModel = new RoomReservationModel(uid, clsid);
+        if (mView.get() != null){
             roomReservationModel.reserve(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {
@@ -65,9 +65,9 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
         }
     }
 
-    public void dereserve(String uid, String clsid){
-        if (roomReservationModel != null && mView.get() != null){
-            roomReservationModel.setUid(uid, clsid);
+    public void dereserve(String uid, String clsid) throws InterruptedException {
+        IRoomReservationModel roomReservationModel = new RoomReservationModel(uid, clsid);
+        if (mView.get() != null){
             roomReservationModel.dereserve(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {

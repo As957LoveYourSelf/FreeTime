@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SuperResolveModel implements ISuperResolveModel {
 
@@ -26,20 +28,18 @@ public class SuperResolveModel implements ISuperResolveModel {
 
     @Override
     public void enhance(OnLoaderListener onLoaderListener) {
-        onLoaderListener.onObjectComplete(enhance());
-    }
-
-    private byte[] enhance(){
-        List<byte[]> list = new ArrayList<>();
         if (img != null){
             SuperResolveService service = RetrofitClient.getInstance().getService(SuperResolveService.class);
-            service.enhance(this.img).subscribe(new Consumer<ResponseBean<byte[]>>() {
+            service.enhance(this.img)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ResponseBean<byte[]>>() {
                 @Override
-                public void accept(ResponseBean<byte[]> responseBean) throws Throwable {
-                    list.add(responseBean.getData());
+                public void accept(ResponseBean<byte[]> bytes) throws Throwable {
+                    onLoaderListener.onObjectComplete(bytes);
                 }
             });
         }
-        return list.get(0);
     }
+
 }

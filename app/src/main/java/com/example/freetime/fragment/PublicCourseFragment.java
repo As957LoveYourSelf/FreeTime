@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.freetime.R;
 import com.example.freetime.adapter.CommonAdapter;
@@ -63,8 +64,9 @@ public class PublicCourseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // 显示数据
         if (data != null){
+            System.out.println("PCS: "+data);
             listView = view.findViewById(R.id.pc_course_listview);
-            listView.setAdapter(new CommonAdapter<Map<String, Object>>(getActivity().getApplicationContext(), data, R.layout.item_view) {
+            listView.setAdapter(new CommonAdapter<Map<String, Object>>(getContext(), data, R.layout.item_view) {
                 @Override
                 public void convert(ViewHolder helper, Map<String, Object> item) {
                     helper.setText(R.id.item_cname, (String) item.get("cname"));
@@ -72,6 +74,7 @@ public class PublicCourseFragment extends Fragment {
                     helper.setText(R.id.item_time, (String) item.get("time"));
                 }
             });
+            Toast.makeText(getContext(), "获取公共课数据成功", Toast.LENGTH_SHORT).show();
         }
     }
 }

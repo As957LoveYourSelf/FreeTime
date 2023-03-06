@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.freetime.adapter.TeacherFragmentPageAdapter;
 import com.example.freetime.fragment.FuncFragmentTea;
@@ -34,6 +35,7 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_content_teacher);
+        userMsg = new HashMap<>();
         String uid = getIntent().getStringExtra("uid");
         userToken = getIntent().getStringExtra("userToken");
         userMsg.put("uid", uid);
@@ -92,6 +94,11 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     @Override
     public void getUserInfo(Map<String, Object> info) {
-        this.userinfo = (Map<String, Object>) info.get("info");
+        if (info != null){
+            this.userinfo = (Map<String, Object>) info.get("info");
+        }
+        else {
+            Toast.makeText(this, "空数据！", Toast.LENGTH_SHORT).show();
+        }
     }
 }

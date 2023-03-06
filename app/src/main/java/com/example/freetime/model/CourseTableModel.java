@@ -5,11 +5,12 @@ import com.example.freetime.model.interfaces.ICourseTableModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.CourseTableService;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CourseTableModel implements ICourseTableModel {
 
@@ -23,39 +24,38 @@ public class CourseTableModel implements ICourseTableModel {
     }
 
     @Override
-    public void getTable(OnLoaderListener onLoaderListener) {
-        onLoaderListener.onMapComplete(getTable());
-    }
-
-    public Map<String, Object> getTable(){
-        Map<String, Object> response = new HashMap<>();
+    public void getTable(OnLoaderListener onLoaderListener) throws InterruptedException {
         if (uid != null){
             CourseTableService courseTableService = RetrofitClient.getInstance().getService(CourseTableService.class);
             if (Objects.equals(this.utype, "teacher")){
-                courseTableService.getTableByTno(uid).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
+                courseTableService.getTableByTno(uid)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                     @Override
                     public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
                         if (Objects.equals(mapResponseBean.getMessage(), "success")){
-                            response.put("public_table", mapResponseBean.getData().get("public_course"));
-                            response.put("major_table", mapResponseBean.getData().get("major_course"));
+                            onLoaderListener.onMapComplete(mapResponseBean.getData());
                         }
                     }
                 });
             }
 
             if (Objects.equals(this.utype, "student")){
-                courseTableService.getTableBySno(uid).subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
+                courseTableService.getTableBySno(uid)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                     @Override
                     public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
                         if (Objects.equals(mapResponseBean.getMessage(), "success")){
-                            response.put("public_table", mapResponseBean.getData().get("public_course"));
-                            response.put("major_table", mapResponseBean.getData().get("major_course"));
+                            onLoaderListener.onMapComplete(mapResponseBean.getData());
+
                         }
                     }
                 });
             }
-
         }
-        return response;
     }
+
 }

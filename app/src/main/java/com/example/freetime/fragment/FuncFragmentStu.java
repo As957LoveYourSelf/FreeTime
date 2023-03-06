@@ -21,7 +21,6 @@ public class FuncFragmentStu extends BaseFuncFragment {
 
     private static final String USERMSG = "usermsg";
     private View view;
-    private Map<String, String> userMsg;
     public FuncFragmentStu() {
         // Required empty public constructor
     }
@@ -33,7 +32,7 @@ public class FuncFragmentStu extends BaseFuncFragment {
             args.putSerializable(USERMSG, (Serializable) userMsg);
             fragment.setArguments(args);
         }
-        return new FuncFragmentStu();
+        return fragment;
     }
 
     @Override
@@ -41,6 +40,7 @@ public class FuncFragmentStu extends BaseFuncFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null){
             userMsg = (Map<String, String>) getArguments().getSerializable(USERMSG);
+            System.out.println(userMsg);
         }
     }
 
@@ -58,7 +58,7 @@ public class FuncFragmentStu extends BaseFuncFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btn5.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), CourseTableActivity.class);
+            Intent intent = new Intent(getContext(), CourseTableActivity.class);
             intent.putExtra("utype", "student");
             intent.putExtra(USERMSG,(Serializable) userMsg);
             startActivity(intent);

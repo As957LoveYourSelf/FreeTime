@@ -32,7 +32,7 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
                 popupWindow(R.id.img_sup_show);
             }
         });
-        view.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hasresult){

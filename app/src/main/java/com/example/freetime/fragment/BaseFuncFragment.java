@@ -16,12 +16,15 @@ import com.example.freetime.StyleTransformActivity;
 import com.example.freetime.SuperResolveActivity;
 import com.example.freetime.WordDistinguishActivity;
 
+import java.util.Map;
+
 public class BaseFuncFragment extends Fragment {
     ImageButton btn1;
     ImageButton btn2;
     ImageButton btn3;
     ImageButton btn4;
     ImageButton btn5;
+    protected Map<String, String> userMsg;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

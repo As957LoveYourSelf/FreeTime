@@ -67,7 +67,11 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
                             toast = Toast.makeText(ChangePasswordActivity.this, "请确保两次输入的密码一样", Toast.LENGTH_SHORT);
                             break;
                         }
-                        presenter.fetch(new_psd.getText().toString(), usermsg.get("uid"));
+                        try {
+                            presenter.fetch(new_psd.getText().toString(), usermsg.get("uid"));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case R.id.change_psw_reset:
                         // 重置
@@ -85,12 +89,17 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
 
     @Override
     public void changePsd(Map<String, Object> info) {
-        Map<String, String> msg = new HashMap<>();
-        msg.put("nonEmail", "未绑定邮箱，请先绑定");
-        msg.put("psdSame", "傻了吧，和原密码一样");
-        msg.put("identifyEmail", "请前往邮箱完成修改密码验证");
-        msg.put("postEmailError", "邮件发送错误QVQ");
-        Toast toast = Toast.makeText(this, msg.get((String) info.get("status")), Toast.LENGTH_SHORT);
-        toast.show();
+        if (info != null){
+            Map<String, String> msg = new HashMap<>();
+            msg.put("nonEmail", "未绑定邮箱，请先绑定");
+            msg.put("psdSame", "傻了吧，和原密码一样");
+            msg.put("identifyEmail", "请前往邮箱完成修改密码验证");
+            msg.put("postEmailError", "邮件发送错误QVQ");
+            Toast toast = Toast.makeText(this, msg.get((String) info.get("status")), Toast.LENGTH_SHORT);
+            toast.show();
+        }else {
+            Toast.makeText(this, "空数据！", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

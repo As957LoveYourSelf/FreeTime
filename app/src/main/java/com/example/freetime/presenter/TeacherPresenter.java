@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class TeacherPresenter extends BasePresenter<ITeacherView> {
-    ITeacherModel teacherModel = new TeacherModel();
 
     public void fetch(String tno){
-        if (teacherModel != null && mView.get() != null){
-            teacherModel.setTno(tno);
+        ITeacherModel teacherModel = new TeacherModel(tno);
+        if (mView.get() != null){
             teacherModel.getTeacherInfo(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {

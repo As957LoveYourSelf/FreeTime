@@ -11,7 +11,7 @@ import java.util.Map;
 public class CourseTablePresenter extends BasePresenter<ICourseTableView>{
     ICourseTableModel courseTableModel = new CourseTableModel();
 
-    public void fetch(String uid, String utype){
+    public void fetch(String uid, String utype) throws InterruptedException {
         if (courseTableModel != null && mView.get() != null){
             courseTableModel.setUid(uid, utype);
             courseTableModel.getTable(new IBaseModel.OnLoaderListener() {

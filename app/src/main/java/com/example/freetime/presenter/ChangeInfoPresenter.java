@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ChangeInfoPresenter extends BasePresenter<IChangeInfoView>{
-    IChangeInfoModel iChangeInfoModel = new ChangeInfoModel();
 
     public void fetch(User newUser){
-        if (iChangeInfoModel != null && mView.get() != null){
-            iChangeInfoModel.setNewInfo(newUser);
+        IChangeInfoModel iChangeInfoModel = new ChangeInfoModel(newUser);
+        if (mView.get() != null){
             iChangeInfoModel.changeInfo(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.freetime.R;
 
@@ -51,6 +52,7 @@ public class HomeFragmentStu extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             userInfo = (Map<String, Object>) getArguments().getSerializable(USERINFO);
+            System.out.println(userInfo);
         }
     }
 
@@ -85,7 +87,10 @@ public class HomeFragmentStu extends Fragment {
             uno.setText((String)this.userInfo.get("no"));
             email.setText((String)this.userInfo.get("email"));
             phone.setText((String)this.userInfo.get("phone"));
-            age.setText(String.valueOf((Integer)this.userInfo.get("age")));
+            Integer a = (Integer) this.userInfo.get("age");
+            age.setText(a != null?String.valueOf(a):"无");
+            Toast.makeText(getContext(), "欢迎您，"+uname.getText().toString()+"同学", Toast.LENGTH_SHORT).show();
         }
+
     }
 }

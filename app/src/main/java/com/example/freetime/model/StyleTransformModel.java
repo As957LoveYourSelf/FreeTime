@@ -8,10 +8,10 @@ import com.example.freetime.network.service.StyleTransformService;
 import com.example.freetime.utils.ImageUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class StyleTransformModel implements IStyleTransformModel {
 
@@ -32,50 +32,44 @@ public class StyleTransformModel implements IStyleTransformModel {
 
     @Override
     public void defaultStyleTransform(OnLoaderListener onLoaderListener) {
-        onLoaderListener.onObjectComplete(defaultStyleTransform());
+        try {
+            if (this.bitmap != null && type != null){
+                byte[] bytes = ImageUtils.bitmap2Bytes(bitmap);
+                StyleTransformService service = RetrofitClient.getInstance().getService(StyleTransformService.class);
+                service.defaultStyleTransform(bytes, type)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<byte[]>() {
+                    @Override
+                    public void accept(byte[] bytes) throws Throwable {
+                        onLoaderListener.onObjectComplete(bytes);
+                    }
+                });
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void anyStyleTransform(OnLoaderListener onLoaderListener) {
-        onLoaderListener.onObjectComplete(anyStyleTransform());
-    }
-
-    private byte[] defaultStyleTransform( ){
         try {
-            List<byte[]> info = new ArrayList<>();
-            if (this.bitmap != null && type != null){
-                byte[] bytes = ImageUtils.bitmap2Bytes(bitmap);
-                StyleTransformService service = RetrofitClient.getInstance().getService(StyleTransformService.class);
-                service.defaultStyleTransform(bytes, type).subscribe(new Consumer<byte[]>() {
-                    @Override
-                    public void accept(byte[] bytes) throws Throwable {
-                        info.add(bytes);
-                    }
-                });
-            }
-            return info.get(0);
-        }catch (IOException e){
-            return null;
-        }
-    }
-
-    private byte[] anyStyleTransform(){
-        try {
-            List<byte[]> info = new ArrayList<>();
             if (this.context != null && style != null){
                 byte[] context = ImageUtils.bitmap2Bytes(this.context);
                 byte[] style = ImageUtils.bitmap2Bytes(this.style);
                 StyleTransformService service = RetrofitClient.getInstance().getService(StyleTransformService.class);
-                service.anyStyleTransform(context, style).subscribe(new Consumer<byte[]>() {
+                service.anyStyleTransform(context, style)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<byte[]>() {
                     @Override
                     public void accept(byte[] bytes) throws Throwable {
-                        info.add(bytes);
+                        onLoaderListener.onObjectComplete(bytes);
                     }
                 });
             }
-            return info.get(0);
         }catch (IOException e){
-            return null;
+            e.printStackTrace();
         }
     }
 }

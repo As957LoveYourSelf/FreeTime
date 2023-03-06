@@ -1,9 +1,8 @@
 package com.example.freetime.presenter;
 
+import com.example.freetime.model.LoginModel;
 import com.example.freetime.model.interfaces.IBaseModel;
 import com.example.freetime.model.interfaces.ILoginModel;
-import com.example.freetime.model.LoginModel;
-import com.example.freetime.utils.Md5Util;
 import com.example.freetime.view.ILoginPageView;
 
 import java.util.List;
@@ -14,13 +13,10 @@ public class LoginPagePresenter extends BasePresenter<ILoginPageView>{
      * 1. 提交 UI 获得的用户信息，根据后台验证的登录状态返回登录结果
      */
 
-    ILoginModel LoginModel = new LoginModel();
-
     public void fetch(String uname, String psd) throws Exception {
-        if (mView.get() != null && LoginModel != null){
-            LoginModel.setUname(uname);
-            LoginModel.setPassword(Md5Util.encodeByMd5(psd));
-            this.LoginModel.goLogin(new IBaseModel.OnLoaderListener() {
+        ILoginModel LoginModel = new LoginModel(uname, psd);
+        if (mView.get() != null){
+            LoginModel.goLogin(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> info) {
                     // 通过该接口拿到数据传给Activity,在Activity里面实现对获取后台数据之后的处理

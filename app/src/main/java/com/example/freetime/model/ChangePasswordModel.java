@@ -1,5 +1,6 @@
 package com.example.freetime.model;
 
+import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.IChangePasswordModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.UserManageService;
@@ -7,6 +8,10 @@ import com.example.freetime.network.service.UserManageService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ChangePasswordModel implements IChangePasswordModel {
 
@@ -20,21 +25,22 @@ public class ChangePasswordModel implements IChangePasswordModel {
     }
 
     @Override
-    public void changePsd(OnLoaderListener onLoaderListener) {
-        onLoaderListener.onMapComplete(change());
-    }
-
-    private Map<String, Object> change(){
-        Map<String, Object> response = new HashMap<>();
+    public void changePsd(OnLoaderListener onLoaderListener) throws InterruptedException {
         if (this.postData != null){
             UserManageService userManageService = RetrofitClient.getInstance().getService(UserManageService.class);
-            userManageService.changePsd(postData).subscribe(mapBaseBean -> {
-                if (Objects.equals(mapBaseBean.getMessage(), "success")){
-                    Map<String, Object> data = mapBaseBean.getData();
-                    response.put("status", data.get("status"));
-                }
-            });
+            userManageService
+                    .changePsd(postData)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
+                        @Override
+                        public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
+                            if (Objects.equals(mapResponseBean.getMessage(), "success")){
+                                onLoaderListener.onMapComplete(mapResponseBean.getData());
+                            }
+                        }
+                    });
         }
-        return response;
     }
+
 }

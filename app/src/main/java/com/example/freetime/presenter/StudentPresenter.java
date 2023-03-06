@@ -11,11 +11,9 @@ import java.util.Map;
 
 public class StudentPresenter extends BasePresenter<IStudentView>{
 
-    IStudentModel iStudentModel = new StudentModel();
-
-    public void fetch(String sid){
-        if (iStudentModel != null && mView.get() != null){
-            iStudentModel.setStudentID(sid);
+    public void fetch(String sid) throws InterruptedException {
+        IStudentModel iStudentModel = new StudentModel(sid);
+        if (mView.get() != null){
             iStudentModel.getStudentInfo(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> info) {

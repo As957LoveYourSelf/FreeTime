@@ -19,7 +19,6 @@ public class User implements Serializable {
     private Byte state;
     private String rcode;
     private Byte online;
-    private String registerTime;
     private String utype;
     private String fid;
     private String sex;
@@ -103,15 +102,6 @@ public class User implements Serializable {
     public void setOnline(Byte online) {
         this.online = online;
     }
-
-    public String getRegisterTime() {
-        return registerTime;
-    }
-
-    public void setRegisterTime(String registerTime) {
-        this.registerTime = registerTime;
-    }
-
     public String getUtype() {
         return utype;
     }

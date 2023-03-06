@@ -1,10 +1,18 @@
 package com.example.freetime;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import com.example.freetime.presenter.LoginPagePresenter;
 import com.example.freetime.view.ILoginPageView;
 
@@ -18,6 +26,8 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
     ImageButton login_btn;
     EditText unameInput;
     EditText psdInput;
+    ProgressBar progressBar;
+
     boolean change;
 
     @Override
@@ -30,6 +40,8 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
         change = false;
         login_btn.setOnClickListener(v -> {
             try {
+                Map<String, Object> response = new HashMap<>();
+                Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();
                 presenter.fetch(unameInput.getText().toString(), psdInput.getText().toString());
 //                System.out.println(unameInput.getText().toString()+" "+psdInput.getText().toString());
             } catch (Exception e) {
@@ -82,12 +94,15 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
                 intent.putExtra("uid", uid);
                 startActivity(intent);
             }
-            if (Objects.equals(utype, "teacher")){
+            else if (Objects.equals(utype, "teacher")){
                 // 跳转至教师首页
                 Intent intent = new Intent(this, TeacherAppContentActivity.class);
                 intent.putExtra("userToken", (Serializable) userToken);
                 intent.putExtra("uid", uid);
                 startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "没有该权限！", Toast.LENGTH_SHORT).show();
             }
         }
     }
