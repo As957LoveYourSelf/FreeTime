@@ -22,7 +22,6 @@ import java.util.Map;
 
 public class MineFragment extends Fragment {
 
-    private static final String USERMSG = "usermsg";
     private View view;
     ImageButton btn1;
     ImageButton btn2;
@@ -32,12 +31,8 @@ public class MineFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static MineFragment newInstance(Map<String, String> userMsg) {
-        MineFragment fragment = new MineFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(USERMSG, (Serializable) userMsg);
-        fragment.setArguments(args);
-        return fragment;
+    public static MineFragment newInstance() {
+        return new MineFragment();
     }
 
     @Override
@@ -63,22 +58,16 @@ public class MineFragment extends Fragment {
 
         btn1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
-            intent.putExtra(USERMSG, (Serializable) msg);
             startActivity(intent);
         });
 
         btn2.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
-            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
-            intent.putExtra(USERMSG, (Serializable) msg);
             startActivity(intent);
         });
 
         btn3.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), FaceImportActivity.class);
-            Map<String, String> msg = (Map<String, String>) getArguments().getSerializable(USERMSG);
-            intent.putExtra(USERMSG, (Serializable) msg);
             startActivity(intent);
         });
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 public class ChangePasswordPresenter extends BasePresenter<IChangePasswordView>{
     IChangePasswordModel changePasswordModel = new ChangePasswordModel();
 
-    public void fetch(String psd, String uid) throws InterruptedException {
+    public void fetch(String psd, String uid) throws Exception {
         if (changePasswordModel != null && mView.get() != null){
             changePasswordModel.setNewPassword(psd, uid);
             changePasswordModel.changePsd(new IBaseModel.OnLoaderListener() {

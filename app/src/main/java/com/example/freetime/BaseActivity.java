@@ -3,7 +3,9 @@ package com.example.freetime;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,13 +18,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.freetime.presenter.BasePresenter;
+import com.example.freetime.utils.GlideEngine;
 import com.example.freetime.view.IBaseView;
 import com.luck.picture.lib.basic.PictureSelector;
 import com.luck.picture.lib.config.SelectMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -83,8 +89,9 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                     case R.id.btn_pop_album:
                         //相册
                         PictureSelector.create(BaseActivity.this)
-                                .openSystemGallery(SelectMimeType.ofImage())
-                                .forSystemResult(new OnResultCallbackListener<LocalMedia>() {
+                                .openGallery(SelectMimeType.ofImage())
+                                .setImageEngine(GlideEngine.createGlideEngine())
+                                .forResult(new OnResultCallbackListener<LocalMedia>() {
                                     @Override
                                     public void onResult(ArrayList<LocalMedia> result) {
                                         ImageView img = findViewById(show_view_id);

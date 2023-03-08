@@ -4,6 +4,7 @@ import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.IChangePasswordModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.UserManageService;
+import com.example.freetime.utils.Md5Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +19,10 @@ public class ChangePasswordModel implements IChangePasswordModel {
     private Map<String, String> postData;
 
     @Override
-    public void setNewPassword(String psd, String uid) {
+    public void setNewPassword(String psd, String uid) throws Exception {
         this.postData = new HashMap<>();
         this.postData.put("uid", uid);
-        this.postData.put("newPsd", psd);
+        this.postData.put("newPsd", Md5Util.encodeByMd5(psd));
     }
 
     @Override

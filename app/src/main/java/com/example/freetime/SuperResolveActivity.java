@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.freetime.presenter.SuperResolvePresenter;
-import com.example.freetime.utils.ImageUtils;
 import com.example.freetime.view.ISuperResolveView;
 
-import java.io.IOException;
 
 public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, ISuperResolveView> implements ISuperResolveView {
 
@@ -36,13 +34,9 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
             @Override
             public void onClick(View v) {
                 if (hasresult){
+                    Toast.makeText(SuperResolveActivity.this, "超分辨运行中，请稍等...", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap = ((BitmapDrawable) view.getDrawable()).getBitmap();
-                    try {
-                        byte[] bytes = ImageUtils.bitmap2Bytes(bitmap);
-                        superResolve(bytes);
-                    } catch (IOException e) {
-                        Toast.makeText(SuperResolveActivity.this, "字节转化失败", Toast.LENGTH_SHORT).show();
-                    }
+                    presenter.fetch(bitmap);
                 }
             }
         });
@@ -62,6 +56,7 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
     public void superResolve(byte[] img) {
         if (img != null){
             view.setImageBitmap(BitmapFactory.decodeByteArray(img,0,img.length));
+            Toast.makeText(this, "转化成功！", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "空数据", Toast.LENGTH_SHORT).show();
         }

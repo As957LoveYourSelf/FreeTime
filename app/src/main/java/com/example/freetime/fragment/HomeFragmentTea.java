@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.freetime.R;
+import com.example.freetime.utils.ChangeInfoUtil;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class HomeFragmentTea extends Fragment {
     TextView email;
     TextView phone;
     TextView age;
+    TextView sex;
 
     private Map<String, Object> userInfo;
 
@@ -73,6 +75,7 @@ public class HomeFragmentTea extends Fragment {
         email = view.findViewById(R.id.user_email);
         phone = view.findViewById(R.id.user_phone);
         age = view.findViewById(R.id.user_age);
+        sex = view.findViewById(R.id.user_sex);
         if (this.userInfo != null){
             uname.setText((String)this.userInfo.get("name"));
             cls.setText((String)this.userInfo.get("class"));
@@ -81,7 +84,16 @@ public class HomeFragmentTea extends Fragment {
             uno.setText((String)this.userInfo.get("no"));
             email.setText((String)this.userInfo.get("email"));
             phone.setText((String)this.userInfo.get("phone"));
-            age.setText(String.valueOf((Integer)this.userInfo.get("age")));
+            Double a = (Double) this.userInfo.get("age");
+            age.setText(a != null?String.valueOf(a.intValue()):"无");
+            sex.setText((String)this.userInfo.get("sex"));
+            introduce.setText((String)userInfo.get("introduce"));
+            ChangeInfoUtil.saveInfo(
+                    a != null?a.intValue():40,
+                    (String)this.userInfo.get("sex"),
+                    (String)this.userInfo.get("email"),
+                    (String)this.userInfo.get("phone"),
+                    (String)userInfo.get("introduce"));
             Toast.makeText(getContext(), "欢迎您，"+uname+"老师", Toast.LENGTH_SHORT).show();
         }
     }

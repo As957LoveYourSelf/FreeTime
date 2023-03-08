@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.freetime.CourseTableActivity;
 import com.example.freetime.R;
 import com.example.freetime.RoomReservationActivity;
 import com.example.freetime.StyleTransformActivity;
@@ -24,7 +24,6 @@ public class BaseFuncFragment extends Fragment {
     ImageButton btn3;
     ImageButton btn4;
     ImageButton btn5;
-    protected Map<String, String> userMsg;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

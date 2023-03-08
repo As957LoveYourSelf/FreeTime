@@ -11,6 +11,7 @@ import com.example.freetime.adapter.StudentFragmentPageAdapter;
 import com.example.freetime.fragment.MajorCourseFragment;
 import com.example.freetime.fragment.PublicCourseFragment;
 import com.example.freetime.presenter.CourseTablePresenter;
+import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.ICourseTableView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,16 +30,12 @@ public class CourseTableActivity extends BaseActivity<CourseTablePresenter, ICou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_table);
         String utype = getIntent().getStringExtra("utype");
-        Map<String, String> usermsg = (Map<String, String>) getIntent().getSerializableExtra("usermsg");
-        System.out.println("Activity Info msg: "+usermsg);
         System.out.println("Activity Info utype: "+utype);
-        if (usermsg != null){
-            try {
-                Toast.makeText(this, "获取课表信息中...", Toast.LENGTH_SHORT).show();
-                presenter.fetch(usermsg.get("uid"), utype);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            Toast.makeText(this, "获取课表信息中...", Toast.LENGTH_SHORT).show();
+            presenter.fetch(SaveInfoUtils.readInfo()[0], utype);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,6 +52,7 @@ public class CourseTableActivity extends BaseActivity<CourseTablePresenter, ICou
     @Override
     public void getTable(Map<String, Object> info) {
         if (info != null){
+            Toast.makeText(this, "获取课表信息成功", Toast.LENGTH_SHORT).show();
             initPage((List<Map<String, Object>>) info.get("public_course"), (List<Map<String, Object>>) info.get("major_course"));
         }
     }

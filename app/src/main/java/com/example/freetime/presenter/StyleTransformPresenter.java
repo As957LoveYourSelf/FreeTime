@@ -14,8 +14,8 @@ public class StyleTransformPresenter extends BasePresenter<IStyleTransformView>{
 
     IStyleTransformModel styleTransformModel;
 
-    public void defaultStyleTransform(Bitmap bitmap, Integer type){
-        styleTransformModel = new StyleTransformModel(bitmap, type);
+    public void defaultStyleTransform(Bitmap bitmap, Integer type, String uname){
+        styleTransformModel = new StyleTransformModel(bitmap, type, uname);
         if (mView.get() != null && styleTransformModel != null){
             styleTransformModel.defaultStyleTransform(new IBaseModel.OnLoaderListener() {
                 @Override
@@ -42,8 +42,8 @@ public class StyleTransformPresenter extends BasePresenter<IStyleTransformView>{
 
     }
 
-    public void anyStyleTransform(Bitmap context, Bitmap style){
-        styleTransformModel = new StyleTransformModel(context, style);
+    public void anyStyleTransform(Bitmap context, Bitmap style, String uname){
+        styleTransformModel = new StyleTransformModel(context, style, uname);
         if (mView.get() != null && styleTransformModel != null){
             styleTransformModel.anyStyleTransform(new IBaseModel.OnLoaderListener() {
                 @Override

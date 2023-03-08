@@ -41,7 +41,7 @@ public class LoginModel implements ILoginModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mapResponseBean -> {
                     Map<String, Object> info = mapResponseBean.getData();
-                    System.out.println(info);
+//                    System.out.println(info);
                     if (info.get("loginState").equals("success")) {
                         response.put("postType", "loginSuccess");
                         response.put("utype", info.get("utype"));

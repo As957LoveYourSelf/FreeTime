@@ -41,7 +41,7 @@ public class SuperResolvePresenter extends BasePresenter<ISuperResolveView>{
                 });
             }
         }catch (IOException e){
-
+            e.printStackTrace();
         }
     }
 }

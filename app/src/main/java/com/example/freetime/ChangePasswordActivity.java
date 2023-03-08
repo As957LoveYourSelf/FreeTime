@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.freetime.presenter.ChangePasswordPresenter;
+import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.IChangePasswordView;
 
 import java.io.Serializable;
@@ -20,14 +21,12 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
     EditText new_psd;
     EditText new_psd_2;
     ImageButton confirm;
-    ImageButton channel;
-    Map<String, String> usermsg;
+    ImageButton reset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        usermsg = (Map<String, String>) getIntent().getSerializableExtra("usermsg");
         initPage();
     }
 
@@ -45,7 +44,7 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
         new_psd = findViewById(R.id.new_psw);
         new_psd_2 = findViewById(R.id.new_psw_2);
         confirm = findViewById(R.id.change_psw_confirm);
-        channel = findViewById(R.id.change_psw_reset);
+        reset = findViewById(R.id.change_psw_reset);
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -68,8 +67,8 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
                             break;
                         }
                         try {
-                            presenter.fetch(new_psd.getText().toString(), usermsg.get("uid"));
-                        } catch (InterruptedException e) {
+                            presenter.fetch(new_psd.getText().toString(), SaveInfoUtils.readInfo()[0]);
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         break;
@@ -84,7 +83,8 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
                 }
             }
         };
-
+        confirm.setOnClickListener(listener);
+        reset.setOnClickListener(listener);
     }
 
     @Override
@@ -95,8 +95,7 @@ public class ChangePasswordActivity extends BaseActivity<ChangePasswordPresenter
             msg.put("psdSame", "傻了吧，和原密码一样");
             msg.put("identifyEmail", "请前往邮箱完成修改密码验证");
             msg.put("postEmailError", "邮件发送错误QVQ");
-            Toast toast = Toast.makeText(this, msg.get((String) info.get("status")), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this, msg.get((String) info.get("status")), Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "空数据！", Toast.LENGTH_SHORT).show();
         }

@@ -14,6 +14,7 @@ import com.example.freetime.fragment.HomeFragmentStu;
 import com.example.freetime.fragment.HomeFragmentTea;
 import com.example.freetime.fragment.MineFragment;
 import com.example.freetime.presenter.TeacherPresenter;
+import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.ITeacherView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -27,24 +28,36 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
-    Map<String, Object> userinfo;
-    String userToken;
-    HashMap<String, String> userMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_content_teacher);
-        userMsg = new HashMap<>();
-        String uid = getIntent().getStringExtra("uid");
-        userToken = getIntent().getStringExtra("userToken");
-        userMsg.put("uid", uid);
-        userMsg.put("token", userToken);
-        presenter.fetch(uid);
-        initPage();
+        presenter.fetch(SaveInfoUtils.readInfo()[0]);
+    }
+    @Override
+    protected TeacherPresenter createPresenter() {
+        return new TeacherPresenter();
     }
 
-    private void initPage(){
+
+
+    @Override
+    public void showErrorMessage(String msg) {
+
+    }
+
+    @Override
+    public void getUserInfo(Map<String, Object> info) {
+        if (info != null){
+            initPage((Map<String, Object>)info.get("info"));
+        }
+        else {
+            Toast.makeText(this, "空数据！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initPage(Map<String, Object> userinfo){
         bottomNavigationView = findViewById(R.id.teacher_bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -57,9 +70,9 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
         // viewPage2 fragment manage
         viewPager = findViewById(R.id.teacher_viewpage);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(HomeFragmentTea.newInstance(this.userinfo));
-        fragments.add(FuncFragmentTea.newInstance(this.userMsg));
-        fragments.add(MineFragment.newInstance(this.userMsg));
+        fragments.add(HomeFragmentTea.newInstance(userinfo));
+        fragments.add(FuncFragmentTea.newInstance());
+        fragments.add(MineFragment.newInstance());
         TeacherFragmentPageAdapter adapter = new TeacherFragmentPageAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -79,26 +92,5 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
                 super.onPageScrollStateChanged(state);
             }
         });
-    }
-    @Override
-    protected TeacherPresenter createPresenter() {
-        return new TeacherPresenter();
-    }
-
-
-
-    @Override
-    public void showErrorMessage(String msg) {
-
-    }
-
-    @Override
-    public void getUserInfo(Map<String, Object> info) {
-        if (info != null){
-            this.userinfo = (Map<String, Object>) info.get("info");
-        }
-        else {
-            Toast.makeText(this, "空数据！", Toast.LENGTH_SHORT).show();
-        }
     }
 }

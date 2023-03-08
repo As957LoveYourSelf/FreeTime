@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class ChangeInfoPresenter extends BasePresenter<IChangeInfoView>{
 
-    public void fetch(User newUser){
-        IChangeInfoModel iChangeInfoModel = new ChangeInfoModel(newUser);
+    public void fetch(String uid, Map<String, Object> info){
+        IChangeInfoModel iChangeInfoModel = new ChangeInfoModel(uid, info);
         if (mView.get() != null){
             iChangeInfoModel.changeInfo(new IBaseModel.OnLoaderListener() {
                 @Override

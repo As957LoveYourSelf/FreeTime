@@ -1,7 +1,9 @@
 package com.example.freetime;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.freetime.presenter.LoginPagePresenter;
+import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.ILoginPageView;
 
 import java.io.Serializable;
@@ -73,7 +76,12 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
     public void goLogin(Map<String, Object> info) {
         // 拿到后端Json数据以后处理
         // 定义拿到数据的错误类型
-        System.out.println("INFO: "+info);
+        String uid = unameInput.getText().toString();
+        String utype = (String) info.get("utype");
+        String userToken = (String) info.get("userToken");
+        SaveInfoUtils.saveInfo(uid, userToken);
+
+//        System.out.println("INFO: "+info);
         Map<String ,String> msg = new HashMap<>();
         msg.put("psdUnCheck", "密码错误");
         msg.put("unameUnCheck", "用户名错误");
@@ -84,21 +92,14 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
 
         if (Objects.equals((String) info.get("postType"), "loginSuccess"))
         {
-            String uid = unameInput.getText().toString();
-            String utype = (String) info.get("utype");
-            String userToken = (String) info.get("userToken");
             if (Objects.equals(utype, "student")){
                 // 跳转至学生首页
                 Intent intent = new Intent(this, StudentAppContentActivity.class);
-                intent.putExtra("userToken", (Serializable) userToken);
-                intent.putExtra("uid", uid);
                 startActivity(intent);
             }
             else if (Objects.equals(utype, "teacher")){
                 // 跳转至教师首页
                 Intent intent = new Intent(this, TeacherAppContentActivity.class);
-                intent.putExtra("userToken", (Serializable) userToken);
-                intent.putExtra("uid", uid);
                 startActivity(intent);
             }
             else {

@@ -11,6 +11,7 @@ import com.example.freetime.fragment.FuncFragmentStu;
 import com.example.freetime.fragment.HomeFragmentStu;
 import com.example.freetime.fragment.MineFragment;
 import com.example.freetime.presenter.StudentPresenter;
+import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.IStudentView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,20 +24,14 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     ViewPager2 viewPager;
     BottomNavigationView bottomNavigationView;
-    String userToken;
-    HashMap<String, String> userMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_app_content);
-        userMsg = new HashMap<>();
-        String uid = getIntent().getStringExtra("uid");
-        userToken = getIntent().getStringExtra("userToken");
-        userMsg.put("uid", uid);
-        userMsg.put("token", userToken);
+        String[] strings = SaveInfoUtils.readInfo();
         try {
-            presenter.fetch(uid);
+            presenter.fetch(strings[0]);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,7 +49,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
 
     @Override
     public void getUserInfo(Map<String, Object> info) {
-        System.out.println("StuInfo: "+info);
+//        System.out.println("StuInfo: "+info);
         if (info != null){
             initPage((Map<String, Object>) info.get("info"));
         }
@@ -70,8 +65,8 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         viewPager = findViewById(R.id.student_viewpage);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragmentStu.newInstance(info));
-        fragments.add(FuncFragmentStu.newInstance(this.userMsg));
-        fragments.add(MineFragment.newInstance(this.userMsg));
+        fragments.add(FuncFragmentStu.newInstance());
+        fragments.add(MineFragment.newInstance());
         StudentFragmentPageAdapter adapter = new StudentFragmentPageAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

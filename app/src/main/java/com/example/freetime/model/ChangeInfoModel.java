@@ -17,17 +17,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ChangeInfoModel implements IChangeInfoModel {
 
     private Map<String, Object> postData;
+    String uid;
 
-    public ChangeInfoModel(User newInfo){
-        this.postData = new HashMap<>();
-        this.postData.put("newInfo", newInfo);
+    public ChangeInfoModel(String uid, Map<String, Object> info){
+        this.uid = uid;
+        this.postData = info;
     }
 
     @Override
     public void changeInfo(OnLoaderListener onLoaderListener) {
         if (this.postData != null){
             UserManageService service = RetrofitClient.getInstance().getService(UserManageService.class);
-            service.changeInfo(this.postData)
+            service.changeInfo(this.uid, this.postData)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {

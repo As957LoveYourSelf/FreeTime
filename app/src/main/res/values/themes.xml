@@ -47,5 +47,10 @@
         <item name="android:windowBackground">@drawable/loading_page</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/theme_blue</item>
+    </style>
+
 
 </resources>

@@ -64,7 +64,7 @@ public class PublicCourseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // 显示数据
         if (data != null){
-            System.out.println("PCS: "+data);
+//            System.out.println("PCS: "+data);
             listView = view.findViewById(R.id.pc_course_listview);
             listView.setAdapter(new CommonAdapter<Map<String, Object>>(getContext(), data, R.layout.item_view) {
                 @Override
@@ -74,7 +74,7 @@ public class PublicCourseFragment extends Fragment {
                     helper.setText(R.id.item_time, (String) item.get("time"));
                 }
             });
-            Toast.makeText(getContext(), "获取公共课数据成功", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "获取公共课数据成功", Toast.LENGTH_SHORT).show();
         }
     }
 }

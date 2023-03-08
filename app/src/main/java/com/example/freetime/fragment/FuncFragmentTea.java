@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class FuncFragmentTea extends BaseFuncFragment {
 
-    private static final String USERMSG = "usermsg";
     private View view;
     ImageButton btn6;
 
@@ -27,14 +26,8 @@ public class FuncFragmentTea extends BaseFuncFragment {
         // Required empty public constructor
     }
 
-    public static FuncFragmentTea newInstance(Map<String, String> userMsg) {
-        FuncFragmentTea fragment = new FuncFragmentTea();
-        if (userMsg != null){
-            Bundle args = new Bundle();
-            args.putSerializable(USERMSG, (Serializable) userMsg);
-            fragment.setArguments(args);
-        }
-        return fragment;
+    public static FuncFragmentTea newInstance() {
+        return new FuncFragmentTea();
     }
 
     @Override

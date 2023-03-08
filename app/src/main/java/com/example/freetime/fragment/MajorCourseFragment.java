@@ -75,7 +75,7 @@ public class MajorCourseFragment extends Fragment {
                     helper.setText(R.id.item_time, (String) item.get("time"));
                 }
             });
-            Toast.makeText(getContext(), "获取专业课数据成功", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "获取专业课数据成功", Toast.LENGTH_SHORT).show();
         }
     }
 }

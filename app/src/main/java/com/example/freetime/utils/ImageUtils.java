@@ -58,7 +58,7 @@ public class ImageUtils {
         byte[] bytes;
         try {
             bao = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bao);
             bytes = bao.toByteArray();
         }finally {
             bao.close();
@@ -89,7 +89,7 @@ public class ImageUtils {
         try {
             if (bitmap != null) {
                 baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
                 baos.flush();
                 baos.close();
