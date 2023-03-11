@@ -5,6 +5,7 @@ import com.example.freetime.beans.User;
 import com.example.freetime.model.interfaces.IChangeInfoModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.UserManageService;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +35,14 @@ public class ChangeInfoModel implements IChangeInfoModel {
                     .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                         @Override
                         public void accept(ResponseBean<Map<String, Object>> mapResponseBean) throws Throwable {
-                            if (Objects.equals(mapResponseBean.getMessage(), "success")){
+                            if (Objects.equals(mapResponseBean.getMessage(), "success")) {
                                 onLoaderListener.onMapComplete(mapResponseBean.getData());
                             }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });
         }

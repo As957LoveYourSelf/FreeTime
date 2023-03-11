@@ -14,6 +14,6 @@ public interface StyleTransformService {
     Flowable<ResponseBean<String>> defaultStyleTransform(@Body Map<String, Object> map);
 
     @POST("anyStyleTran")
-    Flowable<ResponseBean<byte[]>> anyStyleTransform(@Query("context") byte[] context,@Query("style") byte[] style);
+    Flowable<ResponseBean<byte[]>> anyStyleTransform(@Body Map<String, Object> map);
 
 }

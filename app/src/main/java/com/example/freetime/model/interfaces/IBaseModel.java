@@ -8,6 +8,6 @@ public interface IBaseModel {
         void onMapComplete(Map<String, Object> map);
         void onListComplete(List<Object> list);
         void onObjectComplete(Object obj);
-        void onErrMsg();
+        void onErrMsg(String msg);
     }
 }

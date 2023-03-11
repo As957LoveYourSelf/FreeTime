@@ -5,6 +5,7 @@ import com.example.freetime.model.interfaces.IBaseModel;
 import com.example.freetime.model.interfaces.IStudentModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.StudentService;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class StudentModel extends UserManageModel implements IStudentModel {
         if (this.sid != null){
             StudentService service = RetrofitClient.getInstance().getService(StudentService.class);
             Map<String, Object> userData = new HashMap<>();
+            System.out.println("开始请求用户信息");
             service.getInfo(this.sid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -40,7 +42,12 @@ public class StudentModel extends UserManageModel implements IStudentModel {
                     userData.put("info", info);
                     onLoaderListener.onMapComplete(userData);
                 }
-            });
+            },new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
+                        }
+                    });
         }
     }
 }

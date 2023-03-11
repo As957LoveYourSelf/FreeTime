@@ -7,11 +7,16 @@ android {
 
     defaultConfig {
         applicationId "com.example.freetime"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        externalNativeBuild{
+            cmake{
+                cppFlags "-std=c++11"
+                abiFilters "armeabi-v7a" , "arm64-v8a", "x86", "x86_64"
+            }
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,6 +30,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ["src\\main\\jni"]
+        }
+    }
+    externalNativeBuild{
+        cmake{
+            path "src\\main\\jni\\CMakeLists.txt"
+        }
+    }
+    ndkVersion '23.2.8568313'
 }
 
 dependencies {

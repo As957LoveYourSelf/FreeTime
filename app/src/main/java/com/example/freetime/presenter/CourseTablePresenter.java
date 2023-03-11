@@ -31,8 +31,8 @@ public class CourseTablePresenter extends BasePresenter<ICourseTableView>{
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }

@@ -31,8 +31,8 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }
@@ -58,8 +58,8 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }
@@ -85,8 +85,8 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }

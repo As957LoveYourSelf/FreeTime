@@ -35,8 +35,8 @@ public class SuperResolvePresenter extends BasePresenter<ISuperResolveView>{
                     }
 
                     @Override
-                    public void onErrMsg() {
-
+                    public void onErrMsg(String msg) {
+                        mView.get().showErrorMessage(msg);
                     }
                 });
             }

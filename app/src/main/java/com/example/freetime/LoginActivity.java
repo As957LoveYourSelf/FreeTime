@@ -37,21 +37,7 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        login_btn = findViewById(R.id.login_btn_before);
-        unameInput = findViewById(R.id.login_uname_input);
-        psdInput = findViewById(R.id.login_password_input);
-        change = false;
-        login_btn.setOnClickListener(v -> {
-            try {
-                Map<String, Object> response = new HashMap<>();
-                Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();
-                presenter.fetch(unameInput.getText().toString(), psdInput.getText().toString());
-//                System.out.println(unameInput.getText().toString()+" "+psdInput.getText().toString());
-            } catch (Exception e) {
-                Toast toast = Toast.makeText(this, "error", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+        initView();
     }
 
     @Override
@@ -69,17 +55,17 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
 
     @Override
     public void showErrorMessage(String msg) {
-
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     @Override
     public void goLogin(Map<String, Object> info) {
         // 拿到后端Json数据以后处理
         // 定义拿到数据的错误类型
-        String uid = unameInput.getText().toString();
         String utype = (String) info.get("utype");
-        String userToken = (String) info.get("userToken");
-        SaveInfoUtils.saveInfo(uid, userToken);
 
 //        System.out.println("INFO: "+info);
         Map<String ,String> msg = new HashMap<>();
@@ -106,6 +92,24 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
                 Toast.makeText(this, "没有该权限！", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void initView(){
+        login_btn = findViewById(R.id.login_btn_before);
+        unameInput = findViewById(R.id.login_uname_input);
+        psdInput = findViewById(R.id.login_password_input);
+        change = false;
+        login_btn.setOnClickListener(v -> {
+            try {
+                Map<String, Object> response = new HashMap<>();
+                Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();
+                presenter.fetch(unameInput.getText().toString(), psdInput.getText().toString());
+//                System.out.println(unameInput.getText().toString()+" "+psdInput.getText().toString());
+            } catch (Exception e) {
+                Toast toast = Toast.makeText(this, "error", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
 }

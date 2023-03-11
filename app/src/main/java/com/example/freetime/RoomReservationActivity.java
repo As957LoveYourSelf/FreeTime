@@ -3,6 +3,7 @@ package com.example.freetime;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.freetime.presenter.RoomReservationPresenter;
 import com.example.freetime.view.IRoomReservationView;
@@ -25,7 +26,9 @@ public class RoomReservationActivity extends BaseActivity<RoomReservationPresent
 
     @Override
     public void showErrorMessage(String msg) {
-
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

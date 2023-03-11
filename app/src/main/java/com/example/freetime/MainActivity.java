@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.freetime.presenter.MainPagePresenter;
 import com.example.freetime.view.IMainPageView;
@@ -39,7 +40,9 @@ public class MainActivity extends BaseActivity<MainPagePresenter, IMainPageView>
 
     @Override
     public void showErrorMessage(String msg) {
-
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

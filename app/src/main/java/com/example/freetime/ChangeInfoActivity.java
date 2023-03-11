@@ -50,7 +50,9 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoPresenter, IChang
 
     @Override
     public void showErrorMessage(String msg) {
-
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -88,21 +90,22 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoPresenter, IChang
         emailtext.setText(strings[2]);
         phonetext.setText(strings[3]);
         indroducetext.setText(strings[4]);
+        setButtonListener();
     }
 
     private void setButtonListener(){
         String uid = SaveInfoUtils.readInfo()[0];
-        Map<String, Object> data = new HashMap<>();
-        data.put("sex", sex);
-        data.put("email", emailtext.getText().toString());
-        data.put("age", Integer.parseInt(agetext.getText().toString()));
-        data.put("phone", phonetext.getText().toString());
-        data.put("introduce", indroducetext.getText().toString());
         confirm = findViewById(R.id.change_info_confirm);
         reset = findViewById(R.id.change_info_reset);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("sex", sex);
+                data.put("email", emailtext.getText().toString());
+                data.put("age", Integer.parseInt(agetext.getText().toString()));
+                data.put("phone", phonetext.getText().toString());
+                data.put("introduce", indroducetext.getText().toString());
                 presenter.fetch(uid, data);
             }
         });

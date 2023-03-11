@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.freetime.presenter.BasePresenter;
+import com.example.freetime.utils.BitmapUtils;
 import com.example.freetime.utils.GlideEngine;
 import com.example.freetime.view.IBaseView;
 import com.luck.picture.lib.basic.PictureSelector;
@@ -37,6 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
     protected P presenter;
     protected PopupWindow pop;
     protected boolean hasresult;
+    protected Bitmap realimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,6 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                 getWindow().setAttributes(lp);
             }
         });
-
         pop.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
 
         View.OnClickListener clickListener = new View.OnClickListener() {
@@ -91,6 +93,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                         PictureSelector.create(BaseActivity.this)
                                 .openGallery(SelectMimeType.ofImage())
                                 .setImageEngine(GlideEngine.createGlideEngine())
+                                .setMaxSelectNum(1)
                                 .forResult(new OnResultCallbackListener<LocalMedia>() {
                                     @Override
                                     public void onResult(ArrayList<LocalMedia> result) {
@@ -99,6 +102,8 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         File file = new File(path);
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
+                                            realimg = bitmap;
+                                            bitmap = BitmapUtils.scaleImage(bitmap, img.getWidth(), img.getHeight());
                                             img.setImageBitmap(bitmap);
                                             hasresult = true;
                                             Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
@@ -125,12 +130,13 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         File file = new File(path);
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
+                                            realimg = bitmap;
+                                            bitmap = BitmapUtils.scaleImage(bitmap, img.getWidth(), img.getHeight());
                                             img.setImageBitmap(bitmap);
                                             hasresult = true;
                                             Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
                                         }
                                     }
-
                                     @Override
                                     public void onCancel() {
 

@@ -44,7 +44,9 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     @Override
     public void showErrorMessage(String msg) {
-
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

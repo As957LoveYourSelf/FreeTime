@@ -5,6 +5,7 @@ import com.example.freetime.model.interfaces.IChangePasswordModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.UserManageService;
 import com.example.freetime.utils.Md5Util;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class ChangePasswordModel implements IChangePasswordModel {
                             if (Objects.equals(mapResponseBean.getMessage(), "success")){
                                 onLoaderListener.onMapComplete(mapResponseBean.getData());
                             }
+                        }
+                    },new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });
         }

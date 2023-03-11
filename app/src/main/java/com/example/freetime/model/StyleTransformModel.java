@@ -10,6 +10,7 @@ import com.example.freetime.model.interfaces.IStyleTransformModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.StyleTransformService;
 import com.example.freetime.utils.ImageUtils;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -46,9 +47,9 @@ public class StyleTransformModel implements IStyleTransformModel {
     public void defaultStyleTransform(OnLoaderListener onLoaderListener) {
         try {
             if (this.bitmap != null && type != null){
-//                byte[] bytes = ImageUtils.bitmap2Bytes(bitmap);
-//                String s = Base64.getEncoder().encodeToString(bytes);
-                String s = ImageUtils.bitmapToBase64(bitmap);
+                byte[] bytes = ImageUtils.bitmap2Bytes(bitmap);
+                String s = Base64.getEncoder().encodeToString(bytes);
+//                String s = ImageUtils.bitmapToBase64(bitmap);
                 StyleTransformService service = RetrofitClient.getInstance().getService(StyleTransformService.class);
                 Map<String, Object> data = new HashMap<>();
                 data.put("img", s);
@@ -67,8 +68,7 @@ public class StyleTransformModel implements IStyleTransformModel {
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Throwable {
-                                throwable.printStackTrace();
-                                System.out.println("请求失败");
+                                onLoaderListener.onErrMsg("网络请求错误");
                             }
                         });
             }
@@ -84,7 +84,10 @@ public class StyleTransformModel implements IStyleTransformModel {
                 byte[] context = ImageUtils.bitmap2Bytes(this.context);
                 byte[] style = ImageUtils.bitmap2Bytes(this.style);
                 StyleTransformService service = RetrofitClient.getInstance().getService(StyleTransformService.class);
-                service.anyStyleTransform(context, style)
+                Map<String, Object> data = new HashMap<>();
+                data.put("context", context);
+                data.put("style", style);
+                service.anyStyleTransform(data)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<ResponseBean<byte[]>>() {
@@ -95,7 +98,7 @@ public class StyleTransformModel implements IStyleTransformModel {
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Throwable {
-                                throwable.printStackTrace();
+                                onLoaderListener.onErrMsg("网络请求错误");
                             }
                         });
             }

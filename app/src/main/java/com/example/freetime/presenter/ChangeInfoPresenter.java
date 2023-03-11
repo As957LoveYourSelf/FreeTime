@@ -31,8 +31,8 @@ public class ChangeInfoPresenter extends BasePresenter<IChangeInfoView>{
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }

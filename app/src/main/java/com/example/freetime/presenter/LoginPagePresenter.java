@@ -34,9 +34,8 @@ public class LoginPagePresenter extends BasePresenter<ILoginPageView>{
                 }
 
                 @Override
-                public void onErrMsg() {
-                    // 显示错误信息
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }

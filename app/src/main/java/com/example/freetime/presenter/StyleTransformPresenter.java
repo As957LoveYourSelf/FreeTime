@@ -34,8 +34,8 @@ public class StyleTransformPresenter extends BasePresenter<IStyleTransformView>{
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }
@@ -62,8 +62,8 @@ public class StyleTransformPresenter extends BasePresenter<IStyleTransformView>{
                 }
 
                 @Override
-                public void onErrMsg() {
-
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
                 }
             });
         }

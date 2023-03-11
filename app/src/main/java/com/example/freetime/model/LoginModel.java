@@ -4,11 +4,13 @@ import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.LoginService;
 import com.example.freetime.utils.Md5Util;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LoginModel implements ILoginModel {
@@ -37,12 +39,14 @@ public class LoginModel implements ILoginModel {
                 Map<String, Object> response = new HashMap<>();
                 map.put("id", this.uname);
                 map.put("psd", this.psd);
+                System.out.println("开始登录");
                 service.post(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mapResponseBean -> {
                     Map<String, Object> info = mapResponseBean.getData();
 //                    System.out.println(info);
                     if (info.get("loginState").equals("success")) {
+                        SaveInfoUtils.saveInfo(uname, (String) info.get("usertoken"));
                         response.put("postType", "loginSuccess");
                         response.put("utype", info.get("utype"));
                         response.put("userToken", info.get("usertoken"));
@@ -50,6 +54,11 @@ public class LoginModel implements ILoginModel {
                         response.put("postType", info.get("loginState"));
                     }
                     onLoaderListener.onMapComplete(response);
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        onLoaderListener.onErrMsg("网络请求错误");
+                    }
                 });
             }
         }catch (Exception e){

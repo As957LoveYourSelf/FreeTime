@@ -4,6 +4,7 @@ import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ITeacherModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.TeacherService;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,12 @@ public class TeacherModel extends UserManageModel implements ITeacherModel {
                     response.put("info", mapResponseBean.getData());
                     onLoaderListener.onMapComplete(response);
                 }
-            });
+            },new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
+                        }
+                    });
         }
     }
 }

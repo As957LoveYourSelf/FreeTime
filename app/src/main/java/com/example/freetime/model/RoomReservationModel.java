@@ -4,6 +4,7 @@ import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.IRoomReservationModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.RoomReservationService;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,11 @@ public class RoomReservationModel implements IRoomReservationModel {
                         public void accept(ResponseBean<String> stringResponseBean) throws Throwable {
                             onLoaderListener.onObjectComplete(stringResponseBean.getData());
                         }
+                    },new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
+                        }
                     });
         }
     }
@@ -75,6 +81,11 @@ public class RoomReservationModel implements IRoomReservationModel {
                         @Override
                         public void accept(ResponseBean<List<Object>> listResponseBean) throws Throwable {
                             onLoaderListener.onListComplete(listResponseBean.getData());
+                        }
+                    },new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Throwable {
+                            onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });
         }

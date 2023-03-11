@@ -4,6 +4,7 @@ import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ICourseTableModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.CourseTableService;
+import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +39,12 @@ public class CourseTableModel implements ICourseTableModel {
                             onLoaderListener.onMapComplete(mapResponseBean.getData());
                         }
                     }
-                });
+                },new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                onLoaderListener.onErrMsg("网络请求错误");
+                            }}
+                        );
             }
 
             if (Objects.equals(this.utype, "student")){
@@ -53,7 +59,12 @@ public class CourseTableModel implements ICourseTableModel {
 
                         }
                     }
-                });
+                },new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                onLoaderListener.onErrMsg("网络请求错误");
+                            }
+                        });
             }
         }
     }

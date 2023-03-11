@@ -1,5 +1,6 @@
 package com.example.freetime;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.freetime.presenter.StyleTransformPresenter;
+import com.example.freetime.utils.BitmapUtils;
 import com.example.freetime.utils.SaveInfoUtils;
 import com.example.freetime.view.IStyleTransformView;
 
@@ -25,6 +27,7 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
     ImageButton trans_btn;
     ImageButton choose_style_btn;
     TextView textView;
+    Button save_button;
     int type;
     private PopupWindow choosepop;
 
@@ -32,6 +35,69 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style_transform);
+        initView();
+    }
+
+    @Override
+    protected StyleTransformPresenter createPresenter() {
+        return new StyleTransformPresenter();
+    }
+
+    @Override
+    public void showErrorMessage(String msg) {
+        if (msg != null){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void defaultStyleTransform(byte[] result) {
+        if (result != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
+            Bitmap finalBitmap = bitmap;
+            save_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String result = BitmapUtils.saveBitmapToLocal(finalBitmap,"StyleTransform");
+                    if (result != null){
+                        Toast.makeText(StyleTransformActivity.this, "图片已保存至"+result, Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(StyleTransformActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            bitmap = BitmapUtils.scaleImage(bitmap,view.getWidth(),view.getHeight());
+            view.setImageBitmap(bitmap);
+            save_button.setVisibility(View.VISIBLE);
+            Toast.makeText(StyleTransformActivity.this, "转化成功!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void anyStyleTransform(byte[] result) {
+        if (result != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
+            Bitmap finalBitmap = bitmap;
+            save_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String result = BitmapUtils.saveBitmapToLocal(finalBitmap,"StyleTransform");
+                    if (result != null){
+                        Toast.makeText(StyleTransformActivity.this, "图片已保存至"+result, Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(StyleTransformActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            bitmap = BitmapUtils.scaleImage(bitmap,view.getWidth(),view.getHeight());
+            save_button.setVisibility(View.VISIBLE);
+            view.setImageBitmap(bitmap);
+        }
+    }
+
+    private void initView(){
+        save_button = findViewById(R.id.style_img_save);
         view = findViewById(R.id.style_tran_img_show);
         trans_btn = findViewById(R.id.trans_btn);
         choose_style_btn = findViewById(R.id.choose_style_btn);
@@ -54,36 +120,11 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
             public void onClick(View v) {
                 if (hasresult){
                     Toast.makeText(StyleTransformActivity.this, "正在后台转化中，请稍等", Toast.LENGTH_SHORT).show();
-                    presenter.defaultStyleTransform(((BitmapDrawable)view.getDrawable()).getBitmap(),type, SaveInfoUtils.readInfo()[0]);
+                    presenter.defaultStyleTransform(realimg ,type, SaveInfoUtils.readInfo()[0]);
                 }
             }
         });
-    }
-
-    @Override
-    protected StyleTransformPresenter createPresenter() {
-        return new StyleTransformPresenter();
-    }
-
-    @Override
-    public void showErrorMessage(String msg) {
-
-    }
-
-
-    @Override
-    public void defaultStyleTransform(byte[] result) {
-        if (result != null){
-            view.setImageBitmap(BitmapFactory.decodeByteArray(result,0,result.length));
-            Toast.makeText(StyleTransformActivity.this, "转化成功!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void anyStyleTransform(byte[] result) {
-        if (result != null){
-
-        }
+        save_button.setVisibility(View.GONE);
     }
 
     private void popueChooseWindow(){
