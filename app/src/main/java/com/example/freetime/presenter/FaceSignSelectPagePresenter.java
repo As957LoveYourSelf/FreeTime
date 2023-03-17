@@ -1,20 +1,19 @@
 package com.example.freetime.presenter;
 
-import com.example.freetime.model.FaceImportModel;
+import com.example.freetime.model.FaceSignSelectPageModel;
 import com.example.freetime.model.interfaces.IBaseModel;
-import com.example.freetime.model.interfaces.IFaceImportModel;
-import com.example.freetime.view.IFaceImportView;
+import com.example.freetime.model.interfaces.IFaceSignSelectPageModel;
+import com.example.freetime.view.IFaceSignSelectPageView;
 
 import java.util.List;
 import java.util.Map;
 
-public class FaceImportPresenter extends BasePresenter<IFaceImportView>{
-
-    IFaceImportModel faceImportModel = new FaceImportModel();
+public class FaceSignSelectPagePresenter extends BasePresenter<IFaceSignSelectPageView>{
+    IFaceSignSelectPageModel faceSignSelectPageModel = new FaceSignSelectPageModel();
 
     public void fetch(){
-        if (faceImportModel != null && mView.get() != null){
-            faceImportModel.importFace(new IBaseModel.OnLoaderListener() {
+        if (faceSignSelectPageModel != null && mView.get() != null){
+            faceSignSelectPageModel.getClassSelector(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {
 
@@ -22,13 +21,12 @@ public class FaceImportPresenter extends BasePresenter<IFaceImportView>{
 
                 @Override
                 public void onListComplete(List<Object> list) {
-
+                    mView.get().getSignClasses(list);
                 }
 
                 @Override
                 public void onObjectComplete(Object obj) {
-                    String response = (String) obj;
-                    mView.get().importFace(response);
+
                 }
 
                 @Override

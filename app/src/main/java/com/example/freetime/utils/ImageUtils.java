@@ -3,12 +3,27 @@ package com.example.freetime.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.util.Base64;
 
+import androidx.annotation.RequiresApi;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class ImageUtils {
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static byte[] readImageToBytes(String path) throws IOException {
+        File file = new File(path);
+        if (file.exists()){
+            return Files.readAllBytes(file.toPath());
+        }
+        return null;
+    }
 
     //回收图片所占的内存
     public static void gcBitmap(Bitmap bitmap) {

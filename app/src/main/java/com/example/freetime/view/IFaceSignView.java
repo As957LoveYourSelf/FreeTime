@@ -1,7 +1,8 @@
 package com.example.freetime.view;
 
-import com.example.freetime.beans.User;
+
+import java.util.Map;
 
 public interface IFaceSignView extends IBaseView{
-    void signFace(User user);
+    void signFace(Map<String, Object> response);
 }

@@ -13,10 +13,10 @@
 // specific language governing permissions and limitations under the License.
 
 #include "scrfd.h"
-
-#include <string.h>
+#include <cstring>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 
 #include "cpu.h"
 
@@ -88,13 +88,13 @@ static void nms_sorted_bboxes(const std::vector<FaceObject>& faceobjects, std::v
         const FaceObject& a = faceobjects[i];
 
         int keep = 1;
-        for (int j = 0; j < (int)picked.size(); j++)
+        for (int j : picked)
         {
-            const FaceObject& b = faceobjects[picked[j]];
+            const FaceObject& b = faceobjects[j];
 
             // intersection over union
             float inter_area = intersection_area(a, b);
-            float union_area = areas[i] + areas[picked[j]] - inter_area;
+            float union_area = areas[i] + areas[j] - inter_area;
             //             float IoU = inter_area / union_area
             if (inter_area / union_area > nms_threshold)
                 keep = 0;
@@ -225,7 +225,7 @@ static void generate_proposals(const ncnn::Mat& anchors, int feat_stride, const 
     }
 }
 
-int SCRFD::load(const char* modeltype, bool use_gpu)
+int SCRFD::load()
 {
     scrfd.clear();
 
@@ -234,26 +234,26 @@ int SCRFD::load(const char* modeltype, bool use_gpu)
 
     scrfd.opt = ncnn::Option();
 
-#if NCNN_VULKAN
-    scrfd.opt.use_vulkan_compute = use_gpu;
-#endif
+//#if NCNN_VULKAN
+//    scrfd.opt.use_vulkan_compute = use_gpu;
+//#endif
 
     scrfd.opt.num_threads = ncnn::get_big_cpu_count();
 
     char parampath[256];
     char modelpath[256];
-    sprintf(parampath, "scrfd_%s-opt2.param", modeltype);
-    sprintf(modelpath, "scrfd_%s-opt2.bin", modeltype);
+    sprintf(parampath, "scrfd_500m_kps-opt2.param");
+    sprintf(modelpath, "scrfd_500m_kps-opt2.bin");
 
     scrfd.load_param(parampath);
     scrfd.load_model(modelpath);
 
-    has_kps = strstr(modeltype, "_kps") != NULL;
+//    has_kps = strstr(modeltype, "_kps") != NULL;
 
     return 0;
 }
 
-int SCRFD::load(AAssetManager* mgr, const char* modeltype, bool use_gpu)
+int SCRFD::load(AAssetManager* mgr)
 {
     scrfd.clear();
 
@@ -262,21 +262,21 @@ int SCRFD::load(AAssetManager* mgr, const char* modeltype, bool use_gpu)
 
     scrfd.opt = ncnn::Option();
 
-#if NCNN_VULKAN
-    scrfd.opt.use_vulkan_compute = use_gpu;
-#endif
+//#if NCNN_VULKAN
+//    scrfd.opt.use_vulkan_compute = use_gpu;
+//#endif
 
     scrfd.opt.num_threads = ncnn::get_big_cpu_count();
 
     char parampath[256];
     char modelpath[256];
-    sprintf(parampath, "scrfd_%s-opt2.param", modeltype);
-    sprintf(modelpath, "scrfd_%s-opt2.bin", modeltype);
+    sprintf(parampath, "scrfd_500m_kps-opt2.param");
+    sprintf(modelpath, "scrfd_500m_kps-opt2.bin");
 
     scrfd.load_param(mgr, parampath);
     scrfd.load_model(mgr, modelpath);
 
-    has_kps = strstr(modeltype, "_kps") != NULL;
+//    has_kps = strstr(modeltype, "_kps") != NULL;
 
     return 0;
 }
@@ -329,8 +329,8 @@ int SCRFD::detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, floa
         ncnn::Mat score_blob, bbox_blob, kps_blob;
         ex.extract("score_8", score_blob);
         ex.extract("bbox_8", bbox_blob);
-        if (has_kps)
-            ex.extract("kps_8", kps_blob);
+//        if (has_kps)
+//            ex.extract("kps_8", kps_blob);
 
         const int base_size = 16;
         const int feat_stride = 8;
@@ -352,8 +352,8 @@ int SCRFD::detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, floa
         ncnn::Mat score_blob, bbox_blob, kps_blob;
         ex.extract("score_16", score_blob);
         ex.extract("bbox_16", bbox_blob);
-        if (has_kps)
-            ex.extract("kps_16", kps_blob);
+//        if (has_kps)
+//            ex.extract("kps_16", kps_blob);
 
         const int base_size = 64;
         const int feat_stride = 16;
@@ -375,8 +375,8 @@ int SCRFD::detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, floa
         ncnn::Mat score_blob, bbox_blob, kps_blob;
         ex.extract("score_32", score_blob);
         ex.extract("bbox_32", bbox_blob);
-        if (has_kps)
-            ex.extract("kps_32", kps_blob);
+//        if (has_kps)
+//            ex.extract("kps_32", kps_blob);
 
         const int base_size = 256;
         const int feat_stride = 32;
@@ -423,30 +423,31 @@ int SCRFD::detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, floa
         faceobjects[i].rect.width = x1 - x0;
         faceobjects[i].rect.height = y1 - y0;
 
-        if (has_kps)
-        {
-            float x0 = (faceobjects[i].landmark[0].x - (wpad / 2)) / scale;
-            float y0 = (faceobjects[i].landmark[0].y - (hpad / 2)) / scale;
-            float x1 = (faceobjects[i].landmark[1].x - (wpad / 2)) / scale;
-            float y1 = (faceobjects[i].landmark[1].y - (hpad / 2)) / scale;
-            float x2 = (faceobjects[i].landmark[2].x - (wpad / 2)) / scale;
-            float y2 = (faceobjects[i].landmark[2].y - (hpad / 2)) / scale;
-            float x3 = (faceobjects[i].landmark[3].x - (wpad / 2)) / scale;
-            float y3 = (faceobjects[i].landmark[3].y - (hpad / 2)) / scale;
-            float x4 = (faceobjects[i].landmark[4].x - (wpad / 2)) / scale;
-            float y4 = (faceobjects[i].landmark[4].y - (hpad / 2)) / scale;
+//        if (has_kps)
+//        {
+        float x0_ = (faceobjects[i].landmark[0].x - (wpad / 2)) / scale;
+        float y0_ = (faceobjects[i].landmark[0].y - (hpad / 2)) / scale;
+        float x1_ = (faceobjects[i].landmark[1].x - (wpad / 2)) / scale;
+        float y1_ = (faceobjects[i].landmark[1].y - (hpad / 2)) / scale;
+        float x2 = (faceobjects[i].landmark[2].x - (wpad / 2)) / scale;
+        float y2 = (faceobjects[i].landmark[2].y - (hpad / 2)) / scale;
+        float x3 = (faceobjects[i].landmark[3].x - (wpad / 2)) / scale;
+        float y3 = (faceobjects[i].landmark[3].y - (hpad / 2)) / scale;
+        float x4 = (faceobjects[i].landmark[4].x - (wpad / 2)) / scale;
+        float y4 = (faceobjects[i].landmark[4].y - (hpad / 2)) / scale;
 
-            faceobjects[i].landmark[0].x = std::max(std::min(x0, (float)width - 1), 0.f);
-            faceobjects[i].landmark[0].y = std::max(std::min(y0, (float)height - 1), 0.f);
-            faceobjects[i].landmark[1].x = std::max(std::min(x1, (float)width - 1), 0.f);
-            faceobjects[i].landmark[1].y = std::max(std::min(y1, (float)height - 1), 0.f);
-            faceobjects[i].landmark[2].x = std::max(std::min(x2, (float)width - 1), 0.f);
-            faceobjects[i].landmark[2].y = std::max(std::min(y2, (float)height - 1), 0.f);
-            faceobjects[i].landmark[3].x = std::max(std::min(x3, (float)width - 1), 0.f);
-            faceobjects[i].landmark[3].y = std::max(std::min(y3, (float)height - 1), 0.f);
-            faceobjects[i].landmark[4].x = std::max(std::min(x4, (float)width - 1), 0.f);
-            faceobjects[i].landmark[4].y = std::max(std::min(y4, (float)height - 1), 0.f);
-        }
+        // landmark info
+        faceobjects[i].landmark[0].x = std::max(std::min(x0_, (float)width - 1), 0.f);
+        faceobjects[i].landmark[0].y = std::max(std::min(y0_, (float)height - 1), 0.f);
+        faceobjects[i].landmark[1].x = std::max(std::min(x1_, (float)width - 1), 0.f);
+        faceobjects[i].landmark[1].y = std::max(std::min(y1_, (float)height - 1), 0.f);
+        faceobjects[i].landmark[2].x = std::max(std::min(x2, (float)width - 1), 0.f);
+        faceobjects[i].landmark[2].y = std::max(std::min(y2, (float)height - 1), 0.f);
+        faceobjects[i].landmark[3].x = std::max(std::min(x3, (float)width - 1), 0.f);
+        faceobjects[i].landmark[3].y = std::max(std::min(y3, (float)height - 1), 0.f);
+        faceobjects[i].landmark[4].x = std::max(std::min(x4, (float)width - 1), 0.f);
+        faceobjects[i].landmark[4].y = std::max(std::min(y4, (float)height - 1), 0.f);
+//        }
     }
 
     return 0;
@@ -454,23 +455,22 @@ int SCRFD::detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, floa
 
 int SCRFD::draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects)
 {
-    for (size_t i = 0; i < faceobjects.size(); i++)
+    for (const auto & obj : faceobjects)
     {
-        const FaceObject& obj = faceobjects[i];
 
 //         fprintf(stderr, "%.5f at %.2f %.2f %.2f x %.2f\n", obj.prob,
 //                 obj.rect.x, obj.rect.y, obj.rect.width, obj.rect.height);
 
         cv::rectangle(rgb, obj.rect, cv::Scalar(0, 255, 0));
 
-        if (has_kps)
-        {
-            cv::circle(rgb, obj.landmark[0], 2, cv::Scalar(255, 255, 0), -1);
-            cv::circle(rgb, obj.landmark[1], 2, cv::Scalar(255, 255, 0), -1);
-            cv::circle(rgb, obj.landmark[2], 2, cv::Scalar(255, 255, 0), -1);
-            cv::circle(rgb, obj.landmark[3], 2, cv::Scalar(255, 255, 0), -1);
-            cv::circle(rgb, obj.landmark[4], 2, cv::Scalar(255, 255, 0), -1);
-        }
+//        if (has_kps)
+//        {
+//            cv::circle(rgb, obj.landmark[0], 2, cv::Scalar(255, 255, 0), -1);
+//            cv::circle(rgb, obj.landmark[1], 2, cv::Scalar(255, 255, 0), -1);
+//            cv::circle(rgb, obj.landmark[2], 2, cv::Scalar(255, 255, 0), -1);
+//            cv::circle(rgb, obj.landmark[3], 2, cv::Scalar(255, 255, 0), -1);
+//            cv::circle(rgb, obj.landmark[4], 2, cv::Scalar(255, 255, 0), -1);
+//        }
 
         char text[256];
         sprintf(text, "%.1f%%", obj.prob * 100);
@@ -492,3 +492,23 @@ int SCRFD::draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects)
 
     return 0;
 }
+
+char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceobjects) {
+    char *save_state = new char[10];
+    if (faceobjects.size() == 1){
+        cv::Mat select_img = rgb(faceobjects[0].rect);
+//        cv::Mat t1;
+        if (select_img.cols > select_img.rows){
+            cv::flip(select_img, select_img, 1);
+        }
+        cv::cvtColor(select_img, select_img, cv::COLOR_BGR2RGB);
+        cv::imwrite("data/data/com.example.freetime/select_img.jpg", select_img);
+        save_state = "success";
+    } else if (faceobjects.size() > 1){
+        save_state = "more";
+    } else if (faceobjects.empty()){
+        save_state = "none";
+    }
+    return save_state;
+}
+

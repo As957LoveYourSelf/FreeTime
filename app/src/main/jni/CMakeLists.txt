@@ -3,12 +3,11 @@ project(freetime)
 cmake_minimum_required(VERSION 3.10)
 
 set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/opencv-mobile-4.6.0-android/sdk/native/jni)
-find_package(OpenCV REQUIRED core imgproc)
+find_package(OpenCV REQUIRED)
 
 set(ncnn_DIR ${CMAKE_SOURCE_DIR}/ncnn-20230223-android-vulkan/${ANDROID_ABI}/lib/cmake/ncnn)
 find_package(ncnn REQUIRED)
 
-add_library(freetime SHARED scrfdncnn.cpp scrfd.cpp ndkcamera.cpp)
 
 # openmp
 option(COLORGAN_OPENMP "openmp support" ON)
@@ -24,6 +23,5 @@ if (USE_OPEN_MP)
     endif ()
 endif ()
 
-
-add_executaadd_executable(freetime colornet.cpp)
+add_library(freetime SHARED scrfdncnn.cpp scrfd.cpp ndkcamera.cpp)
 target_link_libraries(freetime ncnn ${OpenCV_LIBS} camera2ndk mediandk)

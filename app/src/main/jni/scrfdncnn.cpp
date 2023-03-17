@@ -56,7 +56,7 @@ static int draw_unsupported(cv::Mat& rgb)
     return 0;
 }
 
-static int draw_fps(cv::Mat& rgb)
+static void draw_fps(cv::Mat& rgb)
 {
     // resolve moving average
     float avg_fps = 0.f;
@@ -68,7 +68,7 @@ static int draw_fps(cv::Mat& rgb)
         if (t0 == 0.f)
         {
             t0 = t1;
-            return 0;
+            return;
         }
 
         float fps = 1000.f / (t1 - t0);
@@ -82,12 +82,12 @@ static int draw_fps(cv::Mat& rgb)
 
         if (fps_history[9] == 0.f)
         {
-            return 0;
+            return;
         }
 
-        for (int i = 0; i < 10; i++)
+        for (float i : fps_history)
         {
-            avg_fps += fps_history[i];
+            avg_fps += i;
         }
         avg_fps /= 10.f;
     }
@@ -106,12 +106,12 @@ static int draw_fps(cv::Mat& rgb)
 
     cv::putText(rgb, text, cv::Point(x, y + label_size.height),
                 cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
-
-    return 0;
 }
 
-static SCRFD* g_scrfd = 0;
+static SCRFD* g_scrfd = nullptr;
+static bool crop_face = false;
 static ncnn::Mutex lock;
+char *save_state = new char[10];
 
 class MyNdkCamera : public NdkCameraWindow
 {
@@ -129,8 +129,12 @@ void MyNdkCamera::on_image_render(cv::Mat& rgb) const
         {
             std::vector<FaceObject> faceobjects;
             g_scrfd->detect(rgb, faceobjects);
-
             g_scrfd->draw(rgb, faceobjects);
+            if (crop_face){
+                save_state = g_scrfd->get_select_face(rgb,faceobjects);
+                __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%s", save_state);
+                crop_face = false;
+            }
         }
         else
         {
@@ -141,7 +145,7 @@ void MyNdkCamera::on_image_render(cv::Mat& rgb) const
     draw_fps(rgb);
 }
 
-static MyNdkCamera* g_camera = 0;
+static MyNdkCamera* g_camera = nullptr;
 
 extern "C" {
 
@@ -160,96 +164,91 @@ JNIEXPORT void JNI_OnUnload(JavaVM* vm, void* reserved)
 
     {
         ncnn::MutexLockGuard g(lock);
-
         delete g_scrfd;
-        g_scrfd = 0;
+        g_scrfd = nullptr;
     }
 
     delete g_camera;
-    g_camera = 0;
+    g_camera = nullptr;
 }
 
 // public native boolean loadModel(AssetManager mgr, int modelid, int cpugpu);
-JNIEXPORT jboolean JNICALL Java_com_tencent_scrfdncnn_SCRFDNcnn_loadModel(JNIEnv* env, jobject thiz, jobject assetManager, jint modelid, jint cpugpu)
+JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_loadModel(JNIEnv* env, jobject thiz, jobject assetManager)
 {
-    if (modelid < 0 || modelid > 7 || cpugpu < 0 || cpugpu > 1)
-    {
-        return JNI_FALSE;
-    }
+//    if (modelid < 0 || modelid > 7 || cpugpu < 0 || cpugpu > 1)
+//    {
+//        return JNI_FALSE;
+//    }
 
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
 
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "loadModel %p", mgr);
 
-    const char* modeltypes[] =
-    {
-        "500m",
-        "500m_kps",
-        "1g",
-        "2.5g",
-        "2.5g_kps",
-        "10g",
-        "10g_kps",
-        "34g"
-    };
-
-    const char* modeltype = modeltypes[(int)modelid];
-    bool use_gpu = (int)cpugpu == 1;
-
-    // reload
     {
         ncnn::MutexLockGuard g(lock);
+        if (!g_scrfd)
+            g_scrfd = new SCRFD;
+        g_scrfd->load(mgr);
 
-        if (use_gpu && ncnn::get_gpu_count() == 0)
-        {
-            // no gpu
-            delete g_scrfd;
-            g_scrfd = 0;
-        }
-        else
-        {
-            if (!g_scrfd)
-                g_scrfd = new SCRFD;
-            g_scrfd->load(mgr, modeltype, use_gpu);
-        }
     }
 
     return JNI_TRUE;
 }
 
 // public native boolean openCamera(int facing);
-JNIEXPORT jboolean JNICALL Java_com_tencent_scrfdncnn_SCRFDNcnn_openCamera(JNIEnv* env, jobject thiz, jint facing)
+JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_openCamera(JNIEnv* env, jobject thiz, jint facing)
 {
     if (facing < 0 || facing > 1)
         return JNI_FALSE;
 
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "openCamera %d", facing);
 
-    g_camera->open((int)facing);
-
+    if (g_camera != nullptr){
+        g_camera->open((int)facing);
+    } else{
+        return JNI_FALSE;
+    }
     return JNI_TRUE;
 }
 
 // public native boolean closeCamera();
-JNIEXPORT jboolean JNICALL Java_com_tencent_scrfdncnn_SCRFDNcnn_closeCamera(JNIEnv* env, jobject thiz)
+JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_closeCamera(JNIEnv* env, jobject thiz)
 {
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "closeCamera");
 
-    g_camera->close();
+    if (g_camera != nullptr){
+        g_camera->close();
+    } else{
+        return JNI_FALSE;
+    }
 
     return JNI_TRUE;
 }
 
 // public native boolean setOutputWindow(Surface surface);
-JNIEXPORT jboolean JNICALL Java_com_tencent_scrfdncnn_SCRFDNcnn_setOutputWindow(JNIEnv* env, jobject thiz, jobject surface)
+JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_setOutputWindow(JNIEnv* env, jobject thiz, jobject surface)
 {
     ANativeWindow* win = ANativeWindow_fromSurface(env, surface);
 
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "setOutputWindow %p", win);
 
-    g_camera->set_window(win);
-
+    if (g_camera != nullptr){
+        g_camera->set_window(win);
+    } else{
+        return JNI_FALSE;
+    }
     return JNI_TRUE;
 }
 
+
+// public native boolean cropFace();
+JNIEXPORT void JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_cropFace(JNIEnv *env, jobject thiz) {
+    crop_face = true;
 }
+
+JNIEXPORT jstring JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_getSaveState(JNIEnv *env, jobject thiz) {
+    return env->NewStringUTF(save_state);
+}
+
+}
+

@@ -29,17 +29,18 @@ struct FaceObject
 class SCRFD
 {
 public:
-    int load(const char* modeltype, bool use_gpu = false);
+    int load();
 
-    int load(AAssetManager* mgr, const char* modeltype, bool use_gpu = false);
-
-    int detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, float prob_threshold = 0.5f, float nms_threshold = 0.45f);
+    int load(AAssetManager* mgr);
+    // prob_threshold 识别阈值 nms_threshold nms阈值
+    int detect(const cv::Mat& rgb, std::vector<FaceObject>& faceobjects, float prob_threshold = 0.8f, float nms_threshold = 0.45f);
 
     int draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects);
 
+    char* get_select_face(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects);
+
 private:
     ncnn::Net scrfd;
-    bool has_kps;
 };
 
 #endif // SCRFD_H

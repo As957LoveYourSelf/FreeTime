@@ -6,4 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".FaceSignActivity">
 
+
+    <TextView
+        android:id="@+id/uname_sign"
+        android:layout_width="155dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="671dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="23dp"
+        android:text="班级+姓名"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SurfaceView
+        android:id="@+id/sign_face_view"
+        android:layout_width="413dp"
+        android:layout_height="607dp"
+        android:layout_marginBottom="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/avatar_sign_face"
+        android:layout_width="106dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="615dp"
+        android:layout_marginEnd="269dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/id_sign"
+        android:layout_width="155dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="634dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="60dp"
+        android:text="学号"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/change_sign_camara"
+        android:layout_width="119dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="146dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="681dp"
+        android:text="切换摄像头"
+        app:backgroundTint="@color/theme_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.freetime;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -37,6 +39,22 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         }
     }
 
+    private long firstTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        long secondTime = System.currentTimeMillis();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (secondTime - firstTime < 2000) {
+                System.exit(0);
+            } else {
+                Toast.makeText(StudentAppContentActivity.this, "再点一次退出程序", Toast.LENGTH_SHORT).show();
+                firstTime = System.currentTimeMillis();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     protected StudentPresenter createPresenter() {
         return new StudentPresenter();
@@ -56,6 +74,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
             initPage((Map<String, Object>) info.get("info"));
         }
     }
+
     private void initPage(Map<String, Object> info){
         bottomNavigationView = findViewById(R.id.student_bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -89,4 +108,5 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
             }
         });
     }
+
 }
