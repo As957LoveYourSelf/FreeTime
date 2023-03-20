@@ -38,8 +38,8 @@ public class HomeFragmentTea extends Fragment {
     public HomeFragmentTea() {
     }
 
-    public static HomeFragmentStu newInstance(Map<String, Object> userInfo) {
-        HomeFragmentStu fragment = new HomeFragmentStu();
+    public static HomeFragmentTea newInstance(Map<String, Object> userInfo) {
+        HomeFragmentTea fragment = new HomeFragmentTea();
         Bundle args = new Bundle();
         args.putSerializable(USERINFO, (Serializable) userInfo);
         fragment.setArguments(args);
@@ -58,7 +58,7 @@ public class HomeFragmentTea extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view == null){
-            view = inflater.inflate(R.layout.fragment_home_stu, container, false);
+            view = inflater.inflate(R.layout.fragment_home_tea, container, false);
         }
         return view;
     }
@@ -78,7 +78,7 @@ public class HomeFragmentTea extends Fragment {
         sex = view.findViewById(R.id.user_sex);
         if (this.userInfo != null){
             uname.setText((String)this.userInfo.get("name"));
-            cls.setText((String)this.userInfo.get("class"));
+            cls.setText((String)this.userInfo.get("classes"));
             college.setText((String)this.userInfo.get("college"));
             school.setText("岭南师范学院");
             uno.setText((String)this.userInfo.get("no"));
@@ -94,7 +94,7 @@ public class HomeFragmentTea extends Fragment {
                     (String)this.userInfo.get("email"),
                     (String)this.userInfo.get("phone"),
                     (String)userInfo.get("introduce"));
-            Toast.makeText(getContext(), "欢迎您，"+uname+"老师", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "欢迎您，"+uname.getText()+"老师", Toast.LENGTH_SHORT).show();
         }
     }
 }

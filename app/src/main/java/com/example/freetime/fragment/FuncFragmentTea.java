@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.freetime.CourseTableActivity;
 import com.example.freetime.FaceSignActivity;
+import com.example.freetime.FaceSignSelectPageActivity;
 import com.example.freetime.R;
 
 import java.io.Serializable;
@@ -54,7 +55,7 @@ public class FuncFragmentTea extends BaseFuncFragment {
             startActivity(intent);
         });
         btn6.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FaceSignActivity.class);
+            Intent intent = new Intent(getActivity(), FaceSignSelectPageActivity.class);
             startActivity(intent);
         });
     }

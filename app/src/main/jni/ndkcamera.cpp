@@ -427,6 +427,7 @@ NdkCameraWindow::NdkCameraWindow() : NdkCamera()
     sensor_event_queue = 0;
     accelerometer_sensor = 0;
     win = 0;
+    save_state = new char[10];
 
     accelerometer_orientation = 0;
 

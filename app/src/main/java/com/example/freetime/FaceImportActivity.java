@@ -68,7 +68,7 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
                 facing = new_facing;
             }
         });
-        scrfdNcnn.loadModel(getAssets());
+        scrfdNcnn.loadModel(getAssets(), false);
     }
 
     @Override
@@ -78,7 +78,6 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
         {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA);
         }
-
         scrfdNcnn.openCamera(facing);
     }
 
@@ -86,6 +85,7 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
     protected void onPause() {
         super.onPause();
         scrfdNcnn.closeCamera();
+
     }
 
     @Override

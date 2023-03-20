@@ -28,6 +28,7 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
         btn = findViewById(R.id.select_class_button);
         textView = findViewById(R.id.select_class_text);
         start = findViewById(R.id.sign_start);
+        presenter.fetch();
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +50,7 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
 
     @Override
     public void getSignClasses(List<Object> response) {
+        System.out.println(response);
         if (response != null){
             List<String> list = new ArrayList<>();
             for (Object o:response){
@@ -67,7 +69,6 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
                                     textView.setText(s);
                                 }
                             })
-                            .setLoop(true)
                             .setCount(5).show();
                 }
             });

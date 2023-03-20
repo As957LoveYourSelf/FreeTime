@@ -111,7 +111,6 @@ static void draw_fps(cv::Mat& rgb)
 static SCRFD* g_scrfd = nullptr;
 static bool crop_face = false;
 static ncnn::Mutex lock;
-char *save_state = new char[10];
 
 class MyNdkCamera : public NdkCameraWindow
 {
@@ -130,10 +129,15 @@ void MyNdkCamera::on_image_render(cv::Mat& rgb) const
             std::vector<FaceObject> faceobjects;
             g_scrfd->detect(rgb, faceobjects);
             g_scrfd->draw(rgb, faceobjects);
-            if (crop_face){
-                save_state = g_scrfd->get_select_face(rgb,faceobjects);
-                __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%s", save_state);
-                crop_face = false;
+            if (issign){
+                save_state = g_scrfd->get_select_face(rgb,faceobjects, issign);
+//                __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%d",issign);
+            } else{
+                if (crop_face){
+                    save_state = g_scrfd->get_select_face(rgb,faceobjects, issign);
+//                    __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%s", save_state);
+                    crop_face = false;
+                }
             }
         }
         else
@@ -173,7 +177,7 @@ JNIEXPORT void JNI_OnUnload(JavaVM* vm, void* reserved)
 }
 
 // public native boolean loadModel(AssetManager mgr, int modelid, int cpugpu);
-JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_loadModel(JNIEnv* env, jobject thiz, jobject assetManager)
+JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_loadModel(JNIEnv* env, jobject thiz, jobject assetManager, jboolean sign)
 {
 //    if (modelid < 0 || modelid > 7 || cpugpu < 0 || cpugpu > 1)
 //    {
@@ -181,6 +185,9 @@ JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_loadModel(JN
 //    }
 
     AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
+    g_camera->issign = sign;
+    g_camera->save_state = "none";
+//    __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%d",g_camera->issign);
 
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "loadModel %p", mgr);
 
@@ -247,7 +254,11 @@ JNIEXPORT void JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_cropFace(JNIEnv 
 }
 
 JNIEXPORT jstring JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_getSaveState(JNIEnv *env, jobject thiz) {
-    return env->NewStringUTF(save_state);
+    if (g_camera->save_state != nullptr){
+        return env->NewStringUTF(g_camera->save_state);
+    } else{
+        return nullptr;
+    }
 }
 
 }

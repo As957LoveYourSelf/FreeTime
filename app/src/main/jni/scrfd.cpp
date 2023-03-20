@@ -493,7 +493,7 @@ int SCRFD::draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects)
     return 0;
 }
 
-char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceobjects) {
+char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceobjects, bool issign) {
     char *save_state = new char[10];
     if (faceobjects.size() == 1){
         cv::Mat select_img = rgb(faceobjects[0].rect);
@@ -502,7 +502,13 @@ char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceob
             cv::flip(select_img, select_img, 1);
         }
         cv::cvtColor(select_img, select_img, cv::COLOR_BGR2RGB);
-        cv::imwrite("data/data/com.example.freetime/select_img.jpg", select_img);
+        cv:
+        cv::resize(select_img, select_img, cv::Size(96,112));
+        if (issign){
+            cv::imwrite("data/data/com.example.freetime/sign_img.jpg", select_img);
+        } else{
+            cv::imwrite("data/data/com.example.freetime/select_img.jpg", select_img);
+        }
         save_state = "success";
     } else if (faceobjects.size() > 1){
         save_state = "more";

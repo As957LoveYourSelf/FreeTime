@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
     public static final int REQUEST_CAMERA = 100;
     private SCRFDNcnn scrfdNcnn = new SCRFDNcnn();
     private SurfaceView surfaceView;
+    Thread thread;
     ImageView avatar;
     TextView uname;
     TextView id;
@@ -40,9 +42,36 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         setContentView(R.layout.activity_face_sign);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         String classname = getIntent().getStringExtra("classname");
-        presenter.fetch(classname);
+        DetectThread detectThread = new DetectThread(this, classname);
         initView();
+        thread = new Thread(detectThread);
+        thread.start();
     }
+
+     class DetectThread implements Runnable{
+        private Context context;
+        private String classname;
+        public DetectThread(Context context, String classname){
+            this.context = context;
+            this.classname = classname;
+        }
+
+        @Override
+        public void run() {
+            while (true){
+                if (Thread.currentThread().isInterrupted()){
+                    break;
+                }
+                String saveState = scrfdNcnn.getSaveState();
+                System.out.println(saveState);
+                if (saveState != null && saveState.equals("success")){
+                    presenter.fetch(this.classname);
+                }
+            }
+        }
+    }
+
+
 
     @Override
     protected FaceSignPresenter createPresenter() {
@@ -71,11 +100,15 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
 
     @Override
     public void signFace(Map<String, Object> response) {
+        thread.interrupt();
         if (response != null){
             String uname = (String) response.get("uname");
             String id = (String) response.get("id");
             String classname = (String) response.get("classname");
             showSignMessage(uname, id, classname);
+            if (thread.isInterrupted()){
+                thread.start();
+            }
         }
     }
 
@@ -87,12 +120,22 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA);
         }
         scrfdNcnn.openCamera(facing);
+        if (thread.isInterrupted()){
+            thread.start();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         scrfdNcnn.closeCamera();
+        thread.interrupt();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        thread.interrupt();
     }
 
     private void showSignMessage(String uname, String id, String classname){
@@ -107,7 +150,7 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         avatar = findViewById(R.id.avatar_sign_face);
         uname = findViewById(R.id.uname_sign);
         id = findViewById(R.id.id_sign);
-        btn.findViewById(R.id.change_sign_camara);
+        btn = findViewById(R.id.change_sign_camara);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +161,6 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
                 facing = new_facing;
             }
         });
-        scrfdNcnn.loadModel(getAssets());
-
+        scrfdNcnn.loadModel(getAssets(), true);
     }
 }

@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 
 
 public interface FaceSignSelectPageService {
-    @POST("getsignclasses")
+    @POST("getSignClasses")
     Flowable<ResponseBean<List<Object>>> getClasses(@Query("uid") String uid);
 }

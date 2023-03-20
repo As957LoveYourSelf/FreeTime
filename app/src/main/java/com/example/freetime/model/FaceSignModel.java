@@ -34,7 +34,7 @@ public class FaceSignModel implements IFaceSignModel {
         try {
             Map<String, Object> map = new HashMap<>();
             // TODO: change path
-            byte[] bytes = ImageUtils.readImageToBytes("data/data/com.example.freetime/select_img.jpg");
+            byte[] bytes = ImageUtils.readImageToBytes("data/data/com.example.freetime/sign_img.jpg");
             String img = Base64.getEncoder().encodeToString(bytes);
             map.put("classname", classname);
             map.put("face", img);

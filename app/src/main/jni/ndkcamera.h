@@ -69,6 +69,8 @@ public:
 
 public:
     mutable int accelerometer_orientation;
+    bool issign;
+    mutable char *save_state;
 
 private:
     ASensorManager* sensor_manager;
