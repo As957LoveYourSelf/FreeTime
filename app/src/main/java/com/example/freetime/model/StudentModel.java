@@ -31,7 +31,7 @@ public class StudentModel extends UserManageModel implements IStudentModel {
         if (this.sid != null){
             StudentService service = RetrofitClient.getInstance().getService(StudentService.class);
             Map<String, Object> userData = new HashMap<>();
-            System.out.println("开始请求用户信息");
+//            System.out.println("开始请求用户信息");
             service.getInfo(this.sid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -496,7 +496,7 @@ int SCRFD::draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects)
 char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceobjects, bool issign) {
     char *save_state = new char[10];
     if (faceobjects.size() == 1){
-        cv::Mat select_img = rgb(faceobjects[0].rect);
+        cv::Mat select_img = rgb.clone()(faceobjects[0].rect);
 //        cv::Mat t1;
         if (select_img.cols > select_img.rows){
             cv::flip(select_img, select_img, 1);

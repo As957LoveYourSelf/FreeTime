@@ -32,7 +32,7 @@ public class CourseTableActivity extends BaseActivity<CourseTablePresenter, ICou
         String utype = getIntent().getStringExtra("utype");
         System.out.println("Activity Info utype: "+utype);
         try {
-            Toast.makeText(this, "获取课表信息中...", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "获取课表信息中...", Toast.LENGTH_SHORT).show();
             presenter.fetch(SaveInfoUtils.readInfo()[0], utype);
         } catch (InterruptedException e) {
             e.printStackTrace();

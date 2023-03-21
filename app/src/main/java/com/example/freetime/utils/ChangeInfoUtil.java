@@ -28,10 +28,10 @@ public class ChangeInfoUtil {
             fos.write(info.getBytes());
             //关闭数据流
             fos.close();
-            System.out.println("用户信息写入成功");
+//            System.out.println("用户信息写入成功");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("用户信息写失败成功");
+//            System.out.println("用户信息写失败");
         }
     }
 
@@ -47,7 +47,6 @@ public class ChangeInfoUtil {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static String[] readInfo() {
         File file =  new File("data/data/com.example.freetime/old.txt");
         try {

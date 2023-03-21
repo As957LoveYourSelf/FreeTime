@@ -33,7 +33,7 @@ public class FaceSignSelectPageModel implements IFaceSignSelectPageModel {
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         throwable.printStackTrace();
-                        onLoaderListener.onErrMsg("error");
+                        onLoaderListener.onErrMsg("网络请求错误");
                     }
                 });
     }

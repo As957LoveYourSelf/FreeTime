@@ -48,7 +48,7 @@ public class FaceImportModel implements IFaceImportModel {
                         @Override
                         public void accept(Throwable throwable) throws Throwable {
                             throwable.printStackTrace();
-                            onLoaderListener.onErrMsg("error");
+                            onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });
 

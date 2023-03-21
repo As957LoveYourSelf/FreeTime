@@ -31,8 +31,8 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
     private SurfaceView surfaceView;
     Thread thread;
     ImageView avatar;
-    TextView uname;
-    TextView id;
+    TextView unameTV;
+    TextView idTV;
     Button btn;
     private int facing = 0;
 
@@ -42,17 +42,15 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         setContentView(R.layout.activity_face_sign);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         String classname = getIntent().getStringExtra("classname");
-        DetectThread detectThread = new DetectThread(this, classname);
+        DetectThread detectThread = new DetectThread(classname);
         initView();
         thread = new Thread(detectThread);
         thread.start();
     }
 
      class DetectThread implements Runnable{
-        private Context context;
         private String classname;
-        public DetectThread(Context context, String classname){
-            this.context = context;
+        public DetectThread(String classname){
             this.classname = classname;
         }
 
@@ -62,11 +60,19 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
                 if (Thread.currentThread().isInterrupted()){
                     break;
                 }
-                String saveState = scrfdNcnn.getSaveState();
-                System.out.println(saveState);
-                if (saveState != null && saveState.equals("success")){
+                this.detect();
+            }
+        }
+        private void detect(){
+            String saveState = scrfdNcnn.getSaveState();
+            try {
+//                System.out.println(saveState);
+                if (saveState.equals("success")){
                     presenter.fetch(this.classname);
+                    Thread.sleep(5000);
                 }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
@@ -100,15 +106,12 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
 
     @Override
     public void signFace(Map<String, Object> response) {
-        thread.interrupt();
+        System.out.println(response);
         if (response != null){
-            String uname = (String) response.get("uname");
-            String id = (String) response.get("id");
-            String classname = (String) response.get("classname");
-            showSignMessage(uname, id, classname);
-            if (thread.isInterrupted()){
-                thread.start();
-            }
+            System.out.println("set info");
+            String uname = (String) response.get("name");
+            String id = (String) response.get("uno");
+            showSignMessage(uname, id);
         }
     }
 
@@ -138,9 +141,9 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         thread.interrupt();
     }
 
-    private void showSignMessage(String uname, String id, String classname){
-        this.uname.setText("姓名: "+classname+" "+uname);
-        this.id.setText("学号: "+id);
+    private void showSignMessage(String uname, String id){
+        unameTV.setText("姓名: "+uname);
+        idTV.setText("学号: "+id);
     }
 
     private void initView(){
@@ -148,8 +151,8 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         surfaceView.getHolder().setFormat(PixelFormat.RGBA_8888);
         surfaceView.getHolder().addCallback(this);
         avatar = findViewById(R.id.avatar_sign_face);
-        uname = findViewById(R.id.uname_sign);
-        id = findViewById(R.id.id_sign);
+        unameTV = findViewById(R.id.uname_sign);
+        idTV = findViewById(R.id.id_sign);
         btn = findViewById(R.id.change_sign_camara);
 
         btn.setOnClickListener(new View.OnClickListener() {

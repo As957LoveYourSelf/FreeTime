@@ -39,7 +39,7 @@ public class LoginModel implements ILoginModel {
                 Map<String, Object> response = new HashMap<>();
                 map.put("id", this.uname);
                 map.put("psd", this.psd);
-                System.out.println("开始登录");
+//                System.out.println("开始登录");
                 service.post(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mapResponseBean -> {

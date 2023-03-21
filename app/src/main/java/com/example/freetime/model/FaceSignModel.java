@@ -33,24 +33,25 @@ public class FaceSignModel implements IFaceSignModel {
         FaceSignService service = RetrofitClient.getInstance().getService(FaceSignService.class);
         try {
             Map<String, Object> map = new HashMap<>();
-            // TODO: change path
             byte[] bytes = ImageUtils.readImageToBytes("data/data/com.example.freetime/sign_img.jpg");
             String img = Base64.getEncoder().encodeToString(bytes);
             map.put("classname", classname);
             map.put("face", img);
+//            System.out.println("post data");
             service.sign(map).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                         @Override
                         public void accept(ResponseBean<Map<String, Object>> data) throws Throwable {
-                            onLoaderListener.onObjectComplete(data.getData());
+//                            System.out.println(data);
+                            onLoaderListener.onMapComplete(data.getData());
 
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Throwable {
                             throwable.printStackTrace();
-                            onLoaderListener.onErrMsg("error");
+                            onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });
 
