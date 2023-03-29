@@ -11,9 +11,9 @@ import java.util.Map;
 public class RoomReservationPresenter extends BasePresenter<IRoomReservationView> {
 
 
-    public void getRooms(String buildingName, Integer isOrder, Integer floor) throws InterruptedException {
+    public void getRooms(String buildingName, Integer isOrder, Integer floor) {
         IRoomReservationModel roomReservationModel = new RoomReservationModel(buildingName, isOrder, floor);
-        if (roomReservationModel != null && mView.get() != null){
+        if (mView.get() != null){
             roomReservationModel.getRooms(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {
@@ -38,7 +38,7 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
         }
     }
 
-    public void reserve(String uid, String clsid) throws InterruptedException {
+    public void reserve(String uid, String clsid){
         IRoomReservationModel roomReservationModel = new RoomReservationModel(uid, clsid);
         if (mView.get() != null){
             roomReservationModel.reserve(new IBaseModel.OnLoaderListener() {
@@ -65,7 +65,7 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
         }
     }
 
-    public void dereserve(String uid, String clsid) throws InterruptedException {
+    public void dereserve(String uid, String clsid) {
         IRoomReservationModel roomReservationModel = new RoomReservationModel(uid, clsid);
         if (mView.get() != null){
             roomReservationModel.dereserve(new IBaseModel.OnLoaderListener() {
@@ -81,7 +81,61 @@ public class RoomReservationPresenter extends BasePresenter<IRoomReservationView
 
                 @Override
                 public void onObjectComplete(Object status) {
-                    mView.get().reserve((String)status);
+                    mView.get().dereserve((String)status);
+                }
+
+                @Override
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
+                }
+            });
+        }
+    }
+
+    public void getBuildingSelector(){
+        IRoomReservationModel roomReservationModel = new RoomReservationModel();
+        if (mView.get() != null){
+            roomReservationModel.getBuildingSelector(new IBaseModel.OnLoaderListener() {
+                @Override
+                public void onMapComplete(Map<String, Object> map) {
+
+                }
+
+                @Override
+                public void onListComplete(List<Object> list) {
+                    mView.get().getBuildingSelector(list);
+                }
+
+                @Override
+                public void onObjectComplete(Object obj) {
+
+                }
+
+                @Override
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
+                }
+            });
+        }
+    }
+
+    public void getBuildingFloorSelector(String bname){
+        IRoomReservationModel roomReservationModel = new RoomReservationModel(bname);
+        if (mView.get() != null){
+            roomReservationModel.getBuildingFloor(new IBaseModel.OnLoaderListener() {
+                @Override
+                public void onMapComplete(Map<String, Object> map) {
+
+                }
+
+                @Override
+                public void onListComplete(List<Object> list) {
+                    mView.get().getBuildingFloorSelector(list);
+                }
+
+                @Override
+                public void onObjectComplete(Object obj) {
+
                 }
 
                 @Override

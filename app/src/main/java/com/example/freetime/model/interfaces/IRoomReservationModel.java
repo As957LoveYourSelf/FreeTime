@@ -1,7 +1,9 @@
 package com.example.freetime.model.interfaces;
 
 public interface IRoomReservationModel extends IBaseModel {
-    void reserve(OnLoaderListener onLoaderListener) throws InterruptedException;
-    void dereserve(OnLoaderListener onLoaderListener) throws InterruptedException;
-    void getRooms(OnLoaderListener onLoaderListener) throws InterruptedException;
+    void reserve(OnLoaderListener onLoaderListener);
+    void dereserve(OnLoaderListener onLoaderListener);
+    void getRooms(OnLoaderListener onLoaderListener);
+    void getBuildingSelector(OnLoaderListener onLoaderListener);
+    void getBuildingFloor(OnLoaderListener onLoaderListener);
 }
