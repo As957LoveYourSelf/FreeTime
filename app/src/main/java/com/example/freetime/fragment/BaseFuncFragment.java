@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,9 +13,7 @@ import com.example.freetime.R;
 import com.example.freetime.RoomReservationActivity;
 import com.example.freetime.StyleTransformActivity;
 import com.example.freetime.SuperResolveActivity;
-import com.example.freetime.WordDistinguishActivity;
-
-import java.util.Map;
+import com.example.freetime.ColorizationActivity;
 
 public class BaseFuncFragment extends Fragment {
     ImageButton btn1;
@@ -40,7 +37,7 @@ public class BaseFuncFragment extends Fragment {
         });
 
         btn2.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WordDistinguishActivity.class);
+            Intent intent = new Intent(getActivity(), ColorizationActivity.class);
             startActivity(intent);
         });
 

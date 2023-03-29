@@ -51,7 +51,7 @@
             android:name=".SuperResolveActivity"
             android:exported="false" />
         <activity
-            android:name=".WordDistinguishActivity"
+            android:name=".ColorizationActivity"
             android:exported="false" />
         <activity
             android:name=".StudentAppContentActivity"

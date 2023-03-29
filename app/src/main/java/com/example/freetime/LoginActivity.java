@@ -101,7 +101,7 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
         change = false;
         login_btn.setOnClickListener(v -> {
             try {
-//                Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();
                 presenter.fetch(unameInput.getText().toString(), psdInput.getText().toString());
 //                System.out.println(unameInput.getText().toString()+" "+psdInput.getText().toString());
             } catch (Exception e) {

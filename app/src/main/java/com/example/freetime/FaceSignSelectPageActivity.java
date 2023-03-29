@@ -50,7 +50,7 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
 
     @Override
     public void getSignClasses(List<Object> response) {
-        System.out.println(response);
+//        System.out.println(response);
         if (response != null){
             List<String> list = new ArrayList<>();
             for (Object o:response){
