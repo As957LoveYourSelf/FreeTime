@@ -1,13 +1,16 @@
 package com.example.freetime;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,8 +23,10 @@ import android.widget.Toast;
 
 import com.example.freetime.ncnn.SCRFDNcnn;
 import com.example.freetime.presenter.FaceSignPresenter;
+import com.example.freetime.utils.ImageUtils;
 import com.example.freetime.view.IFaceSignView;
 
+import java.util.Base64;
 import java.util.Map;
 
 public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignView> implements SurfaceHolder.Callback, IFaceSignView {
@@ -101,16 +106,18 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void signFace(Map<String, Object> response) {
-        System.out.println(response);
+//        System.out.println(response);
         if (response != null){
             System.out.println("set info");
             String uname = (String) response.get("name");
             String id = (String) response.get("uno");
+            Bitmap bitmap = ImageUtils.bytes2bitmap(Base64.getDecoder().decode((String)response.get("face")));
+            avatar.setImageBitmap(bitmap);
             showSignMessage(uname, id);
         }
     }

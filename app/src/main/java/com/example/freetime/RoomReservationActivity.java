@@ -1,161 +1,60 @@
 package com.example.freetime;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
-import com.example.freetime.adapter.CommonAdapter;
-import com.example.freetime.adapter.ViewHolder;
-import com.example.freetime.presenter.RoomReservationPresenter;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.freetime.utils.SaveInfoUtils;
-import com.example.freetime.view.IRoomReservationView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Set;
 
-public class RoomReservationActivity extends BaseActivity<RoomReservationPresenter, IRoomReservationView> implements IRoomReservationView {
+public class RoomReservationActivity extends AppCompatActivity {
 
-    Spinner buildsSpinner;
-    Spinner floorsSpinner;
-    Spinner orderSpinner;
-    ListView listView;
-    Button btn;
 
-    String bname;
-    Integer floor;
-    Integer isorder;
-
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_reservation);
-        buildsSpinner = findViewById(R.id.building);
-        floorsSpinner = findViewById(R.id.floor);
-        orderSpinner = findViewById(R.id.order);
-        listView = findViewById(R.id.rooms_listview);
-        btn = findViewById(R.id.room_search_button);
+        WebView webView = findViewById(R.id.webview);
+        Map<String,String> params = new HashMap<>();
+        params.put("uid", SaveInfoUtils.readInfo()[0]);
+        params.put("token", SaveInfoUtils.readInfo()[1]);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setDomStorageEnabled(true);//主要是这句
+        webSettings.setJavaScriptEnabled(true);//启用js
+        webSettings.setBlockNetworkImage(false);//解决图片不显示
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLoadsImagesAutomatically(true);
+        //该方法解决的问题是打开浏览器不调用系统浏览器，直接用webview打开
 
-        List<String> data = new ArrayList<>();
-        data.add("不可预约");
-        data.add("可预约");
-        data.add("全部");
-        ArrayAdapter<String> orderadapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,data);
-        orderSpinner.setAdapter(orderadapter);
-        orderSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                isorder = i;
-            }
-        });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.getRooms(bname, isorder, floor);
-            }
-        });
-
-    }
-
-    @Override
-    protected RoomReservationPresenter createPresenter() {
-        return new RoomReservationPresenter();
-    }
-
-    @Override
-    public void showErrorMessage(String msg) {
-        if (msg != null){
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        try {
+            System.out.println(concatParams(params));
+            webView.loadUrl("http://192.168.0.4:5173/webview?"+concatParams(params));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+
     }
 
-    @Override
-    public void reserve(String status) {
-        if (status.equals("success")){
-            Toast.makeText(this, "预约成功", Toast.LENGTH_SHORT).show();
+    private String concatParams(Map<String,String> params) throws UnsupportedEncodingException {
+        if(params.size() ==0){
+            return null;
         }
-    }
-
-    @Override
-    public void dereserve(String status) {
-        if (status.equals("success")){
-            Toast.makeText(this, "取消预约成功", Toast.LENGTH_SHORT).show();
+        StringBuilder builder = new StringBuilder();
+        Set<String> keys = params.keySet();
+        for (String key : keys) {
+            String value = URLEncoder.encode(params.get(key), "UTF-8");
+            builder.append(String.format("%s=%s&", key, value));
         }
-    }
-
-    @Override
-    public void getRooms(List<Object> rooms) {
-        if (rooms != null){
-            List<Map<String, Object>> data = new ArrayList<>();
-            for (Object o:rooms){
-                data.add((Map<String, Object>) o);
-            }
-            listView.setAdapter(new CommonAdapter<Map<String, Object>>(this, data, R.layout.room_item_view) {
-                @Override
-                public void convert(ViewHolder helper, Map<String, Object> item) {
-
-                    helper.setText(R.id.item_building, (String) item.get("building"));
-                    helper.setText(R.id.item_roomNo, (String) item.get("roomNo"));
-                    helper.setText(R.id.item_isorder, (String) item.get("isOrder"));
-                }
-            });
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Map<String, Object> map = data.get(i);
-                    if (Objects.equals((String) map.get("isOrder"), "NO")){
-                        presenter.reserve(SaveInfoUtils.readInfo()[0], (String) map.get("roomNo"));
-                    }else {
-                        Toast.makeText(RoomReservationActivity.this, "该课室不可预约", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    public void getBuildingSelector(List<Object> builds) {
-        if (builds != null){
-            List<String> data = new ArrayList<>();
-            for (Object o:builds){
-                data.add((String) o);
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, data);
-            buildsSpinner.setAdapter(adapter);
-            buildsSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    bname = data.get(i);
-                    presenter.getBuildingFloorSelector(bname);
-                    System.out.println(bname);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void getBuildingFloorSelector(List<Object> floors) {
-        if (floors != null){
-            List<Integer> data = new ArrayList<>();
-            for (Object o:floors){
-                data.add((Integer) o);
-            }
-            ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, data);
-            buildsSpinner.setAdapter(adapter);
-            buildsSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    floor = data.get(i);
-                    System.out.println(floor);
-                }
-            });
-        }
+        builder.deleteCharAt(builder.lastIndexOf("&"));
+        return builder.toString();
     }
 }

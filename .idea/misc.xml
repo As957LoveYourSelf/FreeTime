@@ -49,7 +49,7 @@
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/menu/course_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/AndroidStudioProjects/FreeTime/app/src/main/res/xml/network_security_config.xml" value="0.24322916666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_base.xml" value="0.21603260869565216" />
-        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_change_info.xml" value="0.1" />
+        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_change_info.xml" value="0.335" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_course_table.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_face_import.xml" value="0.375" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_face_sign.xml" value="0.335" />
@@ -57,12 +57,12 @@
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_login.xml" value="0.16822916666666668" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_main.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_room_reservation.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_room_reservation.xml" value="0.25" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_student_app_content.xml" value="0.16822916666666668" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_style_transform.xml" value="0.375" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_super_resolve.xml" value="0.335" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/activity_word_distinguish.xml" value="0.15602836879432624" />
-        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_stu.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_stu.xml" value="0.335" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_func_tea.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home_stu.xml" value="0.1" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/fragment_home_tea.xml" value="0.22916666666666666" />
@@ -70,6 +70,7 @@
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/item_view.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/popue_window.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/progressbar.xml" value="0.16822916666666668" />
+        <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/room_item_view.xml" value="0.21603260869565216" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/style_choos.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/layout/wheelview.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/HUAWEI/AndroidStudioProjects/FreeTime/app/src/main/res/menu/bottom_nav_menu.xml" value="0.32083333333333336" />
@@ -77,7 +78,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

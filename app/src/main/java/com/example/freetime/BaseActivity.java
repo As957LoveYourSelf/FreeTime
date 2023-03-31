@@ -121,7 +121,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                         //拍照
                         PictureSelector.create(BaseActivity.this)
                                 .openCamera(SelectMimeType.ofImage())
-                                .forResult(new OnResultCallbackListener<LocalMedia>() {
+                                .forResultActivity(new OnResultCallbackListener<LocalMedia>() {
                                     @Override
                                     public void onResult(ArrayList<LocalMedia> result) {
                                         ImageView img = findViewById(show_view_id);

@@ -58,6 +58,7 @@ public class LoginModel implements ILoginModel {
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         onLoaderListener.onErrMsg("网络请求错误");
+                        throwable.printStackTrace();
                     }
                 });
             }
