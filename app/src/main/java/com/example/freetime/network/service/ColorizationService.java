@@ -9,6 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ColorizationService {
-    @POST()
+    @POST("colorization")
     Flowable<ResponseBean<String>> colorization(@Body Map<String, Object> data);
 }

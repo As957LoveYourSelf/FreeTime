@@ -54,6 +54,7 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
     @Override
     public void defaultStyleTransform(byte[] result) {
         if (result != null){
+            hasresult = false;
             Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
             Bitmap finalBitmap = bitmap;
             save_button.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +122,8 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
                 if (hasresult){
                     Toast.makeText(StyleTransformActivity.this, "正在后台转化中，请稍等", Toast.LENGTH_SHORT).show();
                     presenter.defaultStyleTransform(realimg ,type, SaveInfoUtils.readInfo()[0]);
+                }else {
+                    Toast.makeText(StyleTransformActivity.this, "请选择一张照片", Toast.LENGTH_SHORT).show();
                 }
             }
         });

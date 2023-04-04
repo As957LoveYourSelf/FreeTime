@@ -23,10 +23,13 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
     Button save_btn;
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colorization);
+        initView();
+    }
+
+    private void initView(){
         view = findViewById(R.id.colorization_show);
         btn = findViewById(R.id.colorization_btn);
         save_btn = findViewById(R.id.colorization_img_save);
@@ -37,13 +40,15 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
                 popupWindow(R.id.colorization_show);
             }
         });
-
         btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if (hasresult){
                     Toast.makeText(ColorizationActivity.this, "图片上色运行中，请稍等...", Toast.LENGTH_SHORT).show();
                     presenter.fetch(realimg);
+                }else {
+                    Toast.makeText(ColorizationActivity.this, "请选择一张图片", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -64,6 +69,7 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
     @Override
     public void colorization(byte[] img) {
         if (img != null){
+            hasresult = false;
             Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
             Bitmap finalBitmap = bitmap;
             save_btn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +83,7 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
                     }
                 }
             });
+            System.out.println(bitmap);
             bitmap = BitmapUtils.scaleImage(bitmap,view.getWidth(),view.getHeight());
             view.setImageBitmap(bitmap);
             save_btn.setVisibility(View.VISIBLE);

@@ -45,6 +45,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         long secondTime = System.currentTimeMillis();
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (secondTime - firstTime < 2000) {
+                presenter.loginout();
                 System.exit(0);
             } else {
                 Toast.makeText(StudentAppContentActivity.this, "再点一次退出程序", Toast.LENGTH_SHORT).show();

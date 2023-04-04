@@ -12,32 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="186dp"
-        android:layout_marginBottom="688dp"
         android:text="@string/bottom_function"
         android:textColor="#F5F5F5"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/face_sign"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.311" />
 
     <ImageButton
         android:id="@+id/image_super_resolution"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="259dp"
-        android:layout_marginEnd="328dp"
-        android:layout_marginBottom="392dp"
         android:background="@drawable/f1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/non_fn"
+        app:layout_constraintEnd_toStartOf="@+id/table_detail"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/word_distinguish"
+        app:layout_constraintVertical_bias="0.422" />
 
     <ImageButton
         android:id="@+id/word_distinguish"
@@ -71,15 +67,13 @@
         android:id="@+id/class_reservation"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="339dp"
-        android:layout_marginTop="310dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="351dp"
         android:background="@drawable/f5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/table_detail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toEndOf="@+id/image_super_resolution"
+        app:layout_constraintTop_toBottomOf="@+id/style_transform"
+        app:layout_constraintVertical_bias="0.494" />
 
     <ImageButton
         android:id="@+id/table_detail"

@@ -1,9 +1,6 @@
 package com.example.freetime.model;
 
 import android.graphics.Bitmap;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ISuperResolveModel;
@@ -31,12 +28,15 @@ public class SuperResolveModel implements ISuperResolveModel {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void enhance(OnLoaderListener onLoaderListener) {
         if (img != null){
             SuperResolveService service = RetrofitClient.getInstance().getService(SuperResolveService.class);
-            String s = Base64.getEncoder().encodeToString(this.img);
+            String s = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                System.out.println("encode");
+                s = Base64.getEncoder().encodeToString(this.img);
+            }
             Map<String, Object> data = new HashMap<>();
             data.put("img", s);
             data.put("uname", SaveInfoUtils.readInfo()[0]);
@@ -46,7 +46,10 @@ public class SuperResolveModel implements ISuperResolveModel {
                     .subscribe(new Consumer<ResponseBean<String>>() {
                         @Override
                         public void accept(ResponseBean<String> stringResponseBean) throws Throwable {
-                            byte[] decode = Base64.getDecoder().decode(stringResponseBean.getData());
+                            byte[] decode = new byte[0];
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                decode = Base64.getDecoder().decode(stringResponseBean.getData());
+                            }
                             onLoaderListener.onObjectComplete(decode);
                         }
                     },new Consumer<Throwable>() {

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/style_tran_img_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="900px"
+        android:layout_height="1440px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,64 +23,54 @@
         android:id="@+id/choose_style_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="213dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="179dp"
+        android:layout_marginTop="21dp"
         android:background="@drawable/choose_style_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintEnd_toEndOf="@+id/style_tran_img_show"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/trans_btn"
+        app:layout_constraintTop_toBottomOf="@+id/style_tran_img_show"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/trans_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginEnd="213dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginTop="21dp"
         android:background="@drawable/trans_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintStart_toStartOf="@+id/style_tran_img_show"
+        app:layout_constraintTop_toBottomOf="@+id/style_tran_img_show"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/style_mode"
-        android:layout_width="200dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="554dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="141dp"
+        android:layout_width="181dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="56dp"
         android:gravity="center"
         android:text="动漫人物（默认）"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/style_img_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/style_tran_img_show"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/style_img_save"
         android:layout_width="87dp"
         android:layout_height="44dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="671dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="1dp"
         android:text="保存"
         app:backgroundTint="@color/teal_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/trans_btn"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.example.freetime;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +42,7 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
     @Override
     public void superResolve(byte[] img) {
         if (img != null){
+            hasresult = false;
             Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
             Bitmap finalBitmap = bitmap;
             save_btn.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +81,8 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
                 if (hasresult){
                     Toast.makeText(SuperResolveActivity.this, "超分辨运行中，请稍等...", Toast.LENGTH_SHORT).show();
                     presenter.fetch(realimg);
+                }else {
+                    Toast.makeText(SuperResolveActivity.this, "请选择一张照片", Toast.LENGTH_SHORT).show();
                 }
             }
         });

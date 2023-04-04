@@ -28,6 +28,10 @@ public class LoginModel implements ILoginModel {
         this.psd = Md5Util.encodeByMd5(psd);
     }
 
+    public LoginModel(){
+
+    }
+
     @Override
     public void goLogin(OnLoaderListener onLoaderListener) {
         // 获取真实数据
@@ -65,5 +69,11 @@ public class LoginModel implements ILoginModel {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void loginout() {
+        LoginService service = RetrofitClient.getInstance().getService(LoginService.class);
+        service.loginout(SaveInfoUtils.readInfo()[0]);
     }
 }

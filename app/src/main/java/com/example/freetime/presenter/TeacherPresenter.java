@@ -1,7 +1,9 @@
 package com.example.freetime.presenter;
 
+import com.example.freetime.model.LoginModel;
 import com.example.freetime.model.TeacherModel;
 import com.example.freetime.model.interfaces.IBaseModel;
+import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.model.interfaces.ITeacherModel;
 import com.example.freetime.view.ITeacherView;
 
@@ -34,6 +36,12 @@ public class TeacherPresenter extends BasePresenter<ITeacherView> {
                     mView.get().showErrorMessage(msg);
                 }
             });
+        }
+    }
+    public void loginout(){
+        ILoginModel LoginModel = new LoginModel();
+        if (mView.get() != null){
+            LoginModel.loginout();
         }
     }
 }

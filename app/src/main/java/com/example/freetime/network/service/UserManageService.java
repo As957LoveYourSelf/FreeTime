@@ -17,4 +17,6 @@ public interface UserManageService {
     @POST("userManagePage/changePassword")
     Flowable<ResponseBean<Map<String,Object>>> changePsd(@Body Map<String, String> data);
 
+
+
 }

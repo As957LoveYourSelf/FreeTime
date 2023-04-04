@@ -1,7 +1,9 @@
 package com.example.freetime.presenter;
 
+import com.example.freetime.model.LoginModel;
 import com.example.freetime.model.StudentModel;
 import com.example.freetime.model.interfaces.IBaseModel;
+import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.model.interfaces.IStudentModel;
 import com.example.freetime.model.interfaces.IUserManageModel;
 import com.example.freetime.view.IStudentView;
@@ -35,6 +37,13 @@ public class StudentPresenter extends BasePresenter<IStudentView>{
                     mView.get().showErrorMessage(msg);
                 }
             });
+        }
+    }
+
+    public void loginout(){
+        ILoginModel LoginModel = new LoginModel();
+        if (mView.get() != null){
+            LoginModel.loginout();
         }
     }
 

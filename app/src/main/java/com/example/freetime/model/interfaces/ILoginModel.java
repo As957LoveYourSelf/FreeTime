@@ -7,4 +7,5 @@ import java.util.Map;
  * */
 public interface ILoginModel extends IBaseModel{
     void goLogin(OnLoaderListener onLoaderListener) throws InterruptedException;
+    void loginout();
 }

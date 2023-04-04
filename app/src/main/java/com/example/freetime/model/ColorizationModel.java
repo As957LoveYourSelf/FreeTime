@@ -14,6 +14,7 @@ import com.example.freetime.utils.ImageUtils;
 import com.example.freetime.utils.SaveInfoUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,12 +48,18 @@ public class ColorizationModel implements IColorizationModel {
                     .subscribe(new Consumer<ResponseBean<String>>() {
                         @Override
                         public void accept(ResponseBean<String> stringResponseBean) throws Throwable {
-                            byte[] decode = Base64.getDecoder().decode(stringResponseBean.getData());
-                            onLoaderListener.onObjectComplete(decode);
+                            if (stringResponseBean.getData() != null){
+                                byte[] decode = Base64.getDecoder().decode(stringResponseBean.getData());
+                                System.out.println(Arrays.toString(decode));
+                                onLoaderListener.onObjectComplete(decode);
+                            }else {
+                                onLoaderListener.onObjectComplete(null);
+                            }
                         }
                     },new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Throwable {
+                            throwable.printStackTrace();
                             onLoaderListener.onErrMsg("网络请求错误");
                         }
                     });

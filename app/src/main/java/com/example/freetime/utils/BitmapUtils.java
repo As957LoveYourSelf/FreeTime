@@ -66,12 +66,22 @@ public class BitmapUtils {
     }
 
     public static Bitmap scaleImage(Bitmap bitmap, int view_w, int view_h) {
-        if (view_h > view_w){
-            float t = view_h/bitmap.getHeight() >= 1?view_h/(float)bitmap.getHeight():(float) bitmap.getHeight()/view_h;
+        System.out.println("View w:"+view_w+" "+"View h:"+view_h);
+        int height = bitmap.getHeight();
+        int width = bitmap.getWidth();
+        if (height<=view_h && width<=view_w){
+            return bitmap;
+        }
+        if (width < height){
+            System.out.println("h>w");
+            float t = bitmap.getHeight()/view_h>= 1?view_h/(float)bitmap.getHeight():((float) bitmap.getHeight())/view_h;
+            System.out.println(t);
             int dst_w = (int)(t*bitmap.getWidth());
             return Bitmap.createScaledBitmap(bitmap,dst_w,view_h,true);
         }else {
-            float t = view_w/bitmap.getWidth() >=1 ?view_w/(float)bitmap.getWidth():(float) bitmap.getWidth()/view_w;
+            System.out.println("h<w");
+            float t = bitmap.getWidth()/view_w>=1 ?view_w/(float)bitmap.getWidth():((float) bitmap.getWidth())/view_w;
+            System.out.println(t);
             int dst_h = (int) (t*bitmap.getHeight());
             return Bitmap.createScaledBitmap(bitmap,view_w,dst_h,true);
         }
@@ -84,11 +94,18 @@ public class BitmapUtils {
         if (!state.equals(Environment.MEDIA_MOUNTED)){
             return null;
         }
+        File checkDir = new File(dir);
+        if (!checkDir.exists()){
+            checkDir.mkdirs();
+        }
         Calendar now = new GregorianCalendar();
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
         String fileName = simpleDate.format(now.getTime());
         try {
             File file = new File(dir + fileName + ".png");
+            if (!file.exists()){
+                file.createNewFile();
+            }
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();

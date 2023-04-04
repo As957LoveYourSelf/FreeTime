@@ -21,8 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.freetime.presenter.BasePresenter;
 import com.example.freetime.utils.BitmapUtils;
 import com.example.freetime.utils.GlideEngine;
+import com.example.freetime.utils.Permission;
 import com.example.freetime.view.IBaseView;
 import com.luck.picture.lib.basic.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.SelectMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
@@ -62,6 +64,8 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
     }
 
     protected void popupWindow(int show_view_id){
+
+
         View bottomView = View.inflate(BaseActivity.this, R.layout.popue_window, null);
         Button mAlbum = bottomView.findViewById(R.id.btn_pop_album);
         Button mCamera = bottomView.findViewById(R.id.btn_pop_camera);
@@ -103,7 +107,9 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
                                             realimg = bitmap;
+//                                            System.out.println("Width:"+realimg.getWidth()+" "+"Height:"+realimg.getHeight());
                                             bitmap = BitmapUtils.scaleImage(bitmap, img.getWidth(), img.getHeight());
+//                                            System.out.println("Width:"+bitmap.getWidth()+" "+"Height:"+bitmap.getHeight());
                                             img.setImageBitmap(bitmap);
                                             hasresult = true;
                                             Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
@@ -118,14 +124,16 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                 });
                         break;
                     case R.id.btn_pop_camera:
+                        Permission.checkPermission(BaseActivity.this);
                         //拍照
                         PictureSelector.create(BaseActivity.this)
-                                .openCamera(SelectMimeType.ofImage())
-                                .forResultActivity(new OnResultCallbackListener<LocalMedia>() {
+                                .openCamera(PictureMimeType.getMimeType(PictureMimeType.MIME_TYPE_IMAGE))
+                                .forResult(new OnResultCallbackListener<LocalMedia>() {
                                     @Override
                                     public void onResult(ArrayList<LocalMedia> result) {
                                         ImageView img = findViewById(show_view_id);
-                                        String path = result.get(0).getPath();
+                                        String path = result.get(0).getRealPath();
+                                        System.out.println(path);
                                         File file = new File(path);
                                         if (file.exists()){
                                             Bitmap bitmap = BitmapFactory.decodeFile(path);
@@ -134,11 +142,12 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                             img.setImageBitmap(bitmap);
                                             hasresult = true;
                                             Toast.makeText(BaseActivity.this, "已选择图片", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(BaseActivity.this, "路径不存在", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     @Override
                                     public void onCancel() {
-
                                     }
                                 });
                         break;
