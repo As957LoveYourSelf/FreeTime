@@ -37,7 +37,7 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow(R.id.colorization_show);
+                popupWindow(R.id.colorization_show, save_btn);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +75,10 @@ public class ColorizationActivity extends BaseActivity<ColorizationPresenter, IC
             save_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String result = BitmapUtils.saveBitmapToLocal(finalBitmap, "SuperResolve");
+                    String result = BitmapUtils.saveBitmapToLocal(finalBitmap, "Colorization");
                     if (result != null){
                         Toast.makeText(ColorizationActivity.this, "图片已保存至"+result, Toast.LENGTH_SHORT).show();
+                        save_btn.setVisibility(View.GONE);
                     }else {
                         Toast.makeText(ColorizationActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
                     }

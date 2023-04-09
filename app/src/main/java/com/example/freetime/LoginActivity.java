@@ -99,6 +99,11 @@ public class LoginActivity extends BaseActivity<LoginPagePresenter, ILoginPageVi
         unameInput = findViewById(R.id.login_uname_input);
         psdInput = findViewById(R.id.login_password_input);
         change = false;
+        try {
+            unameInput.setText(SaveInfoUtils.readInfo()[0]);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         login_btn.setOnClickListener(v -> {
             try {
                 Toast.makeText(this, "登录中...", Toast.LENGTH_SHORT).show();

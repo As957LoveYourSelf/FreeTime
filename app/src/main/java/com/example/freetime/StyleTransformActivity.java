@@ -86,6 +86,7 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
                     String result = BitmapUtils.saveBitmapToLocal(finalBitmap,"StyleTransform");
                     if (result != null){
                         Toast.makeText(StyleTransformActivity.this, "图片已保存至"+result, Toast.LENGTH_SHORT).show();
+                        save_button.setVisibility(View.GONE);
                     }else {
                         Toast.makeText(StyleTransformActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
                     }
@@ -107,7 +108,7 @@ public class StyleTransformActivity extends BaseActivity<StyleTransformPresenter
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow(R.id.style_tran_img_show);
+                popupWindow(R.id.style_tran_img_show, save_button);
             }
         });
         choose_style_btn.setOnClickListener(new View.OnClickListener() {

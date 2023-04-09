@@ -14,6 +14,7 @@ import com.example.freetime.utils.SaveInfoUtils;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -22,7 +23,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FaceSignModel implements IFaceSignModel {
 
-    private String classname;
+    private final String classname;
+    private String course;
+    public FaceSignModel(String classname, String course){
+        this.classname = classname;
+        this.course = course;
+    }
+
     public FaceSignModel(String classname){
         this.classname = classname;
     }
@@ -37,15 +44,15 @@ public class FaceSignModel implements IFaceSignModel {
             String img = Base64.getEncoder().encodeToString(bytes);
             map.put("classname", classname);
             map.put("face", img);
+            map.put("course", course);
+            map.put("tid", SaveInfoUtils.readInfo()[0]);
 //            System.out.println("post data");
             service.sign(map).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                         @Override
                         public void accept(ResponseBean<Map<String, Object>> data) throws Throwable {
-//                            System.out.println(data);
                             onLoaderListener.onMapComplete(data.getData());
-
                         }
                     }, new Consumer<Throwable>() {
                         @Override
@@ -58,5 +65,24 @@ public class FaceSignModel implements IFaceSignModel {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void getDetail(OnLoaderListener onLoaderListener) {
+        FaceSignService service = RetrofitClient.getInstance().getService(FaceSignService.class);
+        service.getDetail(classname).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
+                    @Override
+                    public void accept(ResponseBean<Map<String, Object>> responseBean) throws Throwable {
+                        onLoaderListener.onMapComplete(responseBean.getData());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        throwable.printStackTrace();
+                        onLoaderListener.onErrMsg("网络请求错误");
+                    }
+                });
     }
 }

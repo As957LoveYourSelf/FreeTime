@@ -16,12 +16,12 @@ public class FaceSignSelectPagePresenter extends BasePresenter<IFaceSignSelectPa
             faceSignSelectPageModel.getClassSelector(new IBaseModel.OnLoaderListener() {
                 @Override
                 public void onMapComplete(Map<String, Object> map) {
-
+                    mView.get().getSignClasses(map);
                 }
 
                 @Override
                 public void onListComplete(List<Object> list) {
-                    mView.get().getSignClasses(list);
+
                 }
 
                 @Override

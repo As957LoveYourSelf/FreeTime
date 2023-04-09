@@ -51,6 +51,7 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
                     String result = BitmapUtils.saveBitmapToLocal(finalBitmap, "SuperResolve");
                     if (result != null){
                         Toast.makeText(SuperResolveActivity.this, "图片已保存至"+result, Toast.LENGTH_SHORT).show();
+                        save_btn.setVisibility(View.GONE);
                     }else {
                         Toast.makeText(SuperResolveActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
                     }
@@ -72,7 +73,7 @@ public class SuperResolveActivity extends BaseActivity<SuperResolvePresenter, IS
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow(R.id.img_sup_show);
+                popupWindow(R.id.img_sup_show,save_btn);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {

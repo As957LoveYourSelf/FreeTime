@@ -7,6 +7,7 @@ import com.example.freetime.network.service.FaceSignSelectPageService;
 import com.example.freetime.utils.SaveInfoUtils;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
@@ -24,10 +25,10 @@ public class FaceSignSelectPageModel implements IFaceSignSelectPageModel {
         FaceSignSelectPageService service = RetrofitClient.getInstance().getService(FaceSignSelectPageService.class);
         service.getClasses(SaveInfoUtils.readInfo()[0]).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseBean<List<Object>>>() {
+                .subscribe(new Consumer<ResponseBean<Map<String, Object>>>() {
                     @Override
-                    public void accept(ResponseBean<List<Object>> listResponseBean) throws Throwable {
-                        onLoaderListener.onListComplete(listResponseBean.getData());
+                    public void accept(ResponseBean<Map<String, Object>> responseBean) throws Throwable {
+                        onLoaderListener.onMapComplete(responseBean.getData());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

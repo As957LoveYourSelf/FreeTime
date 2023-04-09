@@ -63,7 +63,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
         presenter.detachView();
     }
 
-    protected void popupWindow(int show_view_id){
+    protected void popupWindow(int show_view_id, Button savebtn){
 
 
         View bottomView = View.inflate(BaseActivity.this, R.layout.popue_window, null);
@@ -116,6 +116,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         }else {
                                             Toast.makeText(BaseActivity.this, "路径不存在", Toast.LENGTH_SHORT).show();
                                         }
+                                        savebtn.setVisibility(View.GONE);
                                     }
 
                                     @Override
@@ -145,6 +146,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends IBaseView>
                                         }else {
                                             Toast.makeText(BaseActivity.this, "路径不存在", Toast.LENGTH_SHORT).show();
                                         }
+                                        savebtn.setVisibility(View.GONE);
                                     }
                                     @Override
                                     public void onCancel() {
