@@ -100,7 +100,13 @@ public class FaceImportActivity extends BaseActivity<FaceImportPresenter, IFaceI
 
     @Override
     public void importFace(String response) {
-
+        if (response != null){
+            if (response.equals("success")){
+                Toast.makeText(this, "图像上传成功", Toast.LENGTH_SHORT).show();
+            }else if (response.equals("fail")){
+                Toast.makeText(this, "超过上传次数，请联系管理员进行重置", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

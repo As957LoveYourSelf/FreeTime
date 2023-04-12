@@ -130,14 +130,10 @@ void MyNdkCamera::on_image_render(cv::Mat& rgb) const
             g_scrfd->detect(rgb, faceobjects);
             g_scrfd->draw(rgb, faceobjects);
             if (issign){
-                save_state = g_scrfd->get_select_face(rgb,faceobjects, issign);
+                save_state = g_scrfd->get_select_face(rgb,faceobjects, issign, true);
 //                __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%d",issign);
             } else{
-                if (crop_face){
-                    save_state = g_scrfd->get_select_face(rgb,faceobjects, issign);
-//                    __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%s", save_state);
-                    crop_face = false;
-                }
+                save_state = g_scrfd->get_select_face(rgb,faceobjects, issign, crop_face);
             }
         }
         else
@@ -251,6 +247,7 @@ JNIEXPORT jboolean JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_setOutputWin
 // public native boolean cropFace();
 JNIEXPORT void JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_cropFace(JNIEnv *env, jobject thiz) {
     crop_face = true;
+
 }
 
 JNIEXPORT jstring JNICALL Java_com_example_freetime_ncnn_SCRFDNcnn_getSaveState(JNIEnv *env, jobject thiz) {

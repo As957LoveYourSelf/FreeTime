@@ -1,5 +1,6 @@
 package com.example.freetime.model;
 
+import com.example.freetime.beans.ResponseBean;
 import com.example.freetime.model.interfaces.ILoginModel;
 import com.example.freetime.network.RetrofitClient;
 import com.example.freetime.network.service.LoginService;

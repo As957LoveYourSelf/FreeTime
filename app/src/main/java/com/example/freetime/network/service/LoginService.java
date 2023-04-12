@@ -15,5 +15,5 @@ public interface LoginService {
     Flowable<ResponseBean<Map<String,Object>>> post(@QueryMap Map<String, String> loginInfo);
 
     @POST("loginPage/loginout")
-    void loginout(@Query("uid") String uid);
+    Flowable<ResponseBean<Object>> loginout(@Query("uid") String uid);
 }

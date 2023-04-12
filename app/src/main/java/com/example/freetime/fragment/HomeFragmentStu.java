@@ -88,8 +88,8 @@ public class HomeFragmentStu extends Fragment {
             major.setText((String)this.userInfo.get("major"));
             school.setText("岭南师范学院");
             uno.setText((String)this.userInfo.get("no"));
-            email.setText((String)this.userInfo.get("email"));
-            phone.setText((String)this.userInfo.get("phone"));
+            email.setText(Objects.equals(this.userInfo.get("email"), "") ?"无":(String)this.userInfo.get("email"));
+            phone.setText(Objects.equals(this.userInfo.get("phone"), "") ?"无":(String)this.userInfo.get("phone"));
             Double a = (Double) this.userInfo.get("age");
             age.setText(a != null?String.valueOf(a.intValue()):"无");
             sex.setText((String)this.userInfo.get("sex"));

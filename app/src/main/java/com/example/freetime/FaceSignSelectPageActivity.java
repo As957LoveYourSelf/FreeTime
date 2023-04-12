@@ -13,9 +13,7 @@ import com.example.freetime.presenter.FaceSignSelectPagePresenter;
 import com.example.freetime.view.IFaceSignSelectPageView;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
-import com.wx.wheelview.widget.WheelViewDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,36 +49,13 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
             }
         });
 
-        View wheelview = LayoutInflater.from(this).inflate(R.layout.cls_choose, null);
-        wheelView_cls = wheelview.findViewById(R.id.wheelview_class);
-        wheelView_cs = wheelview.findViewById(R.id.wheelview_course);
-        WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
-        style.selectedTextSize = 16;
-        style.textSize = 13;
-
-        wheelView_cls.setWheelAdapter(new ArrayWheelAdapter(this));
-        wheelView_cls.setSkin(WheelView.Skin.Holo);
-        wheelView_cls.setStyle(style);
-
-        wheelView_cs.setWheelAdapter(new ArrayWheelAdapter(this));
-        wheelView_cs.setStyle(style);
-        wheelView_cs.setSkin(WheelView.Skin.Holo);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(FaceSignSelectPageActivity.this)
-                        .setView(wheelview)
-                        .setPositiveButton("确认",
-                                (dialogInterface, i) -> {
-                                    textView.setText(wheelView_cls.getSelectionItem());
-                                    textView2.setText(wheelView_cs.getSelectionItem());
-                                })
-                        .setNegativeButton("取消",null).create();
-                alertDialog.show();
+                presenter.fetch();
             }
         });
-        presenter.fetch();
     }
 
     @Override
@@ -95,8 +70,33 @@ public class FaceSignSelectPageActivity extends BaseActivity<FaceSignSelectPageP
             List<String> cls = (List<String>)response.get("cls");
             Map<String, List<String>> cs = (Map<String, List<String>>) response.get("cs");
             if (cls != null && cs!=null){
+                View wheelview = LayoutInflater.from(this).inflate(R.layout.cls_choose, null);
+                wheelView_cls = wheelview.findViewById(R.id.wheelview_class);
+                wheelView_cs = wheelview.findViewById(R.id.wheelview_course);
+                WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
+                style.selectedTextSize = 16;
+                style.textSize = 13;
+
+                wheelView_cls.setWheelAdapter(new ArrayWheelAdapter(this));
+                wheelView_cls.setSkin(WheelView.Skin.Holo);
+                wheelView_cls.setStyle(style);
+
+                wheelView_cs.setWheelAdapter(new ArrayWheelAdapter(this));
+                wheelView_cs.setStyle(style);
+                wheelView_cs.setSkin(WheelView.Skin.Holo);
+
                 wheelView_cls.setWheelData(cls);
                 wheelView_cs.setWheelData(cs.get(wheelView_cls.getSelectionItem()));
+
+                AlertDialog alertDialog = new AlertDialog.Builder(FaceSignSelectPageActivity.this)
+                        .setView(wheelview)
+                        .setPositiveButton("确认",
+                                (dialogInterface, i) -> {
+                                    textView.setText(wheelView_cls.getSelectionItem());
+                                    textView2.setText(wheelView_cs.getSelectionItem());
+                                })
+                        .setNegativeButton("取消",null).create();
+                alertDialog.show();
             }
         }else {
             Toast.makeText(this, "班级数据为空!", Toast.LENGTH_SHORT).show();

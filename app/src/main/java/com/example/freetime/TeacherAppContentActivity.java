@@ -43,7 +43,6 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
 
     @Override
     protected void onDestroy() {
-        presenter.loginout();
         super.onDestroy();
     }
 
@@ -64,13 +63,15 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
         }
     }
 
+
     private long firstTime = 0;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         long secondTime = System.currentTimeMillis();
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (secondTime - firstTime < 2000) {
-                System.exit(0);
+                presenter.loginout();
+                onDestroy();
             } else {
                 Toast.makeText(TeacherAppContentActivity.this, "再点一次退出程序", Toast.LENGTH_SHORT).show();
                 firstTime = System.currentTimeMillis();
@@ -81,6 +82,7 @@ public class TeacherAppContentActivity extends BaseActivity<TeacherPresenter, IT
     }
 
     private void initPage(Map<String, Object> userinfo){
+//        System.out.println(userinfo);
         bottomNavigationView = findViewById(R.id.teacher_bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

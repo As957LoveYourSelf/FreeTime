@@ -82,6 +82,7 @@ public class StudentAppContentActivity extends BaseActivity<StudentPresenter, IS
         }
     }
 
+
     private void initPage(Map<String, Object> info){
         bottomNavigationView = findViewById(R.id.student_bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {

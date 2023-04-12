@@ -23,8 +23,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FaceSignModel implements IFaceSignModel {
 
-    private final String classname;
+    private String classname;
     private String course;
+    private String uid;
+    private Number state;
     public FaceSignModel(String classname, String course){
         this.classname = classname;
         this.course = course;
@@ -33,6 +35,12 @@ public class FaceSignModel implements IFaceSignModel {
     public FaceSignModel(String classname){
         this.classname = classname;
     }
+
+    public FaceSignModel(String uid, Number state){
+        this.uid = uid;
+        this.state = state;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -76,6 +84,44 @@ public class FaceSignModel implements IFaceSignModel {
                     @Override
                     public void accept(ResponseBean<Map<String, Object>> responseBean) throws Throwable {
                         onLoaderListener.onMapComplete(responseBean.getData());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        throwable.printStackTrace();
+                        onLoaderListener.onErrMsg("网络请求错误");
+                    }
+                });
+    }
+
+    @Override
+    public void setSign(OnLoaderListener onLoaderListener) {
+        FaceSignService service = RetrofitClient.getInstance().getService(FaceSignService.class);
+        service.setSign(uid, state).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseBean<Object>>() {
+                    @Override
+                    public void accept(ResponseBean<Object> responseBean) throws Throwable {
+                        onLoaderListener.onObjectComplete(responseBean.getData());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        throwable.printStackTrace();
+                        onLoaderListener.onErrMsg("网络请求错误");
+                    }
+                });
+    }
+
+    @Override
+    public void endSign(OnLoaderListener onLoaderListener) {
+        FaceSignService service = RetrofitClient.getInstance().getService(FaceSignService.class);
+        service.endSign(classname).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResponseBean<Object>>() {
+                    @Override
+                    public void accept(ResponseBean<Object> responseBean) throws Throwable {
+                        onLoaderListener.onObjectComplete(responseBean.getData());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

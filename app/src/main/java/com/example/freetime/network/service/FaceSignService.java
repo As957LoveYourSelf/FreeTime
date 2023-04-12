@@ -15,4 +15,9 @@ public interface FaceSignService {
     Flowable<ResponseBean<Map<String, Object>>> sign(@Body Map<String, Object> data);
     @POST("getSignDetail")
     Flowable<ResponseBean<Map<String, Object>>> getDetail(@Query("classname") String classname);
+    @POST("setSign")
+    Flowable<ResponseBean<Object>> setSign(@Query("uid") String uid, @Query("state") Number state);
+    @POST("endSign")
+    Flowable<ResponseBean<Object>> endSign(@Query("classname") String classname);
+
 }

@@ -41,6 +41,7 @@ public class StudentPresenter extends BasePresenter<IStudentView>{
     }
 
     public void loginout(){
+        System.out.println("loginout");
         ILoginModel LoginModel = new LoginModel();
         if (mView.get() != null){
             LoginModel.loginout();

@@ -13,10 +13,12 @@ import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,8 +31,10 @@ import com.example.freetime.utils.ImageUtils;
 import com.example.freetime.view.IFaceSignView;
 import com.kongzue.dialogx.DialogX;
 import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.dialogs.MessageDialog;
 import com.kongzue.dialogx.dialogs.PopMenu;
 import com.kongzue.dialogx.interfaces.OnBindView;
+import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialogx.style.IOSStyle;
 import com.kongzue.dialogx.style.MaterialStyle;
 
@@ -51,12 +55,12 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
     TextView idTV;
     Button btn;
     Button btn2;
+    Button btn3;
     String classname;
     String course;
     private int facing = 0;
     RecyclerView recyclerView1;
     RecyclerView recyclerView2;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,10 +174,65 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
                             recyclerView2 = v.findViewById(R.id.sign_detail_show);
                             recyclerView1.setLayoutManager(new LinearLayoutManager(v.getContext()));
                             recyclerView2.setLayoutManager(new LinearLayoutManager(v.getContext()));
-                            recyclerView1.setAdapter(new CustomRecycleViewAdapter(list1));
-                            recyclerView2.setAdapter(new CustomRecycleViewAdapter(list2));
+                            recyclerView1.setAdapter(new CustomRecycleViewAdapter(list1).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                // TODO: 手动签到
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    MessageDialog.build()
+                                            .setStyle(IOSStyle.style())
+                                            .setTitle("手动签到")
+                                            .setMessage("确定将"+list1.get(i).getText().split("\t")[1]+"设置为签到状态？")
+                                            .setCancelButton("取消")
+                                            .setOkButton("确定", new OnDialogButtonClickListener<MessageDialog>() {
+                                                @Override
+                                                public boolean onClick(MessageDialog dialog, View v) {
+                                                    presenter.setSign(list1.get(i).getText().split("\t")[0], 1);
+                                                    return false;
+                                                }
+                                            }).show();
+                                }
+                            }));
+                            recyclerView2.setAdapter(new CustomRecycleViewAdapter(list2).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                // TODO: 手动签到
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    MessageDialog.build()
+                                            .setStyle(IOSStyle.style())
+                                            .setTitle("手动签到")
+                                            .setMessage("确定将"+list2.get(i).getText().split("\t")[1]+"设置为未签到状态？")
+                                            .setCancelButton("取消")
+                                            .setOkButton("确定", new OnDialogButtonClickListener<MessageDialog>() {
+                                                @Override
+                                                public boolean onClick(MessageDialog dialog, View v) {
+                                                    presenter.setSign(list2.get(i).getText().split("\t")[0], 0);
+                                                    return false;
+                                                }
+                                            }).show();
+                                }
+                            }));
                         }
                     }).show();
+        }
+    }
+
+    @Override
+    public void setSign(Object response) {
+        if (response != null){
+            String res = (String) response;
+            if (res.equals("success")){
+                Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "设置失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void endSign(Object response) {
+        if (response != null){
+            if (((String)response).equals("success"))
+            Toast.makeText(this, "已结束签到", Toast.LENGTH_SHORT).show();
+            System.exit(0);
         }
     }
 
@@ -217,6 +276,7 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
         idTV = findViewById(R.id.id_sign);
         btn = findViewById(R.id.change_sign_camara);
         btn2 = findViewById(R.id.sign_detail);
+        btn3 = findViewById(R.id.sign_end);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +292,19 @@ public class FaceSignActivity extends BaseActivity<FaceSignPresenter, IFaceSignV
             @Override
             public void onClick(View view) {
                 presenter.getDetail(classname);
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageDialog.show("结束签到", "您确定要结束签到吗?", "确定", "取消").setOkButton(new OnDialogButtonClickListener<MessageDialog>() {
+                    @Override
+                    public boolean onClick(MessageDialog baseDialog, View v) {
+                        presenter.endSign(classname);
+                        return false;
+                    }
+                });
             }
         });
 

@@ -39,9 +39,8 @@ public class TeacherPresenter extends BasePresenter<ITeacherView> {
         }
     }
     public void loginout(){
+        System.out.println("login out");
         ILoginModel LoginModel = new LoginModel();
-        if (mView.get() != null){
-            LoginModel.loginout();
-        }
+        LoginModel.loginout();
     }
 }

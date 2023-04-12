@@ -63,4 +63,55 @@ public class FaceSignPresenter extends BasePresenter<IFaceSignView>{
             });
         }
     }
+
+    public void setSign(String uid, Number state){
+        IFaceSignModel faceSignModel = new FaceSignModel(uid, state);
+        if (mView.get() != null){
+            faceSignModel.setSign(new IBaseModel.OnLoaderListener() {
+                @Override
+                public void onMapComplete(Map<String, Object> map) {
+                }
+
+                @Override
+                public void onListComplete(List<Object> list) {
+                }
+
+                @Override
+                public void onObjectComplete(Object obj) {
+                    mView.get().setSign(obj);
+                }
+
+                @Override
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
+                }
+            });
+        }
+    }
+
+    public void endSign(String classname){
+        IFaceSignModel faceSignModel = new FaceSignModel(classname);
+        if (mView.get() != null){
+            faceSignModel.endSign(new IBaseModel.OnLoaderListener() {
+                @Override
+                public void onMapComplete(Map<String, Object> map) {
+
+                }
+
+                @Override
+                public void onListComplete(List<Object> list) {
+                }
+
+                @Override
+                public void onObjectComplete(Object obj) {
+                    mView.get().endSign(obj);
+                }
+
+                @Override
+                public void onErrMsg(String msg) {
+                    mView.get().showErrorMessage(msg);
+                }
+            });
+        }
+    }
 }

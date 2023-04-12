@@ -37,7 +37,7 @@ public:
 
     int draw(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects);
 
-    char* get_select_face(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects, bool issign);
+    char* get_select_face(cv::Mat& rgb, const std::vector<FaceObject>& faceobjects, bool issign, bool cropface);
 
 private:
     ncnn::Net scrfd;
