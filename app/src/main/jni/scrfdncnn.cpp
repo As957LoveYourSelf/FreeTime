@@ -133,7 +133,10 @@ void MyNdkCamera::on_image_render(cv::Mat& rgb) const
                 save_state = g_scrfd->get_select_face(rgb,faceobjects, issign, true);
 //                __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "%d",issign);
             } else{
-                save_state = g_scrfd->get_select_face(rgb,faceobjects, issign, crop_face);
+                if (crop_face){
+                    save_state = g_scrfd->get_select_face(rgb,faceobjects, issign, crop_face);
+                    crop_face = false;
+                }
             }
         }
         else

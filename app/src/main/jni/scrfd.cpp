@@ -505,9 +505,7 @@ char *SCRFD::get_select_face(cv::Mat &rgb, const std::vector<FaceObject> &faceob
         cv:
         cv::resize(select_img, select_img, cv::Size(96,112));
         if (issign){
-            if (cropface){
-                cv::imwrite("data/data/com.example.freetime/sign_img.jpg", select_img);
-            }
+            cv::imwrite("data/data/com.example.freetime/sign_img.jpg", select_img);
         } else{
             if (cropface){
                 cv::imwrite("data/data/com.example.freetime/select_img.jpg", select_img);
